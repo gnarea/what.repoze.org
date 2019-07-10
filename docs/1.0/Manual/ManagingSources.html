@@ -1,0 +1,489 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>How to manage groups and permission sources &mdash; repoze.what v1.0.9 documentation</title>
+    <link rel="stylesheet" href="../_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="repoze.what v1.0.9 documentation" href="../index.html" />
+    <link rel="up" title="The repoze.what Manual" href="index.html" />
+    <link rel="next" title="repoze.what.plugins – Available plugins for repoze.what" href="Plugins/index.html" />
+    <link rel="prev" title="Creating your own single predicate checkers" href="Predicates/Writing.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Plugins/index.html" title="repoze.what.plugins – Available plugins for repoze.what"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Predicates/Writing.html" title="Creating your own single predicate checkers"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">repoze.what v1.0.9 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">The <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> Manual</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-repoze.what.adapters">
+<span id="how-to-manage-groups-and-permission-sources"></span><h1>How to manage groups and permission sources<a class="headerlink" href="#module-repoze.what.adapters" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Overview</p>
+<p>It&#8217;s possible for you to manage your groups and permissions under a
+<a class="reference internal" href="GettingStarted.html#term-source"><em class="xref std std-term">source</em></a>-independent API and here you will learn how to do it.</p>
+</div>
+<p><a class="reference internal" href="GettingStarted.html#term-source-adapter"><em class="xref std std-term">Source adapters</em></a> enable you to
+retrieve information from your <a class="reference internal" href="GettingStarted.html#term-group-source"><em class="xref std std-term">groups</em></a> and
+<a class="reference internal" href="GettingStarted.html#term-permission-source"><em class="xref std std-term">permissions</em></a>, as well as manage them, under an API
+absolutely independent of the source type. You may take advantage
+of this functionality to manage your sources from your own application or to
+write an application-independent front-end to manage groups and permissions
+in arbitrary WSGI applications using <a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a>.</p>
+<p>This functionality will also enable you to switch from one back-end to another
+with no need to update your code (except for the part where you instance the
+source adapter).</p>
+<div class="section" id="managing-your-sources">
+<h2>Managing your sources<a class="headerlink" href="#managing-your-sources" title="Permalink to this headline">¶</a></h2>
+<p>Sources are managed from their respective adapters. For example, to manage the
+groups defined in a database, you can use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.plugins.sql</span> <span class="kn">import</span> <span class="n">SqlGroupsAdapter</span>
+<span class="kn">from</span> <span class="nn">your_model</span> <span class="kn">import</span> <span class="n">User</span><span class="p">,</span> <span class="n">Group</span><span class="p">,</span> <span class="n">DBSession</span>
+
+<span class="n">groups</span> <span class="o">=</span> <span class="n">SqlGroupsAdapter</span><span class="p">(</span><span class="n">Group</span><span class="p">,</span> <span class="n">User</span><span class="p">,</span> <span class="n">DBSession</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or to manage the permissions defined in an XML file, you could use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.plugins.xml</span> <span class="kn">import</span> <span class="n">XMLGroupsAdapter</span>
+
+<span class="n">permissions</span> <span class="o">=</span> <span class="n">XMLGroupsAdapter</span><span class="p">(</span><span class="s">&#39;/path/to/permissions.xml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>As of v1.0.1, you can re-use the same adapters used by <a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a>
+to control access. You will find them in the WSGI environment:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="c"># This is where repoze.what adapters are kept:</span>
+<span class="n">adapters</span> <span class="o">=</span> <span class="n">environ</span><span class="p">[</span><span class="s">&#39;repoze.what.adapters&#39;</span><span class="p">]</span>
+
+<span class="c"># Now let&#39;s extract the group and permission adapters:</span>
+<span class="n">group_adapters</span> <span class="o">=</span> <span class="n">adapters</span><span class="p">[</span><span class="s">&#39;groups&#39;</span><span class="p">]</span>
+<span class="n">permission_adapters</span> <span class="o">=</span> <span class="n">adapters</span><span class="p">[</span><span class="s">&#39;permissions&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="retrieving-all-the-available-sections-from-a-source">
+<h3>Retrieving all the available <a class="reference internal" href="GettingStarted.html#term-section"><em class="xref std std-term">sections</em></a> from a source<a class="headerlink" href="#retrieving-all-the-available-sections-from-a-source" title="Permalink to this headline">¶</a></h3>
+<p>To get all the groups from the group source above, you may use the code below,
+which will return a dictionary whose keys are the name of the groups and the
+items are the username of the users that belong to such groups:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span><span class="o">.</span><span class="n">get_all_sections</span><span class="p">()</span>
+<span class="go">{u&#39;admins&#39;: set([u&#39;gustavo&#39;, u&#39;adolfo&#39;]), u&#39;developers&#39;: set([u&#39;narea&#39;])}</span>
+</pre></div>
+</div>
+<p>And to get all the permissions from the permission source above, you may use
+the code below, which will return a dictionary whose keys are the name of the
+permissions and the items are the name of the groups that are granted such
+permissions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">permissions</span><span class="o">.</span><span class="n">get_all_sections</span><span class="p">()</span>
+<span class="go">{u&#39;upload-images&#39;: set([u&#39;admins&#39;, u&#39;developers&#39;]), u&#39;write-post&#39;: set()}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="retrieving-all-the-items-from-a-given-section">
+<h3>Retrieving all the <a class="reference internal" href="GettingStarted.html#term-item"><em class="xref std std-term">items</em></a> from a given <a class="reference internal" href="GettingStarted.html#term-section"><em class="xref std std-term">section</em></a><a class="headerlink" href="#retrieving-all-the-items-from-a-given-section" title="Permalink to this headline">¶</a></h3>
+<p>To get all the users that belong to a given group in the group source above,
+you may use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span><span class="o">.</span><span class="n">get_section_items</span><span class="p">(</span><span class="s">u&#39;admins&#39;</span><span class="p">)</span>
+<span class="go">set([u&#39;gustavo&#39;, u&#39;adolfo&#39;])</span>
+</pre></div>
+</div>
+<p>And to get all the groups that are granted a given permission in the permission
+source above:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">permissions</span><span class="o">.</span><span class="n">get_section_items</span><span class="p">(</span><span class="s">u&#39;upload-images&#39;</span><span class="p">)</span>
+<span class="go">set([u&#39;admins&#39;, u&#39;developers&#39;])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-the-items-of-a-given-section">
+<h3>Setting the <a class="reference internal" href="GettingStarted.html#term-item"><em class="xref std std-term">items</em></a> of a given <a class="reference internal" href="GettingStarted.html#term-section"><em class="xref std std-term">section</em></a><a class="headerlink" href="#setting-the-items-of-a-given-section" title="Permalink to this headline">¶</a></h3>
+<p>To set the members of a given group in the group source above, you may use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span><span class="o">.</span><span class="n">set_section_items</span><span class="p">(</span><span class="s">u&#39;admins&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">u&#39;rms&#39;</span><span class="p">,</span> <span class="s">u&#39;guido&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>And to set the groups that are granted a given permission in the permission
+source above:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">permissions</span><span class="o">.</span><span class="n">set_section_items</span><span class="p">(</span><span class="s">u&#39;write-post&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">u&#39;admins&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p><tt class="docutils literal"><span class="pre">set_section_items</span></tt> will <cite>override</cite> the previous set of items. See, for
+example:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span><span class="o">.</span><span class="n">get_all_sections</span><span class="p">()</span>
+<span class="go">{u&#39;admins&#39;: set([u&#39;gustavo&#39;, u&#39;adolfo&#39;]), u&#39;developers&#39;: set([u&#39;narea&#39;])}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span><span class="o">.</span><span class="n">set_section_items</span><span class="p">(</span><span class="s">u&#39;admins&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">u&#39;rms&#39;</span><span class="p">,</span> <span class="s">u&#39;guido&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span><span class="o">.</span><span class="n">get_all_sections</span><span class="p">()</span>
+<span class="go">{u&#39;admins&#39;: set([u&#39;rms&#39;, u&#39;guido&#39;]), u&#39;developers&#39;: set([u&#39;narea&#39;])}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="including-items-in-a-section">
+<h3>Including <a class="reference internal" href="GettingStarted.html#term-item"><em class="xref std std-term">items</em></a> in a <a class="reference internal" href="GettingStarted.html#term-section"><em class="xref std std-term">section</em></a><a class="headerlink" href="#including-items-in-a-section" title="Permalink to this headline">¶</a></h3>
+<p>To add one the item to a given group of the group source above, you may use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span><span class="o">.</span><span class="n">include_item</span><span class="p">(</span><span class="s">u&#39;admins&#39;</span><span class="p">,</span> <span class="s">u&#39;rms&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or to include many users at once:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span><span class="o">.</span><span class="n">include_items</span><span class="p">(</span><span class="s">u&#39;admins&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">u&#39;rms&#39;</span><span class="p">,</span> <span class="s">u&#39;guido&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>And to grant a given permission to one group in the permission source above:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">permissions</span><span class="o">.</span><span class="n">include_item</span><span class="p">(</span><span class="s">u&#39;write-post&#39;</span><span class="p">,</span> <span class="s">u&#39;admins&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or to grant the same permission to many groups at once:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">permissions</span><span class="o">.</span><span class="n">include_items</span><span class="p">(</span><span class="s">u&#39;write-post&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">u&#39;admins&#39;</span><span class="p">,</span> <span class="s">u&#39;developers&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="excluding-items-from-a-section">
+<h3>Excluding <a class="reference internal" href="GettingStarted.html#term-item"><em class="xref std std-term">items</em></a> from a <a class="reference internal" href="GettingStarted.html#term-section"><em class="xref std std-term">section</em></a><a class="headerlink" href="#excluding-items-from-a-section" title="Permalink to this headline">¶</a></h3>
+<p>To remove one the items from a given group of the group source above, you may
+use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span><span class="o">.</span><span class="n">exclude_item</span><span class="p">(</span><span class="s">u&#39;admins&#39;</span><span class="p">,</span> <span class="s">u&#39;gustavo&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or to exclude many items at once:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span><span class="o">.</span><span class="n">exclude_items</span><span class="p">(</span><span class="s">u&#39;admins&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">u&#39;gustavo&#39;</span><span class="p">,</span> <span class="s">u&#39;adolfo&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>And to deny a given permission to one group in the permission source above:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">permissions</span><span class="o">.</span><span class="n">exclude_item</span><span class="p">(</span><span class="s">u&#39;upload-images&#39;</span><span class="p">,</span> <span class="s">u&#39;developers&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or to grant the same permission to many groups at once:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">permissions</span><span class="o">.</span><span class="n">exclude_items</span><span class="p">(</span><span class="s">u&#39;upload-images&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">u&#39;admins&#39;</span><span class="p">,</span> <span class="s">u&#39;developers&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-a-section-to-a-source">
+<h3>Adding a <a class="reference internal" href="GettingStarted.html#term-section"><em class="xref std std-term">section</em></a> to a <a class="reference internal" href="GettingStarted.html#term-source"><em class="xref std std-term">source</em></a><a class="headerlink" href="#adding-a-section-to-a-source" title="Permalink to this headline">¶</a></h3>
+<p>To create a group in the group source above, you may use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span><span class="o">.</span><span class="n">create_section</span><span class="p">(</span><span class="s">u&#39;designers&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And to create a permission in the permission source above:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">permissions</span><span class="o">.</span><span class="n">create_section</span><span class="p">(</span><span class="s">u&#39;edit-post&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="renaming-a-section">
+<h3>Renaming a <a class="reference internal" href="GettingStarted.html#term-section"><em class="xref std std-term">section</em></a><a class="headerlink" href="#renaming-a-section" title="Permalink to this headline">¶</a></h3>
+<p>To rename a group in the group source above, you may use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span><span class="o">.</span><span class="n">edit_section</span><span class="p">(</span><span class="s">u&#39;designers&#39;</span><span class="p">,</span> <span class="s">u&#39;graphic-designers&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And to rename a permission in the permission source above:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">permissions</span><span class="o">.</span><span class="n">edit_section</span><span class="p">(</span><span class="s">u&#39;write-post&#39;</span><span class="p">,</span> <span class="s">u&#39;create-post&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="removing-a-section-from-a-source">
+<h3>Removing a <a class="reference internal" href="GettingStarted.html#term-section"><em class="xref std std-term">section</em></a> from a <a class="reference internal" href="GettingStarted.html#term-source"><em class="xref std std-term">source</em></a><a class="headerlink" href="#removing-a-section-from-a-source" title="Permalink to this headline">¶</a></h3>
+<p>To remove a group from the group source above, you may use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span><span class="o">.</span><span class="n">delete_section</span><span class="p">(</span><span class="s">u&#39;developers&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And to remove a permission from the permission source above:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">permissions</span><span class="o">.</span><span class="n">delete_section</span><span class="p">(</span><span class="s">u&#39;write-post&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="checking-whether-the-source-is-writable">
+<h3>Checking whether the <a class="reference internal" href="GettingStarted.html#term-source"><em class="xref std std-term">source</em></a> is writable<a class="headerlink" href="#checking-whether-the-source-is-writable" title="Permalink to this headline">¶</a></h3>
+<p>Some adapters may not support writting the source, or some source types may
+be read-only (e.g., a source served over HTTP), or some source types may be
+writable but the current source itself may be read-only (e.g., a read-only
+file). For this reason, you should check whether you can write to the source
+&#8211; You will get a <tt class="xref py py-class docutils literal"><span class="pre">SourceError</span></tt> exception if you try to write to a
+read-only source.</p>
+<p>To check whether the group source above is writable, you may use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span><span class="o">.</span><span class="n">is_writable</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>And to check whether the permission source above is writable:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">permissions</span><span class="o">.</span><span class="n">is_writable</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="possible-problems">
+<h2>Possible problems<a class="headerlink" href="#possible-problems" title="Permalink to this headline">¶</a></h2>
+<p>While dealing with an adapter, the following exceptions may be raised if an
+error occurs:</p>
+</div>
+<div class="section" id="writing-your-own-source-adapters">
+<h2>Writing your own source adapters<a class="headerlink" href="#writing-your-own-source-adapters" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It&#8217;s <cite>very</cite> unlikely that you&#8217;ll want to write a <a class="reference internal" href="GettingStarted.html#term-source-adapter"><em class="xref std std-term">source adapter</em></a>, so
+if you get bored reading this section, it&#8217;s absolutely safe for you to skip
+it and come back later if you <cite>ever</cite> need to create an adapter.</p>
+</div>
+<p>Both <a class="reference internal" href="GettingStarted.html#term-group-adapter"><em class="xref std std-term">group</em></a> and <a class="reference internal" href="GettingStarted.html#term-permission-adapter"><em class="xref std std-term">permission</em></a>
+<a class="reference internal" href="GettingStarted.html#term-source-adapter"><em class="xref std std-term">adapters</em></a> must extend the abstract class
+<tt class="xref py py-class docutils literal"><span class="pre">BaseSourceAdapter</span></tt>:</p>
+<div class="section" id="sample-source-adapters">
+<h3>Sample <a class="reference internal" href="GettingStarted.html#term-source-adapter"><em class="xref std std-term">source adapters</em></a><a class="headerlink" href="#sample-source-adapters" title="Permalink to this headline">¶</a></h3>
+<p>The following class illustrates how a <a class="reference internal" href="GettingStarted.html#term-group-adapter"><em class="xref std std-term">group adapter</em></a> may look like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.adapters</span> <span class="kn">import</span> <span class="n">BaseSourceAdapter</span>
+
+<span class="k">class</span> <span class="nc">FakeGroupSourceAdapter</span><span class="p">(</span><span class="n">BaseSourceAdapter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Mock group source adapter&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FakeGroupSourceAdapter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">u&#39;admins&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="s">u&#39;rms&#39;</span><span class="p">]),</span>
+            <span class="s">u&#39;developers&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="s">u&#39;rms&#39;</span><span class="p">,</span> <span class="s">u&#39;linus&#39;</span><span class="p">]),</span>
+            <span class="s">u&#39;trolls&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="s">u&#39;sballmer&#39;</span><span class="p">]),</span>
+            <span class="s">u&#39;python&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+            <span class="s">u&#39;php&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_get_all_sections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span>
+
+    <span class="k">def</span> <span class="nf">_get_section_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_find_sections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">credentials</span><span class="p">):</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">credentials</span><span class="p">[</span><span class="s">&#39;repoze.what.userid&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">username</span> <span class="ow">in</span> <span class="n">g</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">_include_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">|=</span> <span class="n">items</span>
+
+    <span class="k">def</span> <span class="nf">_exclude_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_item_is_included</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_create_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_edit_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">new_section</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">new_section</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_delete_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_section_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And the following class illustrates how a <a class="reference internal" href="GettingStarted.html#term-permission-adapter"><em class="xref std std-term">permission adapter</em></a> may look
+like:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.adapters</span> <span class="kn">import</span> <span class="n">BaseSourceAdapter</span>
+
+<span class="k">class</span> <span class="nc">FakePermissionSourceAdapter</span><span class="p">(</span><span class="n">BaseSourceAdapter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Mock permissions source adapter&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FakePermissionSourceAdapter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">u&#39;see-site&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="s">u&#39;trolls&#39;</span><span class="p">]),</span>
+            <span class="s">u&#39;edit-site&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="s">u&#39;admins&#39;</span><span class="p">,</span> <span class="s">u&#39;developers&#39;</span><span class="p">]),</span>
+            <span class="s">u&#39;commit&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="s">u&#39;developers&#39;</span><span class="p">])</span>
+            <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_get_all_sections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span>
+
+    <span class="k">def</span> <span class="nf">_get_section_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_find_sections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">group_name</span> <span class="ow">in</span> <span class="n">p</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">_include_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">|=</span> <span class="n">items</span>
+
+    <span class="k">def</span> <span class="nf">_exclude_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_item_is_included</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_create_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_edit_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">new_section</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">new_section</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_delete_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="p">[</span><span class="n">section</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_section_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fake_sections</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-repoze.what.adapters.testutil">
+<span id="testing-your-source-adapters-with-testutil"></span><h3>Testing your source adapters with <a class="reference internal" href="#module-repoze.what.adapters.testutil" title="repoze.what.adapters.testutil: Automatic tests for repoze.what source adapters"><tt class="xref py py-mod docutils literal"><span class="pre">testutil</span></tt></a><a class="headerlink" href="#module-repoze.what.adapters.testutil" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> provides convenient utilities to automate the verification
+of your adapters. This utility is the <a class="reference internal" href="#module-repoze.what.adapters.testutil" title="repoze.what.adapters.testutil: Automatic tests for repoze.what source adapters"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.adapters.testutil</span></tt></a>
+module, made up four test cases, which when extended must define the adapter
+(as <tt class="docutils literal"><span class="pre">self.adapter</span></tt>) in the setup, as well as call this class&#8217; <tt class="docutils literal"><span class="pre">setUp()</span></tt>
+method:</p>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last"><a class="reference internal" href="#module-repoze.what.adapters.testutil" title="repoze.what.adapters.testutil: Automatic tests for repoze.what source adapters"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.adapters.testutil</span></tt></a> is not a full replacement for a test
+suite, so you are still highly encouraged to write the relevant/missing
+tests to lead the code coverage of your adapters to 100%.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to manage groups and permission sources</a><ul>
+<li><a class="reference internal" href="#managing-your-sources">Managing your sources</a><ul>
+<li><a class="reference internal" href="#retrieving-all-the-available-sections-from-a-source">Retrieving all the available <tt class="docutils literal"><span class="pre">sections</span></tt> from a source</a></li>
+<li><a class="reference internal" href="#retrieving-all-the-items-from-a-given-section">Retrieving all the <tt class="docutils literal"><span class="pre">items</span></tt> from a given <tt class="docutils literal"><span class="pre">section</span></tt></a></li>
+<li><a class="reference internal" href="#setting-the-items-of-a-given-section">Setting the <tt class="docutils literal"><span class="pre">items</span></tt> of a given <tt class="docutils literal"><span class="pre">section</span></tt></a></li>
+<li><a class="reference internal" href="#including-items-in-a-section">Including <tt class="docutils literal"><span class="pre">items</span></tt> in a <tt class="docutils literal"><span class="pre">section</span></tt></a></li>
+<li><a class="reference internal" href="#excluding-items-from-a-section">Excluding <tt class="docutils literal"><span class="pre">items</span></tt> from a <tt class="docutils literal"><span class="pre">section</span></tt></a></li>
+<li><a class="reference internal" href="#adding-a-section-to-a-source">Adding a <tt class="docutils literal"><span class="pre">section</span></tt> to a <tt class="docutils literal"><span class="pre">source</span></tt></a></li>
+<li><a class="reference internal" href="#renaming-a-section">Renaming a <tt class="docutils literal"><span class="pre">section</span></tt></a></li>
+<li><a class="reference internal" href="#removing-a-section-from-a-source">Removing a <tt class="docutils literal"><span class="pre">section</span></tt> from a <tt class="docutils literal"><span class="pre">source</span></tt></a></li>
+<li><a class="reference internal" href="#checking-whether-the-source-is-writable">Checking whether the <tt class="docutils literal"><span class="pre">source</span></tt> is writable</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#possible-problems">Possible problems</a></li>
+<li><a class="reference internal" href="#writing-your-own-source-adapters">Writing your own source adapters</a><ul>
+<li><a class="reference internal" href="#sample-source-adapters">Sample <tt class="docutils literal"><span class="pre">source</span> <span class="pre">adapters</span></tt></a></li>
+<li><a class="reference internal" href="#module-repoze.what.adapters.testutil">Testing your source adapters with <tt class="docutils literal"><span class="pre">testutil</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Predicates/Writing.html"
+                        title="previous chapter">Creating your own single predicate checkers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Plugins/index.html"
+                        title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">repoze.what.plugins</span></tt> &#8211; Available plugins for <tt class="docutils literal docutils literal"><span class="pre">repoze.what</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/Manual/ManagingSources.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Plugins/index.html" title="repoze.what.plugins – Available plugins for repoze.what"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Predicates/Writing.html" title="Creating your own single predicate checkers"
+             >previous</a> |</li>
+        <li><a href="../index.html">repoze.what v1.0.9 documentation</a> &raquo;</li>
+          <li><a href="index.html" >The <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> Manual</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The Repoze Project.
+      Last updated on Apr 11, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,358 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>repoze.what SQL source adapters &mdash; repoze.what SQL plugin v1.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="repoze.what SQL plugin v1.0.1 documentation" href="index.html" />
+    <link rel="next" title="repoze.what.plugins.sql releases" href="News.html" />
+    <link rel="prev" title="The repoze.what SQL plugin" href="index.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="News.html" title="repoze.what.plugins.sql releases"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="The repoze.what SQL plugin"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">repoze.what SQL plugin v1.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-repoze.what.plugins.sql.adapters">
+<span id="repoze-what-sql-source-adapters"></span><h1><a class="reference external" href="http://what.repoze.org/docs/1.0/index.html#repoze.what" title="(in repoze.what v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> SQL source adapters<a class="headerlink" href="#module-repoze.what.plugins.sql.adapters" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Overview</p>
+<p>This document explains the SQL source adapters provided by the plugin.</p>
+</div>
+<p>The classes and functions mentioned below are imported into the
+<a class="reference internal" href="index.html#module-repoze.what.plugins.sql" title="repoze.what.plugins.sql: SQL support for repoze.what"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.sql</span></tt></a> namespace, so you can also import them from
+there.</p>
+<div class="section" id="sql-adapters">
+<h2>SQL adapters<a class="headerlink" href="#sql-adapters" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="repoze.what.plugins.sql.adapters.SqlGroupsAdapter">
+<em class="property">class </em><tt class="descclassname">repoze.what.plugins.sql.adapters.</tt><tt class="descname">SqlGroupsAdapter</tt><big>(</big><em>group_class</em>, <em>user_class</em>, <em>dbsession</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.sql.adapters.SqlGroupsAdapter" title="Permalink to this definition">¶</a></dt>
+<dd><p>The SQL group source adapter.</p>
+<p>To use this adapter, you must also define your users in a SQLAlchemy or
+Elixir-managed table with the relevant one-to-many (or many-to-many) 
+relationship defined with <tt class="docutils literal"><span class="pre">group_class</span></tt>.</p>
+<p>On the other hand, unless stated otherwise, it will also assume the 
+following naming conventions in both classes; to replace any of those
+default values, you should use the <tt class="docutils literal"><span class="pre">translations</span></tt> dictionary of the
+relevant class accordingly:</p>
+<ul class="simple">
+<li>In <cite>group_class</cite>, the attribute that contains the group name is 
+<tt class="docutils literal"><span class="pre">group_name</span></tt> (e.g., <tt class="docutils literal"><span class="pre">Group.group_name</span></tt>).</li>
+<li>In <cite>group_class</cite>, the attribute that contains the members of such a group
+is <tt class="docutils literal"><span class="pre">users</span></tt> (e.g., <tt class="docutils literal"><span class="pre">Group.users</span></tt>).</li>
+<li>In <cite>user_class</cite>, the attribute that contains the user&#8217;s name is
+<tt class="docutils literal"><span class="pre">user_name</span></tt> (e.g., <tt class="docutils literal"><span class="pre">User.user_name</span></tt>).</li>
+<li>In <cite>user_class</cite>, the attribute that contains the groups to which a user
+belongs is <tt class="docutils literal"><span class="pre">groups</span></tt> (e.g., <tt class="docutils literal"><span class="pre">User.groups</span></tt>).</li>
+</ul>
+<p>Example #1, without special naming conventions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ...</span>
+<span class="kn">from</span> <span class="nn">repoze.what.plugins.sql</span> <span class="kn">import</span> <span class="n">SqlGroupsAdapter</span>
+<span class="kn">from</span> <span class="nn">my_model</span> <span class="kn">import</span> <span class="n">User</span><span class="p">,</span> <span class="n">Group</span><span class="p">,</span> <span class="n">DBSession</span>
+
+<span class="n">groups</span> <span class="o">=</span> <span class="n">SqlGroupsAdapter</span><span class="p">(</span><span class="n">Group</span><span class="p">,</span> <span class="n">User</span><span class="p">,</span> <span class="n">DBSession</span><span class="p">)</span>
+
+<span class="c"># ...</span>
+</pre></div>
+</div>
+<p>Example #2, with special naming conventions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ...</span>
+<span class="kn">from</span> <span class="nn">repoze.what.plugins.sql</span> <span class="kn">import</span> <span class="n">SqlGroupsAdapter</span>
+<span class="kn">from</span> <span class="nn">my_model</span> <span class="kn">import</span> <span class="n">Member</span><span class="p">,</span> <span class="n">Team</span><span class="p">,</span> <span class="n">DBSession</span>
+
+<span class="n">groups</span> <span class="o">=</span> <span class="n">SqlGroupsAdapter</span><span class="p">(</span><span class="n">Team</span><span class="p">,</span> <span class="n">Member</span><span class="p">,</span> <span class="n">DBSession</span><span class="p">)</span>
+
+<span class="c"># Replacing the default attributes, if necessary:</span>
+
+<span class="c"># We have &quot;Team.team_name&quot; instead of &quot;Team.group_name&quot;:</span>
+<span class="n">groups</span><span class="o">.</span><span class="n">translations</span><span class="p">[</span><span class="s">&#39;section_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;team_name&#39;</span>
+<span class="c"># We have &quot;Team.members&quot; instead of &quot;Team.users&quot;:</span>
+<span class="n">groups</span><span class="o">.</span><span class="n">translations</span><span class="p">[</span><span class="s">&#39;items&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;members&#39;</span>
+<span class="c"># We have &quot;Member.username&quot; instead of &quot;Member.user_name&quot;:</span>
+<span class="n">groups</span><span class="o">.</span><span class="n">translations</span><span class="p">[</span><span class="s">&#39;item_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;username&#39;</span>
+<span class="c"># We have &quot;Member.teams&quot; instead of &quot;Member.groups&quot;:</span>
+<span class="n">groups</span><span class="o">.</span><span class="n">translations</span><span class="p">[</span><span class="s">&#39;sections&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;teams&#39;</span>
+
+<span class="c"># ...</span>
+</pre></div>
+</div>
+<p class="versionchanged">
+<span class="versionmodified">Changed in version 1.0.1: </span>The groups to which a user belongs can be set dynamically by using
+a property called &#8220;groups&#8221; on <tt class="docutils literal"><span class="pre">user_class</span></tt>. The result must be
+a <a class="reference external" href="http://docs.python.org/library/stdtypes.html#set" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">set</span></tt></a> made up of <tt class="docutils literal"><span class="pre">group_class_</span></tt> instances. To use a different
+property name, you&#8217;d also need to set the translation for &#8220;sections&#8221;
+(see above).</p>
+<dl class="method">
+<dt id="repoze.what.plugins.sql.adapters.SqlGroupsAdapter.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>group_class</em>, <em>user_class</em>, <em>dbsession</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.sql.adapters.SqlGroupsAdapter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an SQL groups source adapter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>group_class</strong> &#8211; The class that manages the groups.</li>
+<li><strong>user_class</strong> &#8211; The class that manages the users.</li>
+<li><strong>dbsession</strong> &#8211; The SQLALchemy/Elixir session to be used.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="repoze.what.plugins.sql.adapters.SqlPermissionsAdapter">
+<em class="property">class </em><tt class="descclassname">repoze.what.plugins.sql.adapters.</tt><tt class="descname">SqlPermissionsAdapter</tt><big>(</big><em>permission_class</em>, <em>group_class</em>, <em>dbsession</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.sql.adapters.SqlPermissionsAdapter" title="Permalink to this definition">¶</a></dt>
+<dd><p>The SQL permission source adapter.</p>
+<p>To use this adapter, you must also define your groups in a SQLAlchemy or
+Elixir-managed table with the relevant one-to-many (or many-to-many)
+relationship defined with <tt class="docutils literal"><span class="pre">permission_class</span></tt>.</p>
+<p>On the other hand, unless stated otherwise, it will also assume the 
+following naming conventions in both classes; to replace any of those
+default values, you should use the <tt class="docutils literal"><span class="pre">translations</span></tt> dictionary of the
+relevant class accordingly:</p>
+<ul class="simple">
+<li>In <cite>permission_class</cite>, the attribute that contains the permission name is 
+<tt class="docutils literal"><span class="pre">permission_name</span></tt> (e.g., <tt class="docutils literal"><span class="pre">Permission.permission_name</span></tt>).</li>
+<li>In <cite>permission_class</cite>, the attribute that contains the groups that are 
+granted such a permission is <tt class="docutils literal"><span class="pre">groups</span></tt> (e.g., <tt class="docutils literal"><span class="pre">Permission.groups</span></tt>).</li>
+<li>In <cite>group_class</cite>, the attribute that contains the group name is
+<tt class="docutils literal"><span class="pre">group_name</span></tt> (e.g., <tt class="docutils literal"><span class="pre">Group.group_name</span></tt>).</li>
+<li>In <cite>group_class</cite>, the attribute that contains the permissions granted to
+that group is <tt class="docutils literal"><span class="pre">permissions</span></tt> (e.g., <tt class="docutils literal"><span class="pre">Group.permissions</span></tt>).</li>
+</ul>
+<p>Example #1, without special naming conventions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ...</span>
+<span class="kn">from</span> <span class="nn">repoze.what.plugins.sql</span> <span class="kn">import</span> <span class="n">SqlPermissionsAdapter</span>
+<span class="kn">from</span> <span class="nn">my_model</span> <span class="kn">import</span> <span class="n">Group</span><span class="p">,</span> <span class="n">Permission</span><span class="p">,</span> <span class="n">DBSession</span>
+
+<span class="n">groups</span> <span class="o">=</span> <span class="n">SqlPermissionsAdapter</span><span class="p">(</span><span class="n">Permission</span><span class="p">,</span> <span class="n">Group</span><span class="p">,</span> <span class="n">DBSession</span><span class="p">)</span>
+
+<span class="c"># ...</span>
+</pre></div>
+</div>
+<p>Example #2, with special naming conventions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ...</span>
+<span class="kn">from</span> <span class="nn">repoze.what.plugins.sql</span> <span class="kn">import</span> <span class="n">SqlPermissionsAdapter</span>
+<span class="kn">from</span> <span class="nn">my_model</span> <span class="kn">import</span> <span class="n">Team</span><span class="p">,</span> <span class="n">Permission</span><span class="p">,</span> <span class="n">DBSession</span>
+
+<span class="n">permissions</span> <span class="o">=</span> <span class="n">SqlPermissionsAdapter</span><span class="p">(</span><span class="n">Permission</span><span class="p">,</span> <span class="n">Team</span><span class="p">,</span> <span class="n">DBSession</span><span class="p">)</span>
+
+<span class="c"># Replacing the default attributes, if necessary:</span>
+
+<span class="c"># We have &quot;Permission.perm_name&quot; instead of &quot;Permission.permission_name&quot;:</span>
+<span class="n">permissions</span><span class="o">.</span><span class="n">translations</span><span class="p">[</span><span class="s">&#39;section_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;perm_name&#39;</span>
+<span class="c"># We have &quot;Permission.teams&quot; instead of &quot;Permission.groups&quot;:</span>
+<span class="n">permissions</span><span class="o">.</span><span class="n">translations</span><span class="p">[</span><span class="s">&#39;items&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;teams&#39;</span>
+<span class="c"># We have &quot;Team.team_name&quot; instead of &quot;Team.group_name&quot;:</span>
+<span class="n">permissions</span><span class="o">.</span><span class="n">translations</span><span class="p">[</span><span class="s">&#39;item_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;team_name&#39;</span>
+<span class="c"># We have &quot;Team.perms&quot; instead of &quot;Team.permissions&quot;:</span>
+<span class="n">permissions</span><span class="o">.</span><span class="n">translations</span><span class="p">[</span><span class="s">&#39;sections&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;perms&#39;</span>
+
+<span class="c"># ...</span>
+</pre></div>
+</div>
+<p class="versionchanged">
+<span class="versionmodified">Changed in version 1.0.1: </span>The permissions granted to a group can be set dynamically by using
+a property called &#8220;permissions&#8221; on <tt class="docutils literal"><span class="pre">group_class</span></tt>. The result must be
+a <a class="reference external" href="http://docs.python.org/library/stdtypes.html#set" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">set</span></tt></a> made up of <tt class="docutils literal"><span class="pre">permission_class_</span></tt> instances. To use a
+different property name, you&#8217;d also need to set the translation for
+&#8220;sections&#8221; (see above).</p>
+<dl class="method">
+<dt id="repoze.what.plugins.sql.adapters.SqlPermissionsAdapter.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>permission_class</em>, <em>group_class</em>, <em>dbsession</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.sql.adapters.SqlPermissionsAdapter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an SQL permissions source adapter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>permission_class</strong> &#8211; The class that manages the permissions.</li>
+<li><strong>group_class</strong> &#8211; The class that manages the groups.</li>
+<li><strong>dbsession</strong> &#8211; The SQLALchemy/Elixir session to be used.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="utilities">
+<h2>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="repoze.what.plugins.sql.adapters.configure_sql_adapters">
+<tt class="descclassname">repoze.what.plugins.sql.adapters.</tt><tt class="descname">configure_sql_adapters</tt><big>(</big><em>user_class</em>, <em>group_class</em>, <em>permission_class</em>, <em>session</em>, <em>group_translations={}</em>, <em>permission_translations={}</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.sql.adapters.configure_sql_adapters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure and return group and permission adapters that share the same model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>user_class</strong> &#8211; The class that manages the users.</li>
+<li><strong>group_class</strong> &#8211; The class that manages the groups.</li>
+<li><strong>user_class</strong> &#8211; The class that manages the permissions.</li>
+<li><strong>dbsession</strong> &#8211; The SQLALchemy/Elixir session to be used.</li>
+<li><strong>group_translations</strong> &#8211; The dictionary of translations for the group.</li>
+<li><strong>permission_translations</strong> &#8211; The dictionary of translations for the permissions.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The <tt class="docutils literal"><span class="pre">group</span></tt> and <tt class="docutils literal"><span class="pre">permission</span></tt> adapters, configured.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>For this function to work, <tt class="docutils literal"><span class="pre">user_class</span></tt> and <tt class="docutils literal"><span class="pre">group_class</span></tt> must have the
+relevant one-to-many (or many-to-many) relationship; likewise, 
+<tt class="docutils literal"><span class="pre">group_class</span></tt> and <tt class="docutils literal"><span class="pre">permission_class</span></tt> must have the relevant one-to-many 
+(or many-to-many) relationship.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ...</span>
+<span class="kn">from</span> <span class="nn">repoze.what.plugins.sql</span> <span class="kn">import</span> <span class="n">configure_sql_adapters</span>
+<span class="kn">from</span> <span class="nn">my_model</span> <span class="kn">import</span> <span class="n">User</span><span class="p">,</span> <span class="n">Group</span><span class="p">,</span> <span class="n">Permission</span><span class="p">,</span> <span class="n">DBSession</span>
+
+<span class="n">adapters</span> <span class="o">=</span> <span class="n">configure_sql_adapters</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">Group</span><span class="p">,</span> <span class="n">Permission</span><span class="p">,</span> <span class="n">DBSession</span><span class="p">)</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="n">adapters</span><span class="p">[</span><span class="s">&#39;group&#39;</span><span class="p">]</span>
+<span class="n">permissions</span> <span class="o">=</span> <span class="n">adapters</span><span class="p">[</span><span class="s">&#39;permission&#39;</span><span class="p">]</span>
+
+<span class="c"># ...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> SQL source adapters</a><ul>
+<li><a class="reference internal" href="#sql-adapters">SQL adapters</a></li>
+<li><a class="reference internal" href="#utilities">Utilities</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">The <tt class="docutils literal"><span class="pre">repoze.what</span></tt> SQL plugin</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="News.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">repoze.what.plugins.sql</span></tt> releases</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Adapters.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="News.html" title="repoze.what.plugins.sql releases"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="The repoze.what SQL plugin"
+             >previous</a> |</li>
+        <li><a href="index.html">repoze.what SQL plugin v1.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2011, The Repoze Project.
+      Last updated on Apr 12, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

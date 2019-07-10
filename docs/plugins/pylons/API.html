@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>repoze.what.plugins.pylonshq API documentation &mdash; repoze.what utilities for Pylons applications v1.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="repoze.what utilities for Pylons applications v1.0.1 documentation" href="index.html" />
+    <link rel="next" title="repoze.what-pylons releases" href="News.html" />
+    <link rel="prev" title="Miscellaneous utilities" href="Manual/Misc.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="News.html" title="repoze.what-pylons releases"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Manual/Misc.html" title="Miscellaneous utilities"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">repoze.what utilities for Pylons applications v1.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-repoze.what.plugins.pylonshq">
+<span id="repoze-what-plugins-pylonshq-api-documentation"></span><h1><a class="reference internal" href="#module-repoze.what.plugins.pylonshq" title="repoze.what.plugins.pylonshq"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.pylonshq</span></tt></a> API documentation<a class="headerlink" href="#module-repoze.what.plugins.pylonshq" title="Permalink to this headline">¶</a></h1>
+<p>Utilities to use <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> v1 in a Pylons or TurboGears 2 application.</p>
+<div class="section" id="protectors">
+<h2>Protectors<a class="headerlink" href="#protectors" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="repoze.what.plugins.pylonshq.ActionProtector">
+<em class="property">class </em><tt class="descclassname">repoze.what.plugins.pylonshq.</tt><tt class="descname">ActionProtector</tt><big>(</big><em>predicate</em>, <em>denial_handler=None</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.pylonshq.ActionProtector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function decorator to set predicate checkers in Pylons/TG2 controller
+actions.</p>
+<dl class="attribute">
+<dt>
+<tt class="descname">default_denial_handler = None</tt></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Type :</th><td class="field-body">callable</td>
+</tr>
+</tbody>
+</table>
+<p>The default denial handler.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repoze.what.plugins.pylonshq.ActionProtector.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>predicate</em>, <em>denial_handler=None</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.pylonshq.ActionProtector.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> verify that the predicate is met.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>predicate</strong> &#8211; A <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> predicate.</li>
+<li><strong>denial_handler</strong> &#8211; The callable to be run if authorization is
+denied (overrides <tt class="xref py py-attr docutils literal"><span class="pre">default_denial_handler</span></tt> if defined).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If called, <tt class="docutils literal"><span class="pre">denial_handler</span></tt> will be passed a positional argument 
+which represents a message on why authorization was denied.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repoze.what.plugins.pylonshq.ActionProtector.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>action_</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.pylonshq.ActionProtector.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <a class="reference internal" href="#repoze.what.plugins.pylonshq.ActionProtector.wrap_action" title="repoze.what.plugins.pylonshq.ActionProtector.wrap_action"><tt class="xref py py-meth docutils literal"><span class="pre">wrap_action()</span></tt></a> as the decorator for <tt class="docutils literal"><span class="pre">action_</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repoze.what.plugins.pylonshq.ActionProtector.wrap_action">
+<tt class="descname">wrap_action</tt><big>(</big><em>action_</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.pylonshq.ActionProtector.wrap_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap the controller action <tt class="docutils literal"><span class="pre">action_</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><strong>action</strong> &#8211; The controller action to be wrapped.</td>
+</tr>
+</tbody>
+</table>
+<p><tt class="docutils literal"><span class="pre">args</span></tt> and <tt class="docutils literal"><span class="pre">kwargs</span></tt> are the positional and named arguments which
+will be passed to <tt class="docutils literal"><span class="pre">action_</span></tt> when called.</p>
+<p>It will run <tt class="docutils literal"><span class="pre">action_</span></tt> if and only if authorization is granted (i.e.,
+the predicate is met). Otherwise, it will set the HTTP status code
+(to 401 if the user is anonymous or 403 if authenticated) then, if
+defined, it will run the denial handler (if not, it will abort with
+<a class="reference external" href="http://www.pylonshq.com/docs/en/0.9.7/modules/controllers_util/#pylons.controllers.util.abort" title="(in Pylons v0.9.7)"><tt class="xref py py-func docutils literal"><span class="pre">pylons.controllers.util.abort()</span></tt></a>).</p>
+<p>It&#8217;s worth noting that when the status code for the response is 401,
+that will trigger a <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authentication.html#module-repoze.who" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt></a> challenger (e.g., a login form 
+will be displayed).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you want to override the default behavior when authorization is
+denied (most likely), you should define just a denial handler. If
+you want to override the whole wrapper (very unlikely), it&#8217;s safe
+to extend this class and override this method.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="repoze.what.plugins.pylonshq.ControllerProtector">
+<em class="property">class </em><tt class="descclassname">repoze.what.plugins.pylonshq.</tt><tt class="descname">ControllerProtector</tt><big>(</big><em>predicate</em>, <em>denial_handler=None</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.pylonshq.ControllerProtector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class decorator to set predicate checkers in Pylons/TG2 controllers.</p>
+<dl class="attribute">
+<dt>
+<tt class="descname">default_denial_handler = None</tt></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Type :</th><td class="field-body">callable or str</td>
+</tr>
+</tbody>
+</table>
+<p>The default denial handler to be passed to <tt class="xref py py-attr docutils literal"><span class="pre">protector</span></tt>.</p>
+<p>When it&#8217;s set as a string, the resulting handler will be the attribute
+of the controller class whose name is represented by
+<tt class="docutils literal"><span class="pre">default_denial_handler</span></tt>. For example, if <tt class="docutils literal"><span class="pre">default_denial_handler</span></tt>
+equals <tt class="docutils literal"><span class="pre">&quot;process_errors&quot;</span></tt> and the decorated controller is
+<tt class="docutils literal"><span class="pre">NiceController</span></tt>, the resulting denial handler will be:
+<tt class="docutils literal"><span class="pre">NiceController.process_errors</span></tt>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<tt class="descname">protector = ActionProtector</tt></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Type :</th><td class="field-body">Subclass of <a class="reference internal" href="#repoze.what.plugins.pylonshq.ActionProtector" title="repoze.what.plugins.pylonshq.ActionProtector"><tt class="xref py py-class docutils literal"><span class="pre">ActionProtector</span></tt></a></td>
+</tr>
+</tbody>
+</table>
+<p>The action protection decorator to be added to 
+<tt class="docutils literal"><span class="pre">Controller.__before__</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repoze.what.plugins.pylonshq.ControllerProtector.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>predicate</em>, <em>denial_handler=None</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.pylonshq.ControllerProtector.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> verify that the predicate is met.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>predicate</strong> &#8211; A <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> predicate.</li>
+<li><strong>denial_handler</strong> &#8211; The callable to be run if authorization is
+denied (overrides <tt class="xref py py-attr docutils literal"><span class="pre">default_denial_handler</span></tt> if defined).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If called, <tt class="docutils literal"><span class="pre">denial_handler</span></tt> will be passed a positional argument 
+which represents a message on why authorization was denied.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="repoze.what.plugins.pylonshq.ControllerProtector.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>cls</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.pylonshq.ControllerProtector.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the <tt class="xref py py-attr docutils literal"><span class="pre">protector</span></tt> decorator to the <tt class="docutils literal"><span class="pre">__before__</span></tt> method of the
+<tt class="docutils literal"><span class="pre">cls</span></tt> controller.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="miscellaneous-utilities">
+<h2>Miscellaneous utilities<a class="headerlink" href="#miscellaneous-utilities" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="repoze.what.plugins.pylonshq.is_met">
+<tt class="descclassname">repoze.what.plugins.pylonshq.</tt><tt class="descname">is_met</tt><big>(</big><em>predicate</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.pylonshq.is_met" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> <tt class="docutils literal"><span class="pre">predicate</span></tt> checker and return <tt class="xref docutils literal"><span class="pre">True</span></tt>
+if it&#8217;s met.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><strong>predicate</strong> &#8211; The <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> predicate checker to be evaluated.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="xref docutils literal"><span class="pre">True</span></tt> if it&#8217;s met; <tt class="xref docutils literal"><span class="pre">False</span></tt> otherwise.</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="repoze.what.plugins.pylonshq.not_met">
+<tt class="descclassname">repoze.what.plugins.pylonshq.</tt><tt class="descname">not_met</tt><big>(</big><em>predicate</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.pylonshq.not_met" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> <tt class="docutils literal"><span class="pre">predicate</span></tt> checker and return <tt class="xref docutils literal"><span class="pre">False</span></tt>
+if it&#8217;s met.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><strong>predicate</strong> &#8211; The <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> predicate checker to be evaluated.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><tt class="xref docutils literal"><span class="pre">False</span></tt> if it&#8217;s met; <tt class="xref docutils literal"><span class="pre">True</span></tt> otherwise.</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="repoze.what.plugins.pylonshq.booleanize_predicates">
+<tt class="descclassname">repoze.what.plugins.pylonshq.</tt><tt class="descname">booleanize_predicates</tt><big>(</big><big>)</big><a class="headerlink" href="#repoze.what.plugins.pylonshq.booleanize_predicates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> predicates evaluable without passing the 
+<tt class="docutils literal"><span class="pre">environ</span></tt> explicitly.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The use of this function is <strong>strongly discouraged</strong>. Use
+<a class="reference internal" href="#repoze.what.plugins.pylonshq.is_met" title="repoze.what.plugins.pylonshq.is_met"><tt class="xref py py-func docutils literal"><span class="pre">is_met()</span></tt></a> or <a class="reference internal" href="#repoze.what.plugins.pylonshq.not_met" title="repoze.what.plugins.pylonshq.not_met"><tt class="xref py py-func docutils literal"><span class="pre">not_met()</span></tt></a> instead.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="repoze.what.plugins.pylonshq.debooleanize_predicates">
+<tt class="descclassname">repoze.what.plugins.pylonshq.</tt><tt class="descname">debooleanize_predicates</tt><big>(</big><big>)</big><a class="headerlink" href="#repoze.what.plugins.pylonshq.debooleanize_predicates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> predicates from being evaluable without passing the 
+<tt class="docutils literal"><span class="pre">environ</span></tt> explicitly.</p>
+<p>This function reverts <a class="reference internal" href="#repoze.what.plugins.pylonshq.booleanize_predicates" title="repoze.what.plugins.pylonshq.booleanize_predicates"><tt class="xref py py-func docutils literal"><span class="pre">booleanize_predicates()</span></tt></a>.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">repoze.what.plugins.pylonshq</span></tt> API documentation</a><ul>
+<li><a class="reference internal" href="#protectors">Protectors</a></li>
+<li><a class="reference internal" href="#miscellaneous-utilities">Miscellaneous utilities</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Manual/Misc.html"
+                        title="previous chapter">Miscellaneous utilities</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="News.html"
+                        title="next chapter"><strong>repoze.what-pylons</strong> releases</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/API.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="News.html" title="repoze.what-pylons releases"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Manual/Misc.html" title="Miscellaneous utilities"
+             >previous</a> |</li>
+        <li><a href="index.html">repoze.what utilities for Pylons applications v1.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, The Repoze Project.
+      Last updated on Apr 12, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

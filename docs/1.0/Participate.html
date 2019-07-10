@@ -1,0 +1,200 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Participate in the development of repoze.what! &mdash; repoze.what v1.0.9 documentation</title>
+    <link rel="stylesheet" href="_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="repoze.what v1.0.9 documentation" href="index.html" />
+    <link rel="prev" title="repoze.what releases" href="News.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="News.html" title="repoze.what releases"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">repoze.what v1.0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="participate-in-the-development-of-repoze-what">
+<h1>Participate in the development of <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a>!<a class="headerlink" href="#participate-in-the-development-of-repoze-what" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Overview</p>
+<p>Here you will learn how you may contribute to <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a>, either
+extending it or fixing issues.</p>
+</div>
+<div class="section" id="sending-patches">
+<h2>Sending patches<a class="headerlink" href="#sending-patches" title="Permalink to this headline">¶</a></h2>
+<p>Please feel free to send patches to fix bugs or implement features, but keep
+in mind that it will take some time to get applied if it doesn&#8217;t follow our
+basic <a class="reference internal" href="#coding-conventions">coding conventions</a>. If you can, please include the respective tests
+too.</p>
+<p>Patches should be sent to <a class="reference external" href="http://lists.repoze.org/listinfo/repoze-dev">the Repoze mailing list</a>.</p>
+</div>
+<div class="section" id="writing-plugins">
+<h2>Writing plugins<a class="headerlink" href="#writing-plugins" title="Permalink to this headline">¶</a></h2>
+<p>An important way to contribute to <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> is by creating
+<a class="reference internal" href="Manual/Plugins/index.html#module-repoze.what.plugins" title="repoze.what.plugins: repoze.what plugins"><tt class="xref py py-mod docutils literal"><span class="pre">plugins</span></tt></a>.</p>
+<p>There are no special guidelines to create unofficial plugins, but you are
+highly encouraged to create plugins under the <a class="reference internal" href="Manual/Plugins/index.html#module-repoze.what.plugins" title="repoze.what.plugins: repoze.what plugins"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins</span></tt></a>
+namespace and contact us once you have at least one usable release (so that
+we can mention it in the manual).</p>
+<div class="section" id="guidelines-for-official-plugins">
+<h3>Guidelines for official plugins<a class="headerlink" href="#guidelines-for-official-plugins" title="Permalink to this headline">¶</a></h3>
+<p>Official plugins must meet certain requirements:</p>
+<ul class="simple">
+<li>It must use <a class="reference external" href="http://repoze.org/license.html">the Repoze license</a>.</li>
+<li>It should follow the <a class="reference internal" href="#coding-conventions">coding conventions</a> of the project.</li>
+<li>Its documentation should be merged into the official documentation.</li>
+</ul>
+<p>If you want to turn your <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> unofficial plugin into an official
+one and you are willing to make it meet the requirements above, please
+propose it after you have at least one usable release (e.g., a beta, a
+release candidate; not only pre-alphas) &#8211; The rate of <cite>stillborn</cite> Free
+Software projects is very high, so we prefer to turn a unofficial plugin
+into an official one if it has ever seen the light.</p>
+</div>
+</div>
+<div class="section" id="coding-conventions">
+<h2>Coding conventions<a class="headerlink" href="#coding-conventions" title="Permalink to this headline">¶</a></h2>
+<p>The basic coding conventions for <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> are not special at all &#8211;
+they are basically the same you will find in other Python projects:</p>
+<ul class="simple">
+<li>The character encoding should be UTF-8.</li>
+<li>Lines should not contain more than 80 characters.</li>
+<li>The new line character should be the one used in Unix systems (<tt class="docutils literal"><span class="pre">\n</span></tt>).</li>
+<li>Stick to the <cite>widely</cite> used <a class="reference external" href="http://www.python.org/dev/peps/pep-0008/">Style Guide for Python Code</a> and <a class="reference external" href="http://www.python.org/dev/peps/pep-0257/">Docstring Conventions</a>.</li>
+</ul>
+<p>However, we have the following additional coding conventions which should be
+applied in the first beta release of a package <cite>at the latest</cite> (this is, they
+are not strictly necessary in alpha releases):</p>
+<ul class="simple">
+<li>The unit test suite for the package should cover 100% of the code. <cite>People
+entrust us with nothing less than the authorization control of their
+application</cite>, so we should take this additional security step to deserve
+their trust. Sure, it won&#8217;t make the package 100% bug-free (that&#8217;s
+impossible), but at least we&#8217;ll avoid regression bugs effectively and
+we&#8217;ll be sure that a bug found will be an unwritten test. It shouldn&#8217;t be
+hard for you if you practice the Test-Driven Development methodology.</li>
+<li><cite>All</cite> the public components of the package should be properly documented
+along with examples, so that people won&#8217;t have to dive into our code to
+learn how to achieve what they want.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Participate in the development of <tt class="docutils literal"><span class="pre">repoze.what</span></tt>!</a><ul>
+<li><a class="reference internal" href="#sending-patches">Sending patches</a></li>
+<li><a class="reference internal" href="#writing-plugins">Writing plugins</a><ul>
+<li><a class="reference internal" href="#guidelines-for-official-plugins">Guidelines for official plugins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#coding-conventions">Coding conventions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="News.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> releases</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Participate.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="News.html" title="repoze.what releases"
+             >previous</a> |</li>
+        <li><a href="index.html">repoze.what v1.0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The Repoze Project.
+      Last updated on Apr 11, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,438 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The repoze.what Quickstart plugin &mdash; repoze.what Quickstart 1.0.9 documentation</title>
+    
+    <link rel="stylesheet" href="_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="repoze.what Quickstart 1.0.9 documentation" href="#" />
+    <link rel="next" title="repoze.what Quickstart via configuration files" href="Config.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Config.html" title="repoze.what Quickstart via configuration files"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">repoze.what Quickstart 1.0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-repoze-what-quickstart-plugin">
+<h1>The <a class="reference external" href="http://what.repoze.org/docs/1.0/index.html#repoze.what" title="(in repoze.what v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> Quickstart plugin<a class="headerlink" href="#the-repoze-what-quickstart-plugin" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body"><a class="reference external" href="http://gustavonarea.net/">Gustavo Narea</a>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Latest release:</th><td class="field-body">1.0.9</td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="module-repoze.what.plugins.quickstart"></span><div class="topic">
+<p class="topic-title first">Overview</p>
+<p>This plugin allows you to take advantage of a rather simple, and usual,
+authentication and authorization setup, in which the users&#8217; data, the
+groups and the permissions used in the application are all stored in a
+SQLAlchemy or Elixir-managed database.</p>
+<p>Put simply, it configures <a class="reference external" href="http://docs.repoze.org/who/1.0/index.html#module-repoze.who" title="(in repoze.who v1.0.18)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt></a> and <a class="reference external" href="http://what.repoze.org/docs/1.0/index.html#repoze.what" title="(in repoze.what v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> in one
+go so that you can have an authentication and authorization system working
+quickly &#8211; hence the name.</p>
+</div>
+<div class="section" id="how-to-install">
+<h2>How to install<a class="headerlink" href="#how-to-install" title="Permalink to this headline">¶</a></h2>
+<p>The minimum requirements are SQLAlchemy, <a class="reference external" href="http://code.gustavonarea.net/repoze.who.plugins.sa/index.html#repoze.who.plugins.sa" title="(in repoze.who SQLAlchemy plugin v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who.plugins.sa</span></tt></a>,
+<a class="reference external" href="http://code.gustavonarea.net/repoze.who-friendlyform/index.html#module-repoze.who.plugins.friendlyform" title="(in Collection of repoze.who friendly form plugins v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who.plugins.friendlyform</span></tt></a>, <a class="reference external" href="http://what.repoze.org/docs/1.0/index.html#repoze.what" title="(in repoze.what v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> and
+<a class="reference external" href="http://what.repoze.org/docs/plugins/sql/index.html#repoze.what.plugins.sql" title="(in repoze.what SQL plugin v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.sql</span></tt></a>, and you can install it all with
+<tt class="docutils literal"><span class="pre">easy_install</span></tt>:</p>
+<div class="highlight-python"><pre>easy_install repoze.what-quickstart</pre>
+</div>
+</div>
+<div class="section" id="support-and-development">
+<h2>Support and development<a class="headerlink" href="#support-and-development" title="Permalink to this headline">¶</a></h2>
+<p>The prefered place to ask questions is the <a class="reference external" href="http://lists.repoze.org/listinfo/repoze-dev">Repoze mailing list</a>. Some users are on the <a class="reference external" href="irc://irc.freenode.net/#repoze">#repoze</a> IRC channel.</p>
+<p>This project is hosted on <a class="reference external" href="https://github.com/repoze/repoze.what-quickstart">GitHub</a>.</p>
+</div>
+<div class="section" id="how-to-use-it">
+<h2>How to use it<a class="headerlink" href="#how-to-use-it" title="Permalink to this headline">¶</a></h2>
+<p>To get started quickly, you may copy the SQLAlchemy-powered model
+defined in <a class="reference external" href="http://what.repoze.org/docs/plugins/quickstart/_static/model_sa_example.py">model_sa_example.py</a>
+(or <a class="reference external" href="http://what.repoze.org/docs/plugins/quickstart/_static/model_elixir_example.py">model_elixir_example.py</a>
+for Elixir) and then create at least a few rows to try it out:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">u</span> <span class="o">=</span> <span class="n">User</span><span class="p">()</span>
+<span class="n">u</span><span class="o">.</span><span class="n">user_name</span> <span class="o">=</span> <span class="s">u&#39;manager&#39;</span>
+<span class="n">u</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s">u&#39;managepass&#39;</span>
+
+<span class="n">DBSession</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">Group</span><span class="p">()</span>
+<span class="n">g</span><span class="o">.</span><span class="n">group_name</span> <span class="o">=</span> <span class="s">u&#39;managers&#39;</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+
+<span class="n">DBSession</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">Permission</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">permission_name</span> <span class="o">=</span> <span class="s">u&#39;manage&#39;</span>
+<span class="n">p</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+
+<span class="n">DBSession</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="n">DBSession</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now that you have some rows in your database, you can set up authentication
+and authorization as explained in the next section.</p>
+<div class="section" id="how-to-set-it-up">
+<h3>How to set it up<a class="headerlink" href="#how-to-set-it-up" title="Permalink to this headline">¶</a></h3>
+<p>Although this is a <a class="reference external" href="http://what.repoze.org/docs/1.0/index.html#repoze.what" title="(in repoze.what v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> plugin and <a class="reference external" href="http://what.repoze.org/docs/1.0/index.html#repoze.what" title="(in repoze.what v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> is meant
+to deal with authorization only, this module configures authentication and
+identification for you through <a class="reference external" href="http://docs.repoze.org/who/1.0/index.html#module-repoze.who" title="(in repoze.who v1.0.18)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt></a> as well.</p>
+<p>Such a setup is performed by the <a class="reference internal" href="#repoze.what.plugins.quickstart.setup_sql_auth" title="repoze.what.plugins.quickstart.setup_sql_auth"><tt class="xref py py-func docutils literal"><span class="pre">setup_sql_auth()</span></tt></a> function:</p>
+<dl class="function">
+<dt id="repoze.what.plugins.quickstart.setup_sql_auth">
+<tt class="descclassname">repoze.what.plugins.quickstart.</tt><tt class="descname">setup_sql_auth</tt><big>(</big><em>app</em>, <em>user_class</em>, <em>group_class</em>, <em>permission_class</em>, <em>dbsession</em>, <em>form_plugin=None</em>, <em>form_identifies=True</em>, <em>cookie_secret='secret'</em>, <em>cookie_name='authtkt'</em>, <em>login_url='/login'</em>, <em>login_handler='/login_handler'</em>, <em>post_login_url=None</em>, <em>logout_handler='/logout_handler'</em>, <em>post_logout_url=None</em>, <em>login_counter_name=None</em>, <em>translations={}</em>, <em>cookie_timeout=None</em>, <em>cookie_reissue_time=None</em>, <em>charset='iso-8859-1'</em>, <em>use_default_authenticator=True</em>, <em>**who_args</em><big>)</big><a class="headerlink" href="#repoze.what.plugins.quickstart.setup_sql_auth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure <a class="reference external" href="http://docs.repoze.org/who/1.0/index.html#module-repoze.who" title="(in repoze.who v1.0.18)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt></a> and <a class="reference external" href="http://what.repoze.org/docs/1.0/index.html#repoze.what" title="(in repoze.what v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> with SQL-only 
+authentication and authorization, respectively.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>app</strong> &#8211; Your WSGI application.</li>
+<li><strong>user_class</strong> &#8211; The SQLAlchemy/Elixir class for the users.</li>
+<li><strong>group_class</strong> &#8211; The SQLAlchemy/Elixir class for the groups.</li>
+<li><strong>permission_class</strong> &#8211; The SQLAlchemy/Elixir class for the permissions.</li>
+<li><strong>dbsession</strong> &#8211; The SQLAlchemy/Elixir session.</li>
+<li><strong>form_plugin</strong> &#8211; The main <a class="reference external" href="http://docs.repoze.org/who/1.0/index.html#module-repoze.who" title="(in repoze.who v1.0.18)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt></a> challenger plugin; this is 
+usually a login form.</li>
+<li><strong>form_identifies</strong> (<em>bool</em>) &#8211; Whether the <tt class="docutils literal"><span class="pre">form_plugin</span></tt> may and should act as
+an <a class="reference external" href="http://docs.repoze.org/who/1.0/index.html#module-repoze.who" title="(in repoze.who v1.0.18)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt></a> identifier.</li>
+<li><strong>cookie_secret</strong> (<em>str</em>) &#8211; The &#8220;secret&#8221; for the AuthTktCookiePlugin (<strong>set a
+custom one!</strong>).</li>
+<li><strong>cookie_name</strong> (<em>str</em>) &#8211; The name for the AuthTktCookiePlugin.</li>
+<li><strong>login_url</strong> (<em>str</em>) &#8211; The URL where the login form is displayed.</li>
+<li><strong>login_handler</strong> (<em>str</em>) &#8211; The URL where the login form is submitted.</li>
+<li><strong>post_login_url</strong> (<em>str</em>) &#8211; The URL/path where users should be redirected to
+after login.</li>
+<li><strong>logout_handler</strong> &#8211; The URL where the logout is handled.</li>
+<li><strong>post_logout_url</strong> (<em>str</em>) &#8211; The URL/path where users should be redirected to
+after logout.</li>
+<li><strong>login_counter_name</strong> (<em>str</em>) &#8211; The name of the variable in the query string
+that represents the login counter; defaults to <tt class="docutils literal"><span class="pre">__logins</span></tt>.</li>
+<li><strong>translations</strong> (<em>dict</em>) &#8211; The model translations.</li>
+<li><strong>cookie_timeout</strong> (<tt class="xref py py-class docutils literal"><span class="pre">int</span></tt>) &#8211; The time (in seconds) during which the session cookie
+would be valid.</li>
+<li><strong>cookie_reissue_time</strong> (<tt class="xref py py-class docutils literal"><span class="pre">int</span></tt>) &#8211; How often should the session cookie be reissued
+(in seconds); must be less than <tt class="docutils literal"><span class="pre">timeout</span></tt>.</li>
+<li><strong>use_default_authenticator</strong> (<tt class="xref py py-class docutils literal"><span class="pre">bool</span></tt>) &#8211; Whether the default SQL authenticator
+should be used.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The WSGI application with authentication and authorization
+middleware.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>It configures <a class="reference external" href="http://docs.repoze.org/who/1.0/index.html#module-repoze.who" title="(in repoze.who v1.0.18)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt></a> with the following plugins:</p>
+<ul>
+<li><p class="first">Identifiers:</p>
+<ul>
+<li><p class="first"><a class="reference external" href="http://code.gustavonarea.net/repoze.who-friendlyform/index.html#repoze.who.plugins.friendlyform.FriendlyFormPlugin" title="(in Collection of repoze.who friendly form plugins v1.0)"><tt class="xref py py-class docutils literal"><span class="pre">repoze.who.plugins.friendlyform.FriendlyFormPlugin</span></tt></a> as the 
+first identifier and challenger &#8211; using <tt class="docutils literal"><span class="pre">login</span></tt> as the URL/path 
+where the login form will be displayed, <tt class="docutils literal"><span class="pre">login_handler</span></tt> as the 
+URL/path where the form will be sent and <tt class="docutils literal"><span class="pre">logout_handler</span></tt> as the 
+URL/path where the user will be logged out. The so-called <em>rememberer</em> 
+of such an identifier will be the identifier below.</p>
+<p>If <tt class="docutils literal"><span class="pre">post_login_url</span></tt> is defined, the user will be redirected to that
+page after login. Likewise, if <tt class="docutils literal"><span class="pre">post_logout_url</span></tt> is defined, the
+user will be redirected to that page after logout.</p>
+<p>You can override the 
+<a class="reference external" href="http://code.gustavonarea.net/repoze.who-friendlyform/index.html#repoze.who.plugins.friendlyform.FriendlyFormPlugin" title="(in Collection of repoze.who friendly form plugins v1.0)"><tt class="xref py py-class docutils literal"><span class="pre">repoze.who.plugins.friendlyform.FriendlyFormPlugin</span></tt></a>&#8216;s login 
+counter variable name (which defaults to <tt class="docutils literal"><span class="pre">__logins</span></tt>) by defining
+<tt class="docutils literal"><span class="pre">login_counter_name</span></tt>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">This plugin may be overridden with the <tt class="docutils literal"><span class="pre">form_plugin</span></tt> argument. 
+See also the <tt class="docutils literal"><span class="pre">form_identifies</span></tt> argument.</p>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://docs.repoze.org/who/1.0/narr.html#repoze.who.plugins.auth_tkt.AuthTktCookiePlugin" title="(in repoze.who v1.0.18)"><tt class="xref py py-class docutils literal"><span class="pre">repoze.who.plugins.auth_tkt.AuthTktCookiePlugin</span></tt></a>. You can
+customize the cookie name and secret using the <tt class="docutils literal"><span class="pre">cookie_name</span></tt> and
+<tt class="docutils literal"><span class="pre">cookie_secret</span></tt> arguments, respectively.</p>
+</li>
+</ul>
+<p>Then it will append the identifiers you pass through the <tt class="docutils literal"><span class="pre">identifiers</span></tt>
+keyword argument, if any.</p>
+</li>
+<li><p class="first">Authenticators:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://code.gustavonarea.net/repoze.who.plugins.sa/index.html#repoze.who.plugins.sa.SQLAlchemyAuthenticatorPlugin" title="(in repoze.who SQLAlchemy plugin v1.0)"><tt class="xref py py-class docutils literal"><span class="pre">repoze.who.plugins.sa.SQLAlchemyAuthenticatorPlugin</span></tt></a> (unless
+<tt class="docutils literal"><span class="pre">use_default_authenticator</span></tt> is <tt class="docutils literal"><span class="pre">False</span></tt>), using the <tt class="docutils literal"><span class="pre">user_class</span></tt>
+and <tt class="docutils literal"><span class="pre">dbsession</span></tt> arguments as its user class and DB session,
+respectively.</li>
+</ul>
+<p>Then it will be appended to the authenticators you pass through the 
+<tt class="docutils literal"><span class="pre">authenticators</span></tt> keyword argument, if any. The default authenticator
+would have the lowest precedence.</p>
+</li>
+<li><p class="first">Challengers:</p>
+<ul class="simple">
+<li>The same Form-based plugin used in the identifiers.</li>
+</ul>
+<p>Then it will append the challengers you pass through the 
+<tt class="docutils literal"><span class="pre">challengers</span></tt> keyword argument, if any.</p>
+</li>
+<li><p class="first">Metadata providers:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://code.gustavonarea.net/repoze.who.plugins.sa/index.html#repoze.who.plugins.sa.SQLAlchemyUserMDPlugin" title="(in repoze.who SQLAlchemy plugin v1.0)"><tt class="xref py py-class docutils literal"><span class="pre">repoze.who.plugins.sa.SQLAlchemyUserMDPlugin</span></tt></a>, using
+the <tt class="docutils literal"><span class="pre">user_class</span></tt> and <tt class="docutils literal"><span class="pre">dbsession</span></tt> arguments as its user class and
+DB session, respectively.</li>
+</ul>
+<p>Then it will append the metadata providers you pass through the 
+<tt class="docutils literal"><span class="pre">mdproviders</span></tt> keyword argument, if any.</p>
+</li>
+</ul>
+<p>The <tt class="docutils literal"><span class="pre">charset</span></tt> is passed to any component which needs to decode/encode
+data to/from the user. At present, only
+<a class="reference external" href="http://code.gustavonarea.net/repoze.who-friendlyform/index.html#repoze.who.plugins.friendlyform.FriendlyFormPlugin" title="(in Collection of repoze.who friendly form plugins v1.0)"><tt class="xref py py-class docutils literal"><span class="pre">FriendlyFormPlugin</span></tt></a> does.</p>
+<p>Additional keyword arguments will be passed to 
+<a class="reference external" href="http://docs.repoze.org/who/1.0/narr.html#repoze.who.middleware.PluggableAuthenticationMiddleware" title="(in repoze.who v1.0.18)"><tt class="xref py py-class docutils literal"><span class="pre">repoze.who.middleware.PluggableAuthenticationMiddleware</span></tt></a>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">It&#8217;s very important to set a custom <tt class="docutils literal"><span class="pre">cookie_secret</span></tt>! It&#8217;s the key to
+encrypt <em>and</em> decrypt the cookies, so you shouldn&#8217;t leave the default
+one.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you don&#8217;t want to use the groups/permissions-based authorization
+pattern, then set <tt class="docutils literal"><span class="pre">group_class</span></tt> and <tt class="docutils literal"><span class="pre">permission_class</span></tt> to <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 1.0.5: </span>Introduced the <tt class="docutils literal"><span class="pre">cookie_timeout</span></tt> and <tt class="docutils literal"><span class="pre">cookie_reissue_time</span></tt> arguments.</p>
+<p class="versionadded">
+<span class="versionmodified">New in version 1.0.6: </span>Introduced the <tt class="docutils literal"><span class="pre">charset</span></tt> argument.</p>
+<p class="versionadded">
+<span class="versionmodified">New in version 1.0.8: </span>Introduced the <tt class="docutils literal"><span class="pre">use_default_authenticator</span></tt> argument.</p>
+<p class="versionadded">
+<span class="versionmodified">New in version 1.0.9: </span>Added support for the <tt class="docutils literal"><span class="pre">dummy_validate_password</span></tt> translation in
+<a class="reference external" href="http://code.gustavonarea.net/repoze.who.plugins.sa/index.html#repoze.who.plugins.sa.SQLAlchemyAuthenticatorPlugin" title="(in repoze.who SQLAlchemy plugin v1.0)"><tt class="xref py py-class docutils literal"><span class="pre">repoze.who.plugins.sa.SQLAlchemyAuthenticatorPlugin</span></tt></a> v1.0.1.</p>
+</dd></dl>
+
+<p>See &#8220;<a class="reference internal" href="#changing-attribute-names">changing attribute names</a>&#8221; to learn how to use the <tt class="docutils literal"><span class="pre">translations</span></tt>
+argument in <a class="reference internal" href="#repoze.what.plugins.quickstart.setup_sql_auth" title="repoze.what.plugins.quickstart.setup_sql_auth"><tt class="xref py py-func docutils literal"><span class="pre">setup_sql_auth()</span></tt></a>.</p>
+</div>
+<div class="section" id="customizing-the-model-definition">
+<h3>Customizing the model definition<a class="headerlink" href="#customizing-the-model-definition" title="Permalink to this headline">¶</a></h3>
+<p>Your auth-related model doesn&#8217;t <cite>have to</cite> be like the default one, where the
+class for your users, groups and permissions are, respectively, <tt class="docutils literal"><span class="pre">User</span></tt>,
+<tt class="docutils literal"><span class="pre">Group</span></tt> and <tt class="docutils literal"><span class="pre">Permission</span></tt>, and your users&#8217; user name is available in
+<tt class="docutils literal"><span class="pre">User.user_name</span></tt>. What if you prefer <tt class="docutils literal"><span class="pre">Member</span></tt> and <tt class="docutils literal"><span class="pre">Team</span></tt> instead of
+<tt class="docutils literal"><span class="pre">User</span></tt> and <tt class="docutils literal"><span class="pre">Group</span></tt>, respectively? Or what if you prefer <tt class="docutils literal"><span class="pre">Group.members</span></tt>
+instead of <tt class="docutils literal"><span class="pre">Group.users</span></tt>? Read on!</p>
+<div class="section" id="changing-class-names">
+<h4>Changing class names<a class="headerlink" href="#changing-class-names" title="Permalink to this headline">¶</a></h4>
+<p>Changing the name of an auth-related class (<tt class="docutils literal"><span class="pre">User</span></tt>, <tt class="docutils literal"><span class="pre">Group</span></tt> or <tt class="docutils literal"><span class="pre">Permission</span></tt>)
+is a rather simple task. Just rename it in your model, and then make sure to
+update the parameters you pass to <a class="reference internal" href="#repoze.what.plugins.quickstart.setup_sql_auth" title="repoze.what.plugins.quickstart.setup_sql_auth"><tt class="xref py py-func docutils literal"><span class="pre">setup_sql_auth()</span></tt></a> accordingly.</p>
+</div>
+<div class="section" id="changing-attribute-names">
+<h4>Changing attribute names<a class="headerlink" href="#changing-attribute-names" title="Permalink to this headline">¶</a></h4>
+<p>You can also change the name of the attributes assumed by
+<a class="reference external" href="http://what.repoze.org/docs/1.0/index.html#repoze.what" title="(in repoze.what v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> in your auth-related classes, such as renaming
+<tt class="docutils literal"><span class="pre">User.groups</span></tt> to <tt class="docutils literal"><span class="pre">User.memberships</span></tt>.</p>
+<p>Changing such values is what <a class="reference external" href="http://what.repoze.org/docs/1.0/index.html#repoze.what" title="(in repoze.what v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> calls &#8220;translating&#8221;.
+You may set the translations for the attributes of the models
+<a class="reference external" href="http://what.repoze.org/docs/1.0/index.html#repoze.what" title="(in repoze.what v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> deals with in a dictionary passed to <a class="reference internal" href="#repoze.what.plugins.quickstart.setup_sql_auth" title="repoze.what.plugins.quickstart.setup_sql_auth"><tt class="xref py py-func docutils literal"><span class="pre">setup_sql_auth()</span></tt></a>
+as its <tt class="docutils literal"><span class="pre">translations</span></tt> parameters. For
+example, if you want to replace <tt class="docutils literal"><span class="pre">Group.users</span></tt> with <tt class="docutils literal"><span class="pre">Group.members</span></tt>, you may
+use the following translation dictionary:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">translations</span><span class="p">[</span><span class="s">&#39;users&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;members&#39;</span>
+</pre></div>
+</div>
+<p>Below are the translations that you would be able to set in the <tt class="docutils literal"><span class="pre">translations</span></tt>
+dictionary used above:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">user_name</span></tt>: The translation for the attribute in <tt class="docutils literal"><span class="pre">User.user_name</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">users</span></tt>: The translation for the attribute in <tt class="docutils literal"><span class="pre">Group.users</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">group_name</span></tt>: The translation for the attribute in <tt class="docutils literal"><span class="pre">Group.group_name</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">groups</span></tt>: The translation for the attribute in <tt class="docutils literal"><span class="pre">User.groups</span></tt> and
+<tt class="docutils literal"><span class="pre">Permission.groups</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">permission_name</span></tt>: The translation for the attribute in
+<tt class="docutils literal"><span class="pre">Permission.permission_name</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">permissions</span></tt>: The translation for the attribute in <tt class="docutils literal"><span class="pre">User.permissions</span></tt>
+and <tt class="docutils literal"><span class="pre">Group.permissions</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">validate_password</span></tt>: The translation for the method in
+<tt class="docutils literal"><span class="pre">User.validate_password</span></tt>.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+</div>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Config.html"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> Quickstart via configuration files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Config.html#supported-options">Supported options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Config.html#api">API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="News.html"><tt class="docutils literal"><span class="pre">repoze.what.plugins.quickstart</span></tt> releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="News.html#version-1-0-9-2011-11-29">Version 1.0.9 (2011-11-29)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#version-1-0-8-2010-05-20">Version 1.0.8 (2010-05-20)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#version-1-0-7-2010-05-05">Version 1.0.7 (2010-05-05)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#version-1-0-6-2010-01-31">Version 1.0.6 (2010-01-31)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#version-1-0-5-2010-01-27">Version 1.0.5 (2010-01-27)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#version-1-0-4-2009-12-07">Version 1.0.4 (2009-12-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#version-1-0-2-and-1-0-3-2009-10-09">Version 1.0.2 and 1.0.3 (2009-10-09)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#version-1-0-1-2009-08-14">Version 1.0.1 (2009-08-14)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#version-1-0-2009-03-02">Version 1.0 (2009-03-02)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#version-1-0rc4-2009-02-18">Version 1.0rc4 (2009-02-18)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#version-1-0rc3-2009-02-17">Version 1.0rc3 (2009-02-17)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#version-1-0rc2-2009-02-11">Version 1.0rc2 (2009-02-11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#version-1-0rc1-2009-01-30">Version 1.0rc1 (2009-01-30)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="indices-and-tables">
+<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="#">
+              <img class="logo" src="_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The <tt class="docutils literal"><span class="pre">repoze.what</span></tt> Quickstart plugin</a><ul>
+<li><a class="reference internal" href="#how-to-install">How to install</a></li>
+<li><a class="reference internal" href="#support-and-development">Support and development</a></li>
+<li><a class="reference internal" href="#how-to-use-it">How to use it</a><ul>
+<li><a class="reference internal" href="#how-to-set-it-up">How to set it up</a></li>
+<li><a class="reference internal" href="#customizing-the-model-definition">Customizing the model definition</a><ul>
+<li><a class="reference internal" href="#changing-class-names">Changing class names</a></li>
+<li><a class="reference internal" href="#changing-attribute-names">Changing attribute names</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contents">Contents</a><ul>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Config.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> Quickstart via configuration files</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Config.html" title="repoze.what Quickstart via configuration files"
+             >next</a> |</li>
+        <li><a href="#">repoze.what Quickstart 1.0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Gustavo Narea.
+      Last updated on Nov 29, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

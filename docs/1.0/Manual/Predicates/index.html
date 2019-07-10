@@ -1,0 +1,232 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Controlling access with predicates &mdash; repoze.what v1.0.9 documentation</title>
+    <link rel="stylesheet" href="../../_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="repoze.what v1.0.9 documentation" href="../../index.html" />
+    <link rel="up" title="The repoze.what Manual" href="../index.html" />
+    <link rel="next" title="Built-in predicate checkers" href="Builtin.html" />
+    <link rel="prev" title="Getting started with repoze.what" href="../GettingStarted.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Builtin.html" title="Built-in predicate checkers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../GettingStarted.html" title="Getting started with repoze.what"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">repoze.what v1.0.9 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">The <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> Manual</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="controlling-access-with-predicates">
+<h1>Controlling access with predicates<a class="headerlink" href="#controlling-access-with-predicates" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Overview</p>
+<p>This document explains how to restrict access within your application
+by using <a class="reference internal" href="#term-predicate"><em class="xref std std-term">predicates</em></a>, which you will be
+able to use  once you have setup the required middleware, either through
+the quickstart or in a custom way.</p>
+</div>
+<p><a class="reference internal" href="../../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> allows you to define access rules based on so-called
+&#8220;predicate checkers&#8221;:</p>
+<dl class="glossary docutils">
+<dt id="term-predicate">predicate</dt>
+<dd>A <tt class="docutils literal"><span class="pre">predicate</span></tt> is the condition that must be met for the subject to be
+able to access the requested source (e.g., &#8220;The current user is not
+anonymous&#8221;).</dd>
+<dt id="term-compound-predicate">compound predicate</dt>
+<dd>A <a class="reference internal" href="#term-predicate"><em class="xref std std-term">predicate</em></a>, or condition, may be made up of more predicates
+&#8211; those are called <cite>compound predicates</cite> (e.g., &#8220;The user is not
+anonymous <cite>and</cite> her IP address belongs to the company&#8217;s intranet&#8221;).</dd>
+<dt id="term-predicate-checker">predicate checker</dt>
+<dd>A class that checks whether a <a class="reference internal" href="#term-predicate"><em class="xref std std-term">predicate</em></a> is met. It must
+extend <a class="reference internal" href="Builtin.html#repoze.what.predicates.Predicate" title="repoze.what.predicates.Predicate"><tt class="xref py py-class docutils literal"><span class="pre">repoze.what.predicates.Predicate</span></tt></a>.</dd>
+</dl>
+<p>If a user is not logged in, or does not have the proper permissions, the
+application throws a 401 (HTTP Unauthorized) which is caught by the
+<tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> middleware to display the login page allowing
+the user to login, and redirecting the user back to the proper page when they
+are done.</p>
+<p>For example, if you have a predicate above (&#8220;The user is not anonymous&#8221;),
+then you can use the following built-in predicate checker:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">not_anonymous</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">not_anonymous</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s">&#39;Only logged in users can read this post&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or if you have a predicate which is &#8220;The current user is root and/or somebody
+with the &#8216;manage&#8217; permission&#8221;, then you may use the following built-in predicate
+checkers:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">is_user</span><span class="p">,</span> <span class="n">has_permission</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">Any</span><span class="p">(</span><span class="n">is_user</span><span class="p">(</span><span class="s">&#39;root&#39;</span><span class="p">),</span> <span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;manage&#39;</span><span class="p">),</span>
+        <span class="n">msg</span><span class="o">=</span><span class="s">&#39;Only administrators can remove blog posts&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As you may have noticed, predicates receive the <tt class="docutils literal"><span class="pre">msg</span></tt> keyword argument to
+use its value as the error message if the predicate is not met. It&#8217;s optional
+and if you don&#8217;t define it, the built-in predicates will use the default
+English message; you may take advantage of this funtionality to make such
+messages translatable.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Good predicate messages don&#8217;t explain <cite>what</cite> went wrong; instead, they
+describe the predicate in the current context (regardless of whether
+the condition is met or not!). This is because such messages may be used in
+places other than in a user-visible message (e.g., in the log file).</p>
+<ul class="last simple">
+<li>Really bad: &#8220;Please login to access this area&#8221;.</li>
+<li>Bad: &#8220;You cannot delete an user account because you are not an
+administrator&#8221;.</li>
+<li>OK: &#8220;You have to be an administrator to delete user accounts&#8221;.</li>
+<li>Perfect: &#8220;Only administrators can delete user accounts&#8221;.</li>
+</ul>
+</div>
+<div class="section" id="more-on-predicates">
+<h2>More on predicates<a class="headerlink" href="#more-on-predicates" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Builtin.html">Built-in predicate checkers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Builtin.html#the-base-predicate-class">The base <tt class="docutils literal"><span class="pre">Predicate</span></tt> class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Builtin.html#single-predicate-checkers">Single predicate checkers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Builtin.html#compound-predicate-checkers">Compound predicate checkers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Builtin.html#predicate-errors">Predicate errors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Evaluating.html">Evaluating your predicates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Evaluating.html#raising-an-exception-if-the-predicate-is-not-met">Raising an exception if the predicate is not met</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Evaluating.html#finding-if-it-s-met-or-not">Finding if it&#8217;s met or not</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Writing.html">Creating your own single predicate checkers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Writing.html#creating-a-predicate-checker-more-sensitive-to-the-request">Creating a predicate checker more sensitive to the request</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Controlling access with predicates</a><ul>
+<li><a class="reference internal" href="#more-on-predicates">More on predicates</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../GettingStarted.html"
+                        title="previous chapter">Getting started with <tt class="docutils literal docutils literal"><span class="pre">repoze.what</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Builtin.html"
+                        title="next chapter">Built-in predicate checkers</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/Manual/Predicates/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Builtin.html" title="Built-in predicate checkers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../GettingStarted.html" title="Getting started with repoze.what"
+             >previous</a> |</li>
+        <li><a href="../../index.html">repoze.what v1.0.9 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >The <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> Manual</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The Repoze Project.
+      Last updated on Apr 11, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

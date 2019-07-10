@@ -1,0 +1,221 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The repoze.what plugin for Pylons integration &mdash; repoze.what utilities for Pylons applications v1.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="repoze.what utilities for Pylons applications v1.0.1 documentation" href="#" />
+    <link rel="next" title="The repoze.what-pylons Users’ Manual" href="Manual/index.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Manual/index.html" title="The repoze.what-pylons Users’ Manual"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">repoze.what utilities for Pylons applications v1.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-repoze-what-plugin-for-pylons-integration">
+<h1>The <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> plugin for Pylons integration<a class="headerlink" href="#the-repoze-what-plugin-for-pylons-integration" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Gustavo Narea.</td>
+</tr>
+<tr class="field"><th class="field-name">Latest release:</th><td class="field-body">1.0.1</td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="module-repoze.what.plugins.pylons"></span><div class="topic">
+<p class="topic-title first">Overview</p>
+<p>This plugin provides optional and handy utilities for Pylons applications
+using <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a>.</p>
+<p>Some of the features of the plugin include:</p>
+<ul class="simple">
+<li>The utilities are ready to use: There&#8217;s nothing additional to be
+configured before using.</li>
+<li>100% documented. Each component is documented along with code samples.</li>
+<li>The test suite has a coverage of 100% and it will never decrease &#8211; if
+it ever does, report it as a bug!</li>
+<li><a class="reference external" href="http://www.turbogears.org/2.0/">TurboGears 2</a> is officially supported
+as well.</li>
+</ul>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Manual/index.html">The <strong>repoze.what-pylons</strong> Users&#8217; Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Manual/GettingStarted.html">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Manual/GettingStarted.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Manual/GettingStarted.html#how-to-install">How to install</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Manual/Protecting.html">Protecting controllers and controller actions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Manual/Protecting.html#protecting-a-controller-action">Protecting a controller action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Manual/Protecting.html#protecting-a-controller">Protecting a controller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Manual/Protecting.html#using-denial-handlers">Using denial handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Manual/Protecting.html#creating-application-specific-protectors">Creating application-specific protectors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Manual/Misc.html">Miscellaneous utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Manual/Misc.html#predicate-evaluators">Predicate evaluators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Manual/Misc.html#boolean-predicates">Boolean predicates</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="API.html"><tt class="docutils literal"><span class="pre">repoze.what.plugins.pylonshq</span></tt> API documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="API.html#protectors">Protectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="API.html#miscellaneous-utilities">Miscellaneous utilities</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="support-and-development">
+<h2>Support and development<a class="headerlink" href="#support-and-development" title="Permalink to this headline">¶</a></h2>
+<p>The prefered place to ask questions is the <a class="reference external" href="http://lists.repoze.org/listinfo/repoze-dev">Repoze mailing list</a>. Some users are on the <a class="reference external" href="irc://irc.freenode.net/#repoze">#repoze</a> IRC channel.</p>
+<p>This project is hosted on <a class="reference external" href="https://github.com/repoze/repoze.what-pylons">GitHub</a>.</p>
+<div class="section" id="releases">
+<h3>Releases<a class="headerlink" href="#releases" title="Permalink to this headline">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="News.html"><strong>repoze.what-pylons</strong> releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-pylons-trunk"><strong>repoze.what-pylons</strong> trunk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-pylons-1-0-2009-03-29"><strong>repoze.what-pylons</strong> 1.0 (2009-03-29)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-pylons-1-0rc4-2009-03-16"><strong>repoze.what-pylons</strong> 1.0rc4 (2009-03-16)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-pylons-1-0rc3-2009-03-04"><strong>repoze.what-pylons</strong> 1.0rc3 (2009-03-04)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-pylons-1-0rc2-2009-02-20"><strong>repoze.what-pylons</strong> 1.0rc2 (2009-02-20)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-pylons-1-0rc1-2009-02-19"><strong>repoze.what-pylons</strong> 1.0rc1 (2009-02-19)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-pylons-1-0b3-2009-02-16"><strong>repoze.what-pylons</strong> 1.0b3 (2009-02-16)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-pylons-1-0b2-2009-02-11"><strong>repoze.what-pylons</strong> 1.0b2 (2009-02-11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-pylons-1-0b1-2009-02-09"><strong>repoze.what-pylons</strong> 1.0b1 (2009-02-09)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="#">
+              <img class="logo" src="_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The <tt class="docutils literal"><span class="pre">repoze.what</span></tt> plugin for Pylons integration</a><ul>
+<li><a class="reference internal" href="#documentation">Documentation</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#support-and-development">Support and development</a><ul>
+<li><a class="reference internal" href="#releases">Releases</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Manual/index.html"
+                        title="next chapter">The <strong>repoze.what-pylons</strong> Users&#8217; Manual</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Manual/index.html" title="The repoze.what-pylons Users’ Manual"
+             >next</a> |</li>
+        <li><a href="#">repoze.what utilities for Pylons applications v1.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, The Repoze Project.
+      Last updated on Apr 12, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

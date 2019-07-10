@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Creating access rules &mdash; repoze.what-django v1.0a1 documentation</title>
+    <link rel="stylesheet" href="../_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0a1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="repoze.what-django v1.0a1 documentation" href="../index.html" />
+    <link rel="up" title="repoze.what-django User’s Manual" href="index.html" />
+    <link rel="next" title="Checking authorization to other resources" href="checking-authz.html" />
+    <link rel="prev" title="How the plugin works" href="intro.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="checking-authz.html" title="Checking authorization to other resources"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="How the plugin works"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">repoze.what-django v1.0a1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U"><strong>repoze.what-django</strong> User&#8217;s Manual</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="creating-access-rules">
+<h1>Creating access rules<a class="headerlink" href="#creating-access-rules" title="Permalink to this headline">¶</a></h1>
+<p>Everything can protected with repoze.what: The entire project, an entire
+application, groups of applications, individual views and/or groups of views.</p>
+<p>There are three ways to protect your Django project with repoze.what and it&#8217;s
+OK to use more than one:</p>
+<div class="section" id="using-access-control-lists">
+<h2>Using Access Control Lists<a class="headerlink" href="#using-access-control-lists" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="enforcing-conditions-inside-a-view">
+<h2>Enforcing conditions inside a view<a class="headerlink" href="#enforcing-conditions-inside-a-view" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>When using this method, it&#8217;s impossible to tell whether authorization would
+be granted to said view from the outside. As consequence,
+<a title="repoze.what.plugins.dj.can_access" class="reference external" href="../API.html#repoze.what.plugins.dj.can_access"><tt class="xref docutils literal"><span class="pre">repoze.what.plugins.dj.can_access()</span></tt></a> won&#8217;t take the condition into
+account and will report that access would be granted.</p>
+<p class="last">This wouldn&#8217;t be an issue if you don&#8217;t use that function on that view.</p>
+</div>
+</div>
+<div class="section" id="with-a-decorator-in-the-views">
+<h2>With a decorator in the views<a class="headerlink" href="#with-a-decorator-in-the-views" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Creating access rules</a><ul>
+<li><a class="reference external" href="#using-access-control-lists">Using Access Control Lists</a></li>
+<li><a class="reference external" href="#enforcing-conditions-inside-a-view">Enforcing conditions inside a view</a></li>
+<li><a class="reference external" href="#with-a-decorator-in-the-views">With a decorator in the views</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="intro.html"
+                                  title="previous chapter">How the plugin works</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="checking-authz.html"
+                                  title="next chapter">Checking authorization to other resources</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/Manual/protecting.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="checking-authz.html" title="Checking authorization to other resources"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="How the plugin works"
+             >previous</a> |</li>
+        <li><a href="../index.html">repoze.what-django v1.0a1 documentation</a> &raquo;</li>
+          <li><a href="index.html" ><strong>repoze.what-django</strong> User&#8217;s Manual</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009-2010, 2degrees Limited.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

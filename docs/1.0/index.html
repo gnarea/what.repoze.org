@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>repoze.what – Authorization for WSGI applications &mdash; repoze.what v1.0.9 documentation</title>
+    <link rel="stylesheet" href="_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="repoze.what v1.0.9 documentation" href="#" />
+    <link rel="next" title="The repoze.what Manual" href="Manual/index.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Manual/index.html" title="The repoze.what Manual"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">repoze.what v1.0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-repoze.what">
+<span id="repoze-what-authorization-for-wsgi-applications"></span><h1><a class="reference internal" href="#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> &#8211; Authorization for WSGI applications<a class="headerlink" href="#module-repoze.what" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Gustavo Narea.</td>
+</tr>
+<tr class="field"><th class="field-name">Latest version:</th><td class="field-body">1.0.9</td>
+</tr>
+</tbody>
+</table>
+<div class="topic">
+<p class="topic-title first">Overview</p>
+<p><a class="reference internal" href="#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> is an <cite>authorization framework</cite> for WSGI applications,
+based on <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> (which deals with <cite>authentication</cite> and
+<cite>identification</cite>).</p>
+<p>On the one hand, it enables an authorization system based on the groups to
+which the <cite>authenticated or anonymous</cite> user belongs and the permissions
+granted to such groups by loading these groups and permissions into the
+request on the way in to the downstream WSGI application.</p>
+<p>And on the other hand, it enables you to manage your groups and permissions
+from the application itself or another program, under a backend-independent
+API. For example, it would be easy for you to switch from one back-end to
+another, and even use this framework to migrate the data.</p>
+<p>This is just the authorization pattern it supports out-of-the-box, but you
+can may it support other authorization patterns with your own
+<a class="reference internal" href="Manual/Predicates/index.html#term-predicate"><em class="xref std std-term">predicates</em></a>. It&#8217;s highly extensible, so it&#8217;s
+very unlikely that it will get in your way &#8211; Among other things, you can
+extend it to check for many conditions (such as checking that the
+user comes from a given country, based on her IP address, for example).</p>
+</div>
+</div>
+<div class="section" id="features">
+<h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
+<p>Unless mentioned otherwise, the following features are available in
+<a class="reference internal" href="#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> and its official plugins:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Web</span> <span class="pre">framework</span> <span class="pre">independent</span></tt>. You can use it on any WSGI
+application and any WSGI framework (or no framework at all). Web frameworks
+may provide integration with it (like <a class="reference external" href="http://turbogears.org/2.0/docs/">TurboGears 2</a>, which features a strong integration with
+<a class="reference internal" href="#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a>).</li>
+<li><tt class="docutils literal"><span class="pre">Authorization</span> <span class="pre">only</span></tt>. It doesn&#8217;t try to be an all-in-one auth
+monster &#8211; it will only do <cite>authorization</cite> and nothing else.</li>
+<li><tt class="docutils literal"><span class="pre">Highly</span> <span class="pre">extensible</span></tt>. It&#8217;s been created with extensibility in mind, so
+that it won&#8217;t get in your way and you can control authorization however you
+want or need, either with official components, third party plugins or your
+own plugins.</li>
+<li><tt class="docutils literal"><span class="pre">Fully</span> <span class="pre">documented</span></tt>. If it&#8217;s not described in the manual, it doesn&#8217;t exist.
+Everything is documented along with examples.</li>
+<li><tt class="docutils literal"><span class="pre">Reliable</span></tt>. We are committed to keep the code coverage at 100%.</li>
+<li><tt class="docutils literal"><span class="pre">Control</span> <span class="pre">access</span> <span class="pre">to</span> <span class="pre">any</span> <span class="pre">resource</span></tt>. Although it&#8217;s only recommended to control
+authorization on action controllers, you can also use it to restrict access
+to other things in your package (e.g., only allow access to a database table
+if the current user is the admin).</li>
+<li>If you use the groups/permissions-based authorization pattern, your
+application&#8217;s <cite>groups</cite> and <cite>permissions</cite> may be stored in an SQLAlchemy
+or Elixir-managed database, in <tt class="docutils literal"><span class="pre">.ini</span></tt> files or in XML files (although
+you may also create your own <a class="reference internal" href="Manual/ManagingSources.html#module-repoze.what.adapters" title="repoze.what.adapters: repoze.what source adapters"><tt class="xref py py-mod docutils literal"><span class="pre">adapters</span></tt></a>!).</li>
+<li>The only requirement is that you use the powerful and extensible
+<tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> authentication framework (which can be configured for you
+with the <tt class="xref py py-mod docutils literal"><span class="pre">quickstart</span> <span class="pre">&lt;repoze.what.plugins.quickstart</span></tt> plugin).</li>
+<li>It works with Python 2.4, 2.5 and 2.6.</li>
+<li><cite>It&#8217;s not hard to get started!</cite></li>
+</ul>
+<p>And according to <a class="reference external" href="http://bugs.repoze.org/issue?&#64;columns=title,id,activity,status,assignedto&amp;&#64;sort=activity&amp;&#64;group=priority&amp;&#64;filter=topic,status&amp;topic=13&amp;status=-1,1,2,3,4,5,6,7">the to-do list</a>,
+we <em>will</em> have official plugins to:</p>
+<ul class="simple">
+<li>Enable <a class="reference external" href="http://oauth.net/">OAuth</a> support.</li>
+<li>Enable authorization based on certain network conditions
+(e.g., grant access if the user&#8217;s IP address belongs to a given IP range,
+deny access if the user&#8217;s host name is &#8220;example.org&#8221;, grant access based on
+the user&#8217;s ISP).</li>
+<li>Enable authorization based on <a class="reference external" href="http://en.wikipedia.org/wiki/X.509">client-side SSL certificates</a> (e.g., allow access if the
+<cite>Certificate Authority</cite> is XYZ, allow access if the user is called &#8220;John
+Smith&#8221; or &#8220;Foo Bar&#8221;).</li>
+<li>Enable authorization based on LDAP attributes of the authenticated user&#8217;s
+entry (e.g., allow access if the user can be reached at a cellular phone,
+allow access if the user belongs to the &#8220;ABC&#8221; organization), as well as
+the ability to re-use LDAP <cite>Organizational Units</cite> as groups.</li>
+<li>Enable a highly extensible <a class="reference external" href="http://en.wikipedia.org/wiki/CAPTCHA">CAPTCHA</a>
+driven authorization mechanism to restrict access to a given resource
+(possibly the hardest to create plugin).</li>
+<li>Store groups in <tt class="docutils literal"><span class="pre">Htgroups</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="how-to-install">
+<span id="install"></span><h1>How to install<a class="headerlink" href="#how-to-install" title="Permalink to this headline">¶</a></h1>
+<p>The only requirement of <a class="reference internal" href="#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> is <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> and you can
+install both by running:</p>
+<div class="highlight-python"><pre>easy_install repoze.what</pre>
+</div>
+<p>The development mainline is available at the following Subversion repository:</p>
+<div class="highlight-python"><pre>http://svn.repoze.org/repoze.what/branches/1.X/</pre>
+</div>
+</div>
+<div class="section" id="framework-specific-documentation">
+<h1>Framework-specific documentation<a class="headerlink" href="#framework-specific-documentation" title="Permalink to this headline">¶</a></h1>
+<p>The following documents will help you implement <a class="reference internal" href="#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> in your
+framework (if any):</p>
+<ul class="simple">
+<li><a class="reference external" href="http://turbogears.org/2.0/">TurboGears</a>: <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> and
+<a class="reference internal" href="#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> are the default authentication and authorization
+frameworks (respectively) in TurboGears 2 applications. <a class="reference external" href="http://www.turbogears.org/2.0/docs/main/Auth/">Learn more about
+them inside TurboGears</a>.</li>
+<li><a class="reference external" href="http://wiki.pylonshq.com/display/pylonscookbook/Authorization+with+repoze.what">Authorization with repoze.what on Pylons</a>.</li>
+</ul>
+<p>If you have written documents to implement <a class="reference internal" href="#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> in a web
+framework, please <a class="reference external" href="http://lists.repoze.org/listinfo/repoze-dev">let us know</a>
+to get a link here.</p>
+</div>
+<div class="section" id="how-to-get-help">
+<h1>How to get help?<a class="headerlink" href="#how-to-get-help" title="Permalink to this headline">¶</a></h1>
+<p>The prefered place to ask questions is the <a class="reference external" href="http://lists.repoze.org/listinfo/repoze-dev">Repoze mailing list</a> or the <a class="reference external" href="irc://irc.freenode.net/#repoze">#repoze</a> IRC channel. Bugs reports and feature
+requests should be sent to <a class="reference external" href="http://bugs.repoze.org/">the issue tracker of the Repoze project</a>.</p>
+<p>If you have problems, please don&#8217;t forget to include the output of your
+application with the <tt class="docutils literal"><span class="pre">AUTH_LOG</span></tt> environment variable set to <tt class="docutils literal"><span class="pre">1</span></tt> when you
+get in touch with us. For example, if your application is based on TurboGears
+or Pylons, you may run it with the following command:</p>
+<div class="highlight-python"><pre>AUTH_LOG=1 paster serve --reload development.ini</pre>
+</div>
+</div>
+<div class="section" id="contents">
+<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Manual/index.html">The <tt class="docutils literal"><span class="pre">repoze.what</span></tt> Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Manual/GettingStarted.html">Getting started with <tt class="docutils literal"><span class="pre">repoze.what</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Manual/Predicates/index.html">Controlling access with predicates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Manual/ManagingSources.html">How to manage groups and permission sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Manual/Plugins/index.html"><tt class="docutils literal"><span class="pre">repoze.what.plugins</span></tt> &#8211; Available plugins for <tt class="docutils literal"><span class="pre">repoze.what</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Manual/InnerWorkings.html">The inner-workings of <tt class="docutils literal"><span class="pre">repoze.what</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="News.html"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="News.html#next-release">Next release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-1-0-9-2010-03-04"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.9 (2010-03-04)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-1-0-8-2009-03-14"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.8 (2009-03-14)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-1-0-7-2009-03-13"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.7 (2009-03-13)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-1-0-6-2009-03-05"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.6 (2009-03-05)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-1-0-5-2009-03-02"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.5 (2009-03-02)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-1-0-4-2009-02-06"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.4 (2009-02-06)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-1-0-3-2009-01-28"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.3 (2009-01-28)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-1-0-2-2009-01-23"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.2 (2009-01-23)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-1-0-1-2009-01-21"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.1 (2009-01-21)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-1-0-2009-01-19"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0 (2009-01-19)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-1-0rc2-2008-12-20"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0rc2 (2008-12-20)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-1-0rc1-2008-12-10"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0rc1 (2008-12-10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-plugins-ini-ini-adapters-available-2008-12-09"><tt class="docutils literal"><span class="pre">repoze.what.plugins.ini</span></tt> &#8211; Ini adapters available (2008-12-09)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-1-0b2-2008-12-04"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0b2 (2008-12-04)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="News.html#repoze-what-1-0b1-2008-11-26"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0b1 (2008-11-26)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Participate.html">Participate in the development of <tt class="docutils literal"><span class="pre">repoze.what</span></tt>!</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Participate.html#sending-patches">Sending patches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Participate.html#writing-plugins">Writing plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Participate.html#coding-conventions">Coding conventions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="#">
+              <img class="logo" src="_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> &#8211; Authorization for WSGI applications</a></li>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#how-to-install">How to install</a></li>
+<li><a class="reference internal" href="#framework-specific-documentation">Framework-specific documentation</a></li>
+<li><a class="reference internal" href="#how-to-get-help">How to get help?</a></li>
+<li><a class="reference internal" href="#contents">Contents</a><ul>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Manual/index.html"
+                        title="next chapter">The <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> Manual</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Manual/index.html" title="The repoze.what Manual"
+             >next</a> |</li>
+        <li><a href="#">repoze.what v1.0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The Repoze Project.
+      Last updated on Apr 11, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

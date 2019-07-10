@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>How to install repoze.what-django &mdash; repoze.what-django v1.0a1 documentation</title>
+    <link rel="stylesheet" href="_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0a1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="repoze.what-django v1.0a1 documentation" href="index.html" />
+    <link rel="next" title="repoze.what-django User’s Manual" href="Manual/index.html" />
+    <link rel="prev" title="The repoze.what plugin for Django integration" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="Manual/index.html" title="repoze.what-django User’s Manual"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="The repoze.what plugin for Django integration"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">repoze.what-django v1.0a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="how-to-install-repoze-what-django">
+<span id="install"></span><h1>How to install <strong>repoze.what-django</strong><a class="headerlink" href="#how-to-install-repoze-what-django" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installing-django">
+<h2>Installing Django<a class="headerlink" href="#installing-django" title="Permalink to this headline">¶</a></h2>
+<p>Unfortunately, installing this package is not as easy as it should be because of
+Django&#8217;s limited WSGI support. You need to patch your version of Django to
+improve its interoperability and then you&#8217;ll be able to use WSGI middleware like
+<a title="(in repoze.what v1.0)" class="reference external" href="http://what.repoze.org/docs/1.x/index.html#module-repoze.what"><tt class="xref docutils literal"><span class="pre">repoze.what</span></tt></a> within Django, as well as other WSGI applications.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>We&#8217;re trying to get these changes applied in Django and we&#8217;re maintaining a
+<a class="reference external" href="https://bitbucket.org/Gustavo/django-wsgi/">branch on Bitbucket</a>
+until they are applied.</p>
+<p>If they are applied using a different approach to ours, we&#8217;ll adapt this
+plugin to use the new approach.</p>
+<p class="last">Either way, this transition will be totally transparent for you &#8211; You
+would not have to update your code.</p>
+</div>
+<p>If you&#8217;re using Django 1.1, try the following (on UNIX systems, you should be
+able to copy and paste it directly on your terminal):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># First, download and extract Django:</span>
+wget http://media.djangoproject.com/releases/1.1.1/Django-1.1.1.tar.gz
+tar xzf Django-1.1.1.tar.gz
+<span class="nb">cd </span>Django-1.1.1
+<span class="c"># Second, download the patch:</span>
+wget http://what.repoze.org/docs/plugins/django/_static/wsgi-support-django-111.patch
+<span class="c"># Next, apply the patch:</span>
+patch -p0 &lt; wsgi-support-django-111.patch
+<span class="c"># And finally, install Django:</span>
+python setup.py install
+</pre></div>
+</div>
+<p>You may need to adjust the commands above depending on your system.</p>
+<p>If you&#8217;re using the development version of Django 1.2, then try (on UNIX
+systems, you should be able to copy and paste it directly on your terminal):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># First, clone the branch using Mercurial:</span>
+hg clone https://Gustavo@bitbucket.org/Gustavo/django-wsgi/ django-wsgi
+<span class="c"># Second, cd into the branch:</span>
+<span class="nb">cd </span>django-wsgi
+<span class="c"># Finally, install this branch of Django:</span>
+python setup.py install
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-the-plugin">
+<h2>Installing the plugin<a class="headerlink" href="#installing-the-plugin" title="Permalink to this headline">¶</a></h2>
+<p>Once you have a version of Django with the WSGI improvements applied, you&#8217;ll
+be ready to install this plugin and its dependencies.</p>
+<p>To get the latest release with <strong>easy_install</strong>, run:</p>
+<div class="highlight-bash"><div class="highlight"><pre>easy_install repoze.what-django
+</pre></div>
+</div>
+<p>Or, if you want to <a class="reference external" href="http://pypi.python.org/pypi/repoze.what-django">download a release</a> and install it with
+<tt class="docutils literal"><span class="pre">setuptools</span></tt>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>tar xzf repoze.what-django-1.XXX.tar.gz
+<span class="nb">cd </span>repoze.what-django-1.XXX
+python setup.py install
+</pre></div>
+</div>
+<p>Finally, if you&#8217;d rather install the development version:</p>
+<div class="highlight-bash"><div class="highlight"><pre>svn co http://svn.repoze.org/repoze.what/plugins/django/trunk/ repoze.what-django
+<span class="nb">cd </span>repoze.what-django
+python setup.py develop
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">How to install <strong>repoze.what-django</strong></a><ul>
+<li><a class="reference external" href="#installing-django">Installing Django</a></li>
+<li><a class="reference external" href="#installing-the-plugin">Installing the plugin</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">The <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> plugin for Django integration</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="Manual/index.html"
+                                  title="next chapter"><strong>repoze.what-django</strong> User&#8217;s Manual</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/install.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Manual/index.html" title="repoze.what-django User’s Manual"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="The repoze.what plugin for Django integration"
+             >previous</a> |</li>
+        <li><a href="index.html">repoze.what-django v1.0a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009-2010, 2degrees Limited.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

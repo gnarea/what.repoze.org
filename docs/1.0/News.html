@@ -1,0 +1,532 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>repoze.what releases &mdash; repoze.what v1.0.9 documentation</title>
+    <link rel="stylesheet" href="_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="repoze.what v1.0.9 documentation" href="index.html" />
+    <link rel="next" title="Participate in the development of repoze.what!" href="Participate.html" />
+    <link rel="prev" title="The inner-workings of repoze.what" href="Manual/InnerWorkings.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Participate.html" title="Participate in the development of repoze.what!"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Manual/InnerWorkings.html" title="The inner-workings of repoze.what"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">repoze.what v1.0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="repoze-what-releases">
+<h1><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> releases<a class="headerlink" href="#repoze-what-releases" title="Permalink to this headline">¶</a></h1>
+<p>This document describes the releases of <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a>.</p>
+<div class="section" id="next-release">
+<h2>Next release<a class="headerlink" href="#next-release" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Make tests pass using <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> 2.0a1 release (don&#8217;t know if
+<em>software</em> works, but tests pass).</li>
+</ul>
+</div>
+<div class="section" id="repoze-what-1-0-9-2010-03-04">
+<span id="repoze-what-1-0-9"></span><h2><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0.9 (2010-03-04)<a class="headerlink" href="#repoze-what-1-0-9-2010-03-04" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Pin <tt class="docutils literal"><span class="pre">repoze.who</span></tt> to versions &lt;= 1.99 (2.0a1 is incompatible).</li>
+<li>Made tests compatible with released <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> 1.0.x.</li>
+</ul>
+</div>
+<div class="section" id="repoze-what-1-0-8-2009-03-14">
+<span id="repoze-what-1-0-8"></span><h2><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0.8 (2009-03-14)<a class="headerlink" href="#repoze-what-1-0-8-2009-03-14" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fixed problem with <a class="reference external" href="http://www.wsgi.org/wsgi/Specifications/routing_args">routing_args</a> compliance in
+<tt class="xref py py-meth docutils literal"><span class="pre">repoze.what.predicates.Predicate.parse_variables()</span></tt>; a wrong structure
+of that variable was assumed.</li>
+<li>Fixed small internal problem with the credentials dictionary.</li>
+</ul>
+</div>
+<div class="section" id="repoze-what-1-0-7-2009-03-13">
+<span id="repoze-what-1-0-7"></span><h2><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0.7 (2009-03-13)<a class="headerlink" href="#repoze-what-1-0-7-2009-03-13" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Added the <tt class="xref py py-class docutils literal"><span class="pre">is_anonymous</span></tt>
+predicate.</li>
+</ul>
+</div>
+<div class="section" id="repoze-what-1-0-6-2009-03-05">
+<span id="repoze-what-1-0-6"></span><h2><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0.6 (2009-03-05)<a class="headerlink" href="#repoze-what-1-0-6-2009-03-05" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">The deprecated <tt class="xref py py-func docutils literal"><span class="pre">repoze.what.authorize.check_authorization()</span></tt> didn&#8217;t
+evaluate predicates correctly if predicates were <a class="reference external" href="http://code.gustavonarea.net/repoze.what-pylons/API.html#repoze.what.plugins.pylonshq.booleanize_predicates" title="(in repoze.what utilities for Pylons applications v1.0)"><tt class="xref py py-func docutils literal"><span class="pre">booleanized</span></tt></a>. Thanks to
+Michael Brickenstein!</p>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p><strong>Don&#8217;t panic!</strong>
+This can hardly affect somebody on the earth: If you&#8217;re using
+<tt class="xref py py-func docutils literal"><span class="pre">repoze.what.authorize.check_authorization()</span></tt> directly, then you&#8217;re
+not using Pylons, and if you&#8217;re not using Pylons, then you&#8217;re not using
+<a class="reference external" href="http://code.gustavonarea.net/repoze.what-pylons/API.html#module-repoze.what.plugins.pylonshq" title="(in repoze.what utilities for Pylons applications v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what-pylons</span></tt></a>.</p>
+<p class="last">However, this does affect you if you&#8217;re not on the earth, use
+<tt class="xref py py-func docutils literal"><span class="pre">repoze.what.authorize.check_authorization()</span></tt> and &#8220;booleanize
+predicates&#8221; in your non-Pylons-based framework ;-)</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="repoze-what-1-0-5-2009-03-02">
+<span id="repoze-what-1-0-5"></span><h2><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0.5 (2009-03-02)<a class="headerlink" href="#repoze-what-1-0-5-2009-03-02" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>To ease testing, now <tt class="xref py py-func docutils literal"><span class="pre">repoze.what.middleware.setup_auth()</span></tt> uses
+<a class="reference external" href="http://code.gustavonarea.net/repoze.who-testutil/API.html#repoze.who.plugins.testutil.make_middleware" title="(in repoze.who Test Utilities v1.0)"><tt class="xref py py-func docutils literal"><span class="pre">repoze.who.plugins.testutil.make_middleware()</span></tt></a> instead of calling
+<tt class="xref py py-class docutils literal"><span class="pre">repoze.who.middleware.PluggableAuthenticationMiddleware</span></tt> directly.</li>
+<li>Now non-ASCII messages can be logged without problems in Python &lt; 2.6. Thanks
+to Christoph Zwerschke (<a class="reference external" href="http://trac.turbogears.org/ticket/2250">TG Issue #2250</a>).</li>
+<li>Minor updates in the documentation.</li>
+</ul>
+</div>
+<div class="section" id="repoze-what-1-0-4-2009-02-06">
+<span id="repoze-what-1-0-4"></span><h2><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0.4 (2009-02-06)<a class="headerlink" href="#repoze-what-1-0-4-2009-02-06" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Now request-sensitive predicate checkers are easier to write because of the
+introduction of the <tt class="xref py py-meth docutils literal"><span class="pre">repoze.what.predicates.Predicate.parse_variables()</span></tt>
+method, which is aware of the <a class="reference external" href="http://www.wsgi.org/wsgi/Specifications/routing_args">wsgiorg.routing_args specification</a>.</li>
+<li>Now <tt class="xref py py-meth docutils literal"><span class="pre">repoze.what.predicates.Predicate.unmet()</span></tt> receives an optional
+argument to override the error message. This feature is backported from v2.</li>
+<li>Backported <tt class="xref py py-meth docutils literal"><span class="pre">repoze.what.predicates.Predicate.is_met()</span></tt> from
+<a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> v2.</li>
+<li>Improved the <a class="reference internal" href="Manual/Predicates/index.html#term-predicate-checker"><em class="xref std std-term">predicates</em></a> section in the manual.</li>
+<li>For forward compatibility with <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> v2, the
+<a class="reference internal" href="Manual/Predicates/Evaluating.html#module-repoze.what.authorize" title="repoze.what.authorize: repoze.what authorization utilities"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.authorize</span></tt></a> module is deprecated. If you want to use
+<a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> v2, you should start using
+<tt class="xref py py-meth docutils literal"><span class="pre">repoze.what.predicates.Predicate.check_authorization()</span></tt> and
+<tt class="xref py py-class docutils literal"><span class="pre">repoze.what.predicates.NotAuthorizedError</span></tt> instead of
+<tt class="xref py py-meth docutils literal"><span class="pre">repoze.what.authorize.check_authorization()</span></tt> and
+<tt class="xref py py-class docutils literal"><span class="pre">repoze.what.authorize.NotAuthorizedError</span></tt>, respectively.</li>
+</ul>
+</div>
+<div class="section" id="repoze-what-1-0-3-2009-01-28">
+<span id="repoze-what-1-0-3"></span><h2><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0.3 (2009-01-28)<a class="headerlink" href="#repoze-what-1-0-3-2009-01-28" title="Permalink to this headline">¶</a></h2>
+<p>This is a bug fix release, there is no new feature implemented.</p>
+<ul class="simple">
+<li>For forward compatibility with v2, the latest version of the Ini, SQL and
+XML <a class="reference internal" href="Manual/GettingStarted.html#term-group-adapter"><em class="xref std std-term">group adapters</em></a> rely on the <tt class="docutils literal"><span class="pre">repoze.what.userid</span></tt>
+key in the <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> <tt class="docutils literal"><span class="pre">credentials</span></tt> dictionary. However,
+<a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> was passing the <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> <tt class="docutils literal"><span class="pre">identity</span></tt> to them
+instead of its <tt class="docutils literal"><span class="pre">credentials</span></tt> dict.</li>
+</ul>
+</div>
+<div class="section" id="repoze-what-1-0-2-2009-01-23">
+<span id="repoze-what-1-0-2"></span><h2><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0.2 (2009-01-23)<a class="headerlink" href="#repoze-what-1-0-2-2009-01-23" title="Permalink to this headline">¶</a></h2>
+<p>For forward compatibility with <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> v2.0, <a class="reference internal" href="Manual/Predicates/Builtin.html#module-repoze.what.predicates" title="repoze.what.predicates: repoze.what predicates checkers"><tt class="xref py py-mod docutils literal"><span class="pre">predicates</span></tt></a> should define the <tt class="xref py py-meth docutils literal"><span class="pre">evaluate</span></tt> method which deprecates
+<tt class="xref py py-meth docutils literal"><span class="pre">_eval_with_environ</span></tt>
+as of this release.</p>
+<p>This indirectly fixes a thread-safety bug found by Alberto Valverde on
+<a class="reference internal" href="Manual/Predicates/Builtin.html#repoze.what.predicates.Any" title="repoze.what.predicates.Any"><tt class="xref py py-class docutils literal"><span class="pre">Any</span></tt></a>-based predicates when used along
+with <a class="reference internal" href="Manual/Predicates/Builtin.html#repoze.what.predicates.All" title="repoze.what.predicates.All"><tt class="xref py py-class docutils literal"><span class="pre">All</span></tt></a>-based ones. Thank you very much
+once again, Alberto!</p>
+</div>
+<div class="section" id="repoze-what-1-0-1-2009-01-21">
+<span id="repoze-what-1-0-1"></span><h2><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0.1 (2009-01-21)<a class="headerlink" href="#repoze-what-1-0-1-2009-01-21" title="Permalink to this headline">¶</a></h2>
+<p>This release fixes an important bug which <em>may</em> affect production Web
+sites depending on how you use the <tt class="docutils literal"><span class="pre">All</span></tt> predicate or any of its
+derivatives (<tt class="docutils literal"><span class="pre">has_all_permissions</span></tt> and <tt class="docutils literal"><span class="pre">in_all_groups</span></tt>). TurboGears 2
+applications are all affected, at least by default.</p>
+<p>The likelihood that this will affect your application is very high, so
+upgrading is highly recommended if it&#8217;s on production.</p>
+<ul>
+<li><p class="first">Some <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> <a class="reference internal" href="Manual/Predicates/Builtin.html#module-repoze.what.predicates" title="repoze.what.predicates: repoze.what predicates checkers"><tt class="xref py py-mod docutils literal"><span class="pre">predicates</span></tt></a> were not
+thread-safe when they were instantiated in a module and then shared among
+threads (as used in TurboGears 2). This was found by and solved with the
+help of <a class="reference external" href="http://albertovalverde.es/">Alberto Valverde</a> (¡Gracias,
+Alberto!).</p>
+<p>We fixed this by making
+<tt class="xref py py-meth docutils literal"><span class="pre">repoze.what.predicates.Predicate.eval_with_predicate()</span></tt> raise an
+exception if the predicate is not met, instead of returning a boolean and
+setting the <tt class="docutils literal"><span class="pre">error</span></tt> instance attribute of the predicate to the predicate
+failure message.</p>
+<p>So if you are using that method directly, instead of using
+<tt class="xref py py-func docutils literal"><span class="pre">repoze.what.authorize.check_authorization()</span></tt>, this is a backwards
+incompatible change for you and thus you should update your code. If you
+check predicates like this (which is discouraged; see
+<tt class="xref py py-func docutils literal"><span class="pre">repoze.what.authorize.check_authorization()</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">is_user</span><span class="p">,</span> <span class="n">in_group</span><span class="p">,</span> <span class="n">All</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">All</span><span class="p">(</span><span class="n">is_user</span><span class="p">(</span><span class="s">&#39;someone&#39;</span><span class="p">),</span> <span class="n">in_group</span><span class="p">(</span><span class="s">&#39;some-group&#39;</span><span class="p">))</span>
+<span class="n">environ</span> <span class="o">=</span> <span class="n">gimme_the_environ</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">eval_with_environ</span><span class="p">(</span><span class="n">environ</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Authorization is denied: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">p</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Authorization is granted&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then you should update your code like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># This way of checking predicates is DISCOURAGED. Use</span>
+<span class="c"># repoze.what.authorize.check_authorization() instead.</span>
+<span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">is_user</span><span class="p">,</span> <span class="n">in_group</span><span class="p">,</span> <span class="n">All</span><span class="p">,</span> <span class="n">PredicateError</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">All</span><span class="p">(</span><span class="n">is_user</span><span class="p">(</span><span class="s">&#39;someone&#39;</span><span class="p">),</span> <span class="n">in_group</span><span class="p">(</span><span class="s">&#39;some-group&#39;</span><span class="p">))</span>
+<span class="n">environ</span> <span class="o">=</span> <span class="n">gimme_the_environ</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">eval_with_environ</span><span class="p">(</span><span class="n">environ</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Authorization is granted&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">PredicateError</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Authorization is denied: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">error</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Because of this, TurboGears 2 users who want to use this release, should
+try the latest revision in the TG2 Subversion repository or wait for
+TurboGears-2.0b4. But again, there&#8217;s no hurry if your application is not
+in production.</p>
+</div>
+</li>
+<li><p class="first">For forward compatibility with <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> v2, the user id used in
+the built-in predicates is that found in
+<tt class="docutils literal"><span class="pre">environ['repoze.what.credentials']['repoze.what.userid']</span></tt> and the adapters
+loaded are now available at <tt class="docutils literal"><span class="pre">environ['repoze.what.adapters']</span></tt>. This is
+<em>not</em> a backwards incompatible change.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="repoze-what-1-0-2009-01-19">
+<span id="repoze-what-1-0"></span><h2><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0 (2009-01-19)<a class="headerlink" href="#repoze-what-1-0-2009-01-19" title="Permalink to this headline">¶</a></h2>
+<p>This is the first stable release of <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> and it was announced
+on the <a class="reference external" href="http://blog.repoze.org/repoze-what-1-dot-oh-20090119.html">Repoze blog</a>.</p>
+<ul class="simple">
+<li>Fixed a problem with unicode support in
+<tt class="xref py py-func docutils literal"><span class="pre">repoze.what.authorize.check_authorization()</span></tt>, reported by Chen Houwu on
+TurboGears mailing list.</li>
+<li>Added the current user&#8217;s groups and permissions to the newly-created
+<tt class="docutils literal"><span class="pre">environ['repoze.what.credentials']</span></tt> dictionary for forward compatibility
+with <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> v2. Such values are still defined in the
+<tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> <tt class="docutils literal"><span class="pre">identity</span></tt> dictionary, but its use is highly discouraged
+as of this release. See <a class="reference internal" href="Manual/InnerWorkings.html#module-repoze.what.middleware" title="repoze.what.middleware: repoze.what WSGI middleware"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.middleware</span></tt></a>.</li>
+<li>Applied work-around to fix Python v2.4 and v2.5 support.</li>
+</ul>
+</div>
+<div class="section" id="repoze-what-1-0rc2-2008-12-20">
+<span id="repoze-what-1-0rc2"></span><h2><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0rc2 (2008-12-20)<a class="headerlink" href="#repoze-what-1-0rc2-2008-12-20" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Fixed the constructor of the <a class="reference internal" href="Manual/Predicates/Builtin.html#repoze.what.predicates.Not" title="repoze.what.predicates.Not"><tt class="xref py py-class docutils literal"><span class="pre">Not</span></tt></a>
+predicate, which didn&#8217;t call its parent and therefore it was not possible
+to specify a custom message.</p>
+</li>
+<li><p class="first">From now on, predicates that are not met will have only <em>one</em> error message,
+even in compound predicates. It didn&#8217;t make sense to have a list of errors
+and thus this behavior has been changed in this release. This will affect
+you if you deal with <tt class="xref py py-func docutils literal"><span class="pre">repoze.what.authorize.check_authorization()</span></tt>
+directly and handled the errors of
+<tt class="xref py py-class docutils literal"><span class="pre">repoze.what.authorize.NotAuthorizedError</span></tt> as in:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="n">check_authorization</span><span class="p">(</span><span class="n">predicate</span><span class="p">,</span> <span class="n">environ</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">NotAuthorizedError</span><span class="p">,</span> <span class="n">exc</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">exc</span><span class="o">.</span><span class="n">errors</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">error</span>
+</pre></div>
+</div>
+<p>The code above may be updated this way:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="n">check_authorization</span><span class="p">(</span><span class="n">predicate</span><span class="p">,</span> <span class="n">environ</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">NotAuthorizedError</span><span class="p">,</span> <span class="n">exc</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">exc</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This doesn&#8217;t affect TurboGears 2 users because TG itself deals with this
+function and it&#8217;s already updated to work with <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0rc2.
+Keep in mind that for this release to work on TurboGears 2, you need
+TurboGears 2 Beta 1 (not yet released as of this writing) or the latest
+revision in the repository.</p>
+</div>
+</li>
+<li><p class="first">For forward compatibility, it&#8217;s no longer mandatory to use the
+groups/permissions-based authorization pattern in order to use
+<a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a>. This package should support several authorization
+patterns and they must all be optional, such as the upcoming support for
+roles-based authorization in <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.5. As a result, now you
+can skip the definition of group and permission adapters and use
+<tt class="xref py py-func docutils literal"><span class="pre">repoze.what.middleware.setup_auth()</span></tt> as a simple proxy for
+<tt class="xref py py-class docutils literal"><span class="pre">repoze.who.middleware.PluggableAuthenticationMiddleware</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">app_with_auth</span> <span class="o">=</span> <span class="n">setup_auth</span><span class="p">(</span>
+    <span class="n">app</span><span class="p">,</span>
+    <span class="n">identifiers</span><span class="o">=</span><span class="n">identifiers</span><span class="p">,</span>
+    <span class="n">challengers</span><span class="o">=</span><span class="n">challengers</span><span class="p">,</span>
+    <span class="n">mdproviders</span><span class="o">=</span><span class="n">mdproviders</span><span class="p">,</span>
+    <span class="n">classifier</span><span class="o">=</span><span class="n">classifier</span><span class="p">,</span>
+    <span class="n">challenge_decider</span><span class="o">=</span><span class="n">challenge_decider</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="repoze-what-1-0rc1-2008-12-10">
+<span id="repoze-what-1-0rc1"></span><h2><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0rc1 (2008-12-10)<a class="headerlink" href="#repoze-what-1-0rc1-2008-12-10" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Added support for read-only adapters in the <a class="reference internal" href="Manual/ManagingSources.html#module-repoze.what.adapters.testutil" title="repoze.what.adapters.testutil: Automatic tests for repoze.what source adapters"><tt class="xref py py-mod docutils literal"><span class="pre">testutil</span></tt></a> with the <tt class="xref py py-class docutils literal"><span class="pre">ReadOnlyGroupsAdapterTester</span></tt> and
+<tt class="xref py py-class docutils literal"><span class="pre">ReadOnlyPermissionsAdapterTester</span></tt> test cases.</li>
+<li>Fixed Python 3 deprecation warnings.</li>
+</ul>
+</div>
+<div class="section" id="repoze-what-plugins-ini-ini-adapters-available-2008-12-09">
+<span id="repoze-what-plugins-ini"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.ini</span></tt> &#8211; Ini adapters available (2008-12-09)<a class="headerlink" href="#repoze-what-plugins-ini-ini-adapters-available-2008-12-09" title="Permalink to this headline">¶</a></h2>
+<p>José Dinuncio has made a <em>great</em> work writing <a class="reference internal" href="Manual/GettingStarted.html#term-group-adapter"><em class="xref std std-term">group</em></a>
+and <a class="reference internal" href="Manual/GettingStarted.html#term-permission-adapter"><em class="xref std std-term">permission</em></a> adapters for Ini files! So, thanks
+to him, now it&#8217;s not only possible to store your groups and permissions in
+databases, but also in files!</p>
+<blockquote>
+<div><ul class="simple">
+<li>Link: <a class="reference external" href="http://github.com/jdinuncio/repoze.what.plugins.ini/">http://github.com/jdinuncio/repoze.what.plugins.ini/</a></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="repoze-what-1-0b2-2008-12-04">
+<span id="repoze-what-1-0b2"></span><h2><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0b2 (2008-12-04)<a class="headerlink" href="#repoze-what-1-0b2-2008-12-04" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Added support for read-only sources. See
+<tt class="xref py py-class docutils literal"><span class="pre">repoze.what.adapters.BaseSourceAdapter</span></tt>.</li>
+</ul>
+<div class="section" id="backwards-incompatible-changes">
+<h3>Backwards-incompatible changes<a class="headerlink" href="#backwards-incompatible-changes" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">The signature of <tt class="xref py py-func docutils literal"><span class="pre">repoze.what.middleware.setup_auth()</span></tt> has changed:
+Now it simply receives the WSGI application, the group adapters and the
+permissions adapters &#8211; additional keyword arguments will be sent to
+<tt class="xref py py-class docutils literal"><span class="pre">repoze.who.middleware.PluggableAuthenticationMiddleware</span></tt>. Also, it
+no longer defines a default identifier or challenger.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It&#8217;s very unlikely that this affects your application, as that function
+is normally used by <tt class="xref py py-func docutils literal"><span class="pre">repoze.what.plugins.quickstart.setup_sql_auth()</span></tt>.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="repoze-what-1-0b1-2008-11-26">
+<span id="repoze-what-1-0b1"></span><h2><a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.0b1 (2008-11-26)<a class="headerlink" href="#repoze-what-1-0b1-2008-11-26" title="Permalink to this headline">¶</a></h2>
+<p>This is the first release of this package as part of the Repoze project. It
+started as the <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> extension for TurboGears 2 applications
+(<tt class="xref py py-mod docutils literal"><span class="pre">tg.ext.repoze.who</span></tt>, doing authenticatication and authorization) by
+Chris McDonough, Florent Aide and Christopher Perkins, then Gustavo Narea took
+over the project to make it deal with authorization only and add support to
+store <cite>groups</cite> and <cite>permissions</cite> in other types of sources (among other things)
+under the <tt class="xref py py-mod docutils literal"><span class="pre">tgext.authorization</span></tt> namespace, but finally it was turned into
+a Repoze project in order to make it available in arbitrary WSGI applications.</p>
+<ul>
+<li><p class="first">Removed dependencies on TurboGears and Pylons.</p>
+</li>
+<li><p class="first">Introduced a framework-independent function
+(<tt class="xref py py-func docutils literal"><span class="pre">repoze.what.authorize.check_authorization()</span></tt>) to check authorization
+based on a predicate and the WSGI environment, along with the
+<tt class="xref py py-class docutils literal"><span class="pre">repoze.what.authorize.NotAuthorizedError</span></tt> exception.</p>
+</li>
+<li><p class="first">Now <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> is 100% documented.</p>
+</li>
+<li><p class="first">Moved the predicates from <a class="reference internal" href="Manual/Predicates/Evaluating.html#module-repoze.what.authorize" title="repoze.what.authorize: repoze.what authorization utilities"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.authorize</span></tt></a> to
+<a class="reference internal" href="Manual/Predicates/Builtin.html#module-repoze.what.predicates" title="repoze.what.predicates: repoze.what predicates checkers"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.predicates</span></tt></a>. Nevertheless, they are imported in the former
+to avoid breaking TurboGears 2 applications created when
+<tt class="xref py py-mod docutils literal"><span class="pre">tg.ext.repoze.who</span></tt> or <tt class="xref py py-mod docutils literal"><span class="pre">tgext.authorization</span></tt> existed.</p>
+</li>
+<li><p class="first">Added the <a class="reference internal" href="Manual/Predicates/Builtin.html#repoze.what.predicates.Not" title="repoze.what.predicates.Not"><tt class="xref py py-class docutils literal"><span class="pre">Not</span></tt></a> predicate.</p>
+</li>
+<li><p class="first">Now you can override the error message of the built-in predicates or set your
+own message at instantiation time by passing the <tt class="docutils literal"><span class="pre">msg</span></tt> keywork argument to
+the predicate. Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">is_user</span>
+
+<span class="n">my_predicate</span> <span class="o">=</span> <span class="n">is_user</span><span class="p">(</span><span class="s">&#39;carla&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s">&quot;Only Carla may come here&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As a result, if your custom predicate defines the constructor method
+(<tt class="docutils literal"><span class="pre">__init__</span></tt>), then you&#8217;re highly encouraged to call its parent with the
+<tt class="docutils literal"><span class="pre">msg</span></tt> keyword argument. Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">Predicate</span>
+
+<span class="k">class</span> <span class="nc">MyCoolPredicate</span><span class="p">(</span><span class="n">Predicate</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyCoolPredicate</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Moved the SQL plugin (<tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.sql</span></tt>) into a separate
+package. Also moved <tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.quickstart</span></tt> into that package
+because it&#8217;s specific to the SQL plugin.</p>
+</li>
+<li><p class="first">Log messages are no longer sent to standard output if the <tt class="docutils literal"><span class="pre">WHO_LOG</span></tt>
+environment variable is defined, but with <tt class="docutils literal"><span class="pre">AUTH_LOG</span></tt>.</p>
+</li>
+<li><p class="first">Now <a class="reference internal" href="index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> uses logging internally to ease debugging.</p>
+</li>
+</ul>
+<div class="section" id="id1">
+<h3>Backwards-incompatible changes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">If you have custom predicates, you should update the <tt class="docutils literal"><span class="pre">eval_with_object</span></tt>
+method, which has been renamed to <tt class="docutils literal"><span class="pre">_eval_with_environ</span></tt> and only receives one
+argument (the WSGI environment). This is, if your method&#8217;s signature looks
+like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">eval_with_object</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now it should look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">_eval_with_environ</span><span class="p">(</span><span class="n">environ</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that <tt class="docutils literal"><span class="pre">errors</span></tt> are no longer passed.</p>
+<p>On the other hand, the <tt class="docutils literal"><span class="pre">error_message</span></tt> attribute of predicates has been
+renamed to <tt class="docutils literal"><span class="pre">message</span></tt> because they are not only used to display errors
+(see <a class="reference internal" href="Manual/Predicates/Builtin.html#module-repoze.what.predicates" title="repoze.what.predicates: repoze.what predicates checkers"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.predicates</span></tt></a>).</p>
+</li>
+<li><p class="first">The <tt class="xref py py-func docutils literal"><span class="pre">repoze.what.authorize.require()</span></tt> decorator has been removed because
+it&#8217;s specific to TurboGears. TurboGears 2 applications will find it at
+<tt class="xref py py-func docutils literal"><span class="pre">tg.require()</span></tt>.</p>
+</li>
+</ul>
+<p>Because this is the first beta release, there should not be more backwards
+incompatible changes in the coming 1.X releases.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> releases</a><ul>
+<li><a class="reference internal" href="#next-release">Next release</a></li>
+<li><a class="reference internal" href="#repoze-what-1-0-9-2010-03-04"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.9 (2010-03-04)</a></li>
+<li><a class="reference internal" href="#repoze-what-1-0-8-2009-03-14"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.8 (2009-03-14)</a></li>
+<li><a class="reference internal" href="#repoze-what-1-0-7-2009-03-13"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.7 (2009-03-13)</a></li>
+<li><a class="reference internal" href="#repoze-what-1-0-6-2009-03-05"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.6 (2009-03-05)</a></li>
+<li><a class="reference internal" href="#repoze-what-1-0-5-2009-03-02"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.5 (2009-03-02)</a></li>
+<li><a class="reference internal" href="#repoze-what-1-0-4-2009-02-06"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.4 (2009-02-06)</a></li>
+<li><a class="reference internal" href="#repoze-what-1-0-3-2009-01-28"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.3 (2009-01-28)</a></li>
+<li><a class="reference internal" href="#repoze-what-1-0-2-2009-01-23"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.2 (2009-01-23)</a></li>
+<li><a class="reference internal" href="#repoze-what-1-0-1-2009-01-21"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0.1 (2009-01-21)</a></li>
+<li><a class="reference internal" href="#repoze-what-1-0-2009-01-19"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0 (2009-01-19)</a></li>
+<li><a class="reference internal" href="#repoze-what-1-0rc2-2008-12-20"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0rc2 (2008-12-20)</a></li>
+<li><a class="reference internal" href="#repoze-what-1-0rc1-2008-12-10"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0rc1 (2008-12-10)</a></li>
+<li><a class="reference internal" href="#repoze-what-plugins-ini-ini-adapters-available-2008-12-09"><tt class="docutils literal"><span class="pre">repoze.what.plugins.ini</span></tt> &#8211; Ini adapters available (2008-12-09)</a></li>
+<li><a class="reference internal" href="#repoze-what-1-0b2-2008-12-04"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0b2 (2008-12-04)</a><ul>
+<li><a class="reference internal" href="#backwards-incompatible-changes">Backwards-incompatible changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#repoze-what-1-0b1-2008-11-26"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> 1.0b1 (2008-11-26)</a><ul>
+<li><a class="reference internal" href="#id1">Backwards-incompatible changes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Manual/InnerWorkings.html"
+                        title="previous chapter">The inner-workings of <tt class="docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Participate.html"
+                        title="next chapter">Participate in the development of <tt class="docutils literal"><span class="pre">repoze.what</span></tt>!</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/News.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Participate.html" title="Participate in the development of repoze.what!"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Manual/InnerWorkings.html" title="The inner-workings of repoze.what"
+             >previous</a> |</li>
+        <li><a href="index.html">repoze.what v1.0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The Repoze Project.
+      Last updated on Apr 11, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

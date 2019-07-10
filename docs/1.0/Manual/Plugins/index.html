@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>repoze.what.plugins – Available plugins for repoze.what &mdash; repoze.what v1.0.9 documentation</title>
+    <link rel="stylesheet" href="../../_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="repoze.what v1.0.9 documentation" href="../../index.html" />
+    <link rel="up" title="The repoze.what Manual" href="../index.html" />
+    <link rel="next" title="The inner-workings of repoze.what" href="../InnerWorkings.html" />
+    <link rel="prev" title="How to manage groups and permission sources" href="../ManagingSources.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../InnerWorkings.html" title="The inner-workings of repoze.what"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../ManagingSources.html" title="How to manage groups and permission sources"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">repoze.what v1.0.9 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">The <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> Manual</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-repoze.what.plugins">
+<span id="repoze-what-plugins-available-plugins-for-repoze-what"></span><h1><a class="reference internal" href="#module-repoze.what.plugins" title="repoze.what.plugins: repoze.what plugins"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins</span></tt></a> &#8211; Available plugins for <a class="reference internal" href="../../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a><a class="headerlink" href="#module-repoze.what.plugins" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Overview</p>
+<p><a class="reference internal" href="../../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> itself strives to be a rather minimalist project which
+only depends on <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> and built-in Python modules, so that
+it will never get in your way and thus make it rather easy for third parties
+to extend it to suit their needs.</p>
+<p>As a consequence, it doesn&#8217;t ship with support for <a class="reference internal" href="../GettingStarted.html#term-source-adapter"><em class="xref std std-term">adapters</em></a>, so you should install the relevant plugins to manage your
+groups and permissions.</p>
+</div>
+<p>There are three types of plugins:</p>
+<dl class="glossary docutils">
+<dt id="term-adapters-plugin">adapters plugin</dt>
+<dd><p class="first">It&#8217;s a plugin that provides one <a class="reference internal" href="../GettingStarted.html#term-group-adapter"><em class="xref std std-term">group adapter</em></a> and/or one
+<a class="reference internal" href="../GettingStarted.html#term-permission-adapter"><em class="xref std std-term">permission adapter</em></a> for a given back-end, but it may also
+provide additional functionality specific to said back-end.</p>
+<p class="last">For example, the SQL plugin provides group and permission adapters
+that enable you to store your groups and permissions in databases,
+as well as a module with some utilities to get started with
+<tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> and <a class="reference internal" href="../../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> very quickly.</p>
+</dd>
+<dt id="term-predicates-plugin">predicates plugin</dt>
+<dd><p class="first">It&#8217;s a plugin that provides one or more <a class="reference internal" href="../Predicates/index.html#term-predicate-checker"><em class="xref std std-term">predicate checkers</em></a>.</p>
+<p class="last">For example, the network plugin will provide <a class="reference internal" href="../Predicates/index.html#term-predicate-checker"><em class="xref std std-term">predicate checkers</em></a> to make sure that only people from the intranet
+can access certain parts of a web site.</p>
+</dd>
+<dt id="term-extras-plugin">extras plugin</dt>
+<dd><p class="first">It&#8217;s a plugin that enables a functionality not available in
+<a class="reference internal" href="../../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> out-of-the-box (other than providing <a class="reference internal" href="../GettingStarted.html#term-source-adapter"><em class="xref std std-term">adapters</em></a> or <a class="reference internal" href="../Predicates/index.html#term-predicate-checker"><em class="xref std std-term">predicate checkers</em></a>).</p>
+<p class="last">For example, the quickstart (<tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.quickstart</span></tt>).</p>
+</dd>
+</dl>
+<p>The classification above is not mutually exclusive: If a plugin provides
+<a class="reference internal" href="../GettingStarted.html#term-source-adapter"><em class="xref std std-term">adapters</em></a>, <a class="reference internal" href="../Predicates/index.html#term-predicate-checker"><em class="xref std std-term">predicate checkers</em></a> and extra functionality, then it can be referred to as
+&#8220;a predicates, adapters and extras plugin&#8221;. For instance, the <tt class="xref py py-mod docutils literal"><span class="pre">SQL</span> <span class="pre">plugin</span></tt> is both an adapters and extras plugin because
+it provides the <tt class="xref py py-mod docutils literal"><span class="pre">quickstart</span></tt> plugin.</p>
+<div class="section" id="available-adapters-plugins">
+<h2>Available <a class="reference internal" href="#term-adapters-plugin"><em class="xref std std-term">adapters plugins</em></a><a class="headerlink" href="#available-adapters-plugins" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="16%" />
+<col width="15%" />
+<col width="16%" />
+<col width="21%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Plugin name</th>
+<th class="head">Source type</th>
+<th class="head">Write support</th>
+<th class="head">Groups adapter</th>
+<th class="head">Permissions adapter</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>repoze.what.plugins.ini <a class="footnote-reference" href="#f1" id="id1">[1]</a></td>
+<td><tt class="docutils literal"><span class="pre">.ini</span></tt> files</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr><td><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.sql</span></tt></td>
+<td>SQL</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr><td><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.xml</span></tt></td>
+<td>XML files</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="available-predicates-plugins">
+<h2>Available <a class="reference internal" href="#term-predicates-plugin"><em class="xref std std-term">predicates plugins</em></a><a class="headerlink" href="#available-predicates-plugins" title="Permalink to this headline">¶</a></h2>
+<p>None, yet.</p>
+</div>
+<div class="section" id="available-extras-plugins">
+<h2>Available <a class="reference internal" href="#term-extras-plugin"><em class="xref std std-term">extras plugins</em></a><a class="headerlink" href="#available-extras-plugins" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Plugin name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.quickstart</span></tt></td>
+<td>Pre-configured authentication system to get started with <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> and <a class="reference internal" href="../../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> quickly</td>
+</tr>
+<tr><td><a class="reference external" href="http://code.gustavonarea.net/repoze.what-pylons/API.html#module-repoze.what.plugins.pylonshq" title="(in repoze.what utilities for Pylons applications v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.pylonshq</span></tt></a></td>
+<td><a class="reference internal" href="../../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> utilities for Pylons/TG2 applications</td>
+</tr>
+<tr><td>repoze.what.plugins.config <a class="footnote-reference" href="#f2" id="id2">[2]</a></td>
+<td>Configure <a class="reference internal" href="../../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> from an <tt class="docutils literal"><span class="pre">Ini</span></tt> file with Paste Deploy.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://github.com/jdinuncio/repoze.what.plugins.ini/wikis">repoze.what Ini plugin</a>, written by
+José Dinuncio.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://github.com/jdinuncio/repoze.what.plugins.config/tree/master">repoze.what Config plugin</a>,
+written by José Dinuncio.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">repoze.what.plugins</span></tt> &#8211; Available plugins for <tt class="docutils literal"><span class="pre">repoze.what</span></tt></a><ul>
+<li><a class="reference internal" href="#available-adapters-plugins">Available <tt class="docutils literal"><span class="pre">adapters</span> <span class="pre">plugins</span></tt></a></li>
+<li><a class="reference internal" href="#available-predicates-plugins">Available <tt class="docutils literal"><span class="pre">predicates</span> <span class="pre">plugins</span></tt></a></li>
+<li><a class="reference internal" href="#available-extras-plugins">Available <tt class="docutils literal"><span class="pre">extras</span> <span class="pre">plugins</span></tt></a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../ManagingSources.html"
+                        title="previous chapter">How to manage groups and permission sources</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../InnerWorkings.html"
+                        title="next chapter">The inner-workings of <tt class="docutils literal docutils literal"><span class="pre">repoze.what</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/Manual/Plugins/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../InnerWorkings.html" title="The inner-workings of repoze.what"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../ManagingSources.html" title="How to manage groups and permission sources"
+             >previous</a> |</li>
+        <li><a href="../../index.html">repoze.what v1.0.9 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >The <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> Manual</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The Repoze Project.
+      Last updated on Apr 11, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

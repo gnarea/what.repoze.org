@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Miscellaneous utilities &mdash; repoze.what utilities for Pylons applications v1.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="repoze.what utilities for Pylons applications v1.0.1 documentation" href="../index.html" />
+    <link rel="up" title="The repoze.what-pylons Users’ Manual" href="index.html" />
+    <link rel="next" title="repoze.what.plugins.pylonshq API documentation" href="../API.html" />
+    <link rel="prev" title="Protecting controllers and controller actions" href="Protecting.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../API.html" title="repoze.what.plugins.pylonshq API documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Protecting.html" title="Protecting controllers and controller actions"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">repoze.what utilities for Pylons applications v1.0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">The <strong>repoze.what-pylons</strong> Users&#8217; Manual</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="miscellaneous-utilities">
+<h1>Miscellaneous utilities<a class="headerlink" href="#miscellaneous-utilities" title="Permalink to this headline">¶</a></h1>
+<p>Because <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> is framework-independent, its predicates can only
+be evaluated if you pass the WSGI environ whenever you want to evaluate them.
+But to makes things easier, this plugin defines utilities to evaluate
+predicates without passing the environ explicitly:</p>
+<div class="section" id="predicate-evaluators">
+<h2>Predicate evaluators<a class="headerlink" href="#predicate-evaluators" title="Permalink to this headline">¶</a></h2>
+<p>With <a class="reference internal" href="../API.html#repoze.what.plugins.pylonshq.is_met" title="repoze.what.plugins.pylonshq.is_met"><tt class="xref py py-func docutils literal"><span class="pre">repoze.what.plugins.pylonshq.is_met()</span></tt></a>, you&#8217;ll be able to evaluate
+your predicates without passing the WSGI environ explicitly, as in:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">repoze.what.plugins.pylonshq</span> <span class="kn">import</span> <span class="n">is_met</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">is_user</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_met</span><span class="p">(</span><span class="n">is_user</span><span class="p">(</span><span class="s">&#39;gustavo&#39;</span><span class="p">))</span> <span class="c"># Will return True if the user is &quot;gustavo&quot;</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>instead of:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pylons</span> <span class="kn">import</span> <span class="n">request</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">is_user</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">is_user</span><span class="p">(</span><span class="s">&#39;gustavo&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">is_met</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span> <span class="c"># Will return True if the user is &quot;gustavo&quot;</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>If you want to evaluate the opposite, that it&#8217;s not met, you can use
+<a class="reference internal" href="../API.html#repoze.what.plugins.pylonshq.not_met" title="repoze.what.plugins.pylonshq.not_met"><tt class="xref py py-func docutils literal"><span class="pre">not_met</span></tt></a> instead:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">repoze.what.plugins.pylonshq</span> <span class="kn">import</span> <span class="n">not_met</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">is_user</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">not_met</span><span class="p">(</span><span class="n">is_user</span><span class="p">(</span><span class="s">&#39;gustavo&#39;</span><span class="p">))</span> <span class="c"># Will return True if the user isn&#39;t &quot;gustavo&quot;</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>instead of:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pylons</span> <span class="kn">import</span> <span class="n">request</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">is_user</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">is_user</span><span class="p">(</span><span class="s">&#39;gustavo&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">is_met</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span> <span class="c"># Will return True if the user isn&#39;t &quot;gustavo&quot;</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="boolean-predicates">
+<h2>Boolean predicates<a class="headerlink" href="#boolean-predicates" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>This functionality was implemented by popular demand, but it&#8217;s <strong>strongly
+discouraged</strong> by the author of <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> because it&#8217;s a
+monkey-patch which brings serious side-effects when enabled:</p>
+<ol class="arabic simple">
+<li>Third-party components which handle <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> predicates may
+get erroneous values after evaluating a predicate checker (even if they
+don&#8217;t use this functionality!).</li>
+<li>If another non-Pylons-based application uses the same monkey-patch and
+you mount it on your application (or vice versa), the predicates used
+by both application will share the same WSGI environ.</li>
+</ol>
+<p class="last">In the two scenarios above, <strong>it will lead to serious security flaws</strong>. So
+<em>avoid it by all means!</em> Use <a class="reference internal" href="#predicate-evaluators">predicate evaluators</a> instead.</p>
+</div>
+<p><a class="reference internal" href="../API.html#repoze.what.plugins.pylonshq.booleanize_predicates" title="repoze.what.plugins.pylonshq.booleanize_predicates"><tt class="xref py py-func docutils literal"><span class="pre">repoze.what.plugins.pylonshq.booleanize_predicates()</span></tt></a> allows you to use
+predicate checkers like boolean variables. Once you call it, you&#8217;ll be able to
+evaluate your predicates without passing the environ:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">not_anonymous</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">not_anonymous</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">bool</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="c"># Will return False if the user is anonymous; True otherwise</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>instead of:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pylons</span> <span class="kn">import</span> <span class="n">request</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">not_anonymous</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">not_anonymous</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">is_met</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span> <span class="c"># Will return False if the user is anonymous; True otherwise</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>Keep in mind that you don&#8217;t have to call this function multiple times &#8211; once
+is enough. For example, you could call it in the function where you set up the
+application in <tt class="docutils literal"><span class="pre">{pylonsproject}.config.middleware</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># (...)</span>
+<span class="kn">from</span> <span class="nn">repoze.what.plugins.pylonshq</span> <span class="kn">import</span> <span class="n">booleanize_predicates</span>
+<span class="c"># (...)</span>
+
+<span class="k">def</span> <span class="nf">make_app</span><span class="p">(</span><span class="n">global_conf</span><span class="p">,</span> <span class="n">full_stack</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">**</span><span class="n">app_conf</span><span class="p">):</span>
+    <span class="c"># (...)</span>
+    <span class="n">booleanize_predicates</span><span class="p">()</span>
+    <span class="c"># (...)</span>
+    <span class="k">return</span> <span class="n">app</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you ever need to disable this &#8220;magical&#8221; behavior, you should use
+<a class="reference internal" href="../API.html#repoze.what.plugins.pylonshq.debooleanize_predicates" title="repoze.what.plugins.pylonshq.debooleanize_predicates"><tt class="xref py py-func docutils literal"><span class="pre">repoze.what.plugins.pylonshq.debooleanize_predicates()</span></tt></a>.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>TurboGears 2 users:</strong> TG calls this function for you, unless you disabled
+the default auth mechanism in <tt class="docutils literal"><span class="pre">{tg2application}.config.app_cfg</span></tt>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Miscellaneous utilities</a><ul>
+<li><a class="reference internal" href="#predicate-evaluators">Predicate evaluators</a></li>
+<li><a class="reference internal" href="#boolean-predicates">Boolean predicates</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Protecting.html"
+                        title="previous chapter">Protecting controllers and controller actions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../API.html"
+                        title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">repoze.what.plugins.pylonshq</span></tt> API documentation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/Manual/Misc.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../API.html" title="repoze.what.plugins.pylonshq API documentation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Protecting.html" title="Protecting controllers and controller actions"
+             >previous</a> |</li>
+        <li><a href="../index.html">repoze.what utilities for Pylons applications v1.0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >The <strong>repoze.what-pylons</strong> Users&#8217; Manual</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, The Repoze Project.
+      Last updated on Apr 12, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

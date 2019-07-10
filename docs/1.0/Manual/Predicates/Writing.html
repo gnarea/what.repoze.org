@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Creating your own single predicate checkers &mdash; repoze.what v1.0.9 documentation</title>
+    <link rel="stylesheet" href="../../_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="repoze.what v1.0.9 documentation" href="../../index.html" />
+    <link rel="up" title="Controlling access with predicates" href="index.html" />
+    <link rel="next" title="How to manage groups and permission sources" href="../ManagingSources.html" />
+    <link rel="prev" title="Evaluating your predicates" href="Evaluating.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../ManagingSources.html" title="How to manage groups and permission sources"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Evaluating.html" title="Evaluating your predicates"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">repoze.what v1.0.9 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >The <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> Manual</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Controlling access with predicates</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="creating-your-own-single-predicate-checkers">
+<h1>Creating your own single predicate checkers<a class="headerlink" href="#creating-your-own-single-predicate-checkers" title="Permalink to this headline">¶</a></h1>
+<p>You may create your own predicate checkers if the built-in ones are not enough
+to achieve a given task.</p>
+<p>To do so, you should extend the <a class="reference internal" href="Builtin.html#repoze.what.predicates.Predicate" title="repoze.what.predicates.Predicate"><tt class="xref py py-class docutils literal"><span class="pre">repoze.what.predicates.Predicate</span></tt></a>
+class. For example, if your predicate is &#8220;The current month is the
+specified one&#8221;, your predicate checker may look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">Predicate</span>
+
+<span class="k">class</span> <span class="nc">is_month</span><span class="p">(</span><span class="n">Predicate</span><span class="p">):</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s">&#39;The current month must be </span><span class="si">%(right_month)s</span><span class="s"> and it is &#39;</span> \
+              <span class="s">&#39;</span><span class="si">%(this_month)s</span><span class="s">&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">right_month</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right_month</span> <span class="o">=</span> <span class="n">right_month</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">is_month</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environ</span><span class="p">,</span> <span class="n">credentials</span><span class="p">):</span>
+        <span class="c"># Let&#39;s calculate the current day on every evaluation because</span>
+        <span class="c"># the application may be running for many days; hence it&#39;s not</span>
+        <span class="c"># defined once in the constructor.</span>
+        <span class="n">today</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">today</span><span class="o">.</span><span class="n">month</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_month</span><span class="p">:</span>
+            <span class="c"># Raise an exception because the predicate is not met.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unmet</span><span class="p">(</span><span class="n">this_month</span><span class="o">=</span><span class="n">today</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then you can use your predicate this way:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Grant access if the current month is March</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">is_month</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>When you create a predicate, don&#8217;t try to guess/assume the context in
+which the predicate is evaluated when you write the predicate message
+because such a predicate may be used in a different context.</p>
+<ul class="last simple">
+<li>Bad: &#8220;The software can be released if it&#8217;s %(right_month)s&#8221;.</li>
+<li>Good: &#8220;The current month must be %(right_month)s&#8221;.</li>
+</ul>
+</div>
+<div class="section" id="creating-a-predicate-checker-more-sensitive-to-the-request">
+<h2>Creating a predicate checker more sensitive to the request<a class="headerlink" href="#creating-a-predicate-checker-more-sensitive-to-the-request" title="Permalink to this headline">¶</a></h2>
+<p>Authorization always depends on the context and <a class="reference internal" href="../../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> predicates
+are no exception. Access is controlled based on who the current user is, what
+groups she belongs to, what permissions she is granted, what her IP address is,
+what day is today and so on &#8211; and such data are always provided by the
+context.</p>
+<p>The context is a wide term which doesn&#8217;t only include information about <em>who</em>
+makes the request, but also about <em>what</em> is requested and <em>how</em> the request is
+made (represented by the WSGI environment), <em>when</em> it is requested and possibly
+include external conditions.</p>
+<p>With <a class="reference internal" href="../../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> predicates, you can control access based on any of the
+parts that make up the context (described above). However, this framework
+mostly helps you control access based on <em>who</em> the user is (her credentials),
+while gives you a hand to control access based on <em>what</em> is requested and
+<em>how</em> by passing the WSGI environ to the predicate checker
+(<tt class="xref py py-meth docutils literal"><span class="pre">Predicate.parse_variables</span></tt> exists to help you with the
+<em>what</em> too). Writing predicates based on <em>when</em> it is requested and external
+conditions (if any) is completely up to you.</p>
+<p>For example, if to allow users edit posts in a blog you don&#8217;t only want
+the predicate &#8220;the current user is granted the <tt class="docutils literal"><span class="pre">edit-posts</span></tt> permission&#8221;
+(<em>who</em> makes the request) to be met, but also &#8220;the current user is the author
+of the post in question&#8221; (<em>what</em> is requested), you may write the latter as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">Predicate</span>
+<span class="c"># Say you use SQLAlchemy:</span>
+<span class="kn">from</span> <span class="nn">yourcoolapplication.model</span> <span class="kn">import</span> <span class="n">BlogPost</span><span class="p">,</span> <span class="n">DBSession</span>
+
+<span class="k">class</span> <span class="nc">post_is_managed_by_author</span><span class="p">(</span><span class="n">Predicate</span><span class="p">):</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s">&#39;Only </span><span class="si">%(author)s</span><span class="s"> can manage post </span><span class="si">%(post_id)s</span><span class="s">&#39;</span>
+
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environ</span><span class="p">,</span> <span class="n">credentials</span><span class="p">):</span>
+        <span class="c"># Extracting the post Id from the GET variables</span>
+        <span class="nb">vars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_variables</span><span class="p">(</span><span class="n">environ</span><span class="p">)</span>
+        <span class="n">post_id</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">[</span><span class="s">&#39;get&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;post_id&#39;</span><span class="p">)</span>
+        <span class="c"># Loading the post object</span>
+        <span class="n">post</span> <span class="o">=</span> <span class="n">DBSession</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">BlogPost</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span>
+        <span class="c"># Checking if it&#39;s the author</span>
+        <span class="k">if</span> <span class="n">post</span><span class="o">.</span><span class="n">author_userid</span> <span class="o">!=</span> <span class="n">credentials</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;repoze.what.userid&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unmet</span><span class="p">(</span><span class="n">post_id</span><span class="o">=</span><span class="n">post_id</span><span class="p">,</span> <span class="n">author</span><span class="o">=</span><span class="n">post</span><span class="o">.</span><span class="n">author_userid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you don&#8217;t use the <tt class="xref py py-meth docutils literal"><span class="pre">Predicate.parse_variables</span></tt> method, you would have
+to import and use <a class="reference external" href="http://pythonpaste.org/">Paste</a>&#8216;s
+<tt class="xref py py-func docutils literal"><span class="pre">paste.request.parse_querystring()</span></tt> and/or
+<tt class="xref py py-func docutils literal"><span class="pre">paste.request.parse_formvars()</span></tt> functions whenever authorization depends
+on <em>what</em> is requested.</p>
+<p>Finally, you would end up with the following compound predicates:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">All</span><span class="p">,</span> <span class="n">has_permission</span>
+<span class="c"># Can the user edit the post?</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">All</span><span class="p">(</span><span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;edit-post&#39;</span><span class="p">),</span> <span class="n">post_is_managed_by_author</span><span class="p">())</span>
+<span class="c"># Can the user delete the post?</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">All</span><span class="p">(</span><span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;delete-posts&#39;</span><span class="p">),</span> <span class="n">post_is_managed_by_author</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you&#8217;re using a dispatcher like <a class="reference external" href="http://routes.groovie.org/">Routes</a> or
+<a class="reference external" href="http://lukearno.com/projects/selector/">Selector</a> and the variables you
+need are not passed in the query string nor as POST variables, you will
+find them in the dictionary returned by <tt class="xref py py-meth docutils literal"><span class="pre">Predicate.parse_variables</span></tt>, either in the
+<tt class="docutils literal"><span class="pre">positional_args</span></tt> or <tt class="docutils literal"><span class="pre">named_args</span></tt> items &#8211; check the
+<a class="reference external" href="http://www.wsgi.org/wsgi/Specifications/routing_args">wsgiorg.routing_args specification</a> for more
+information.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Creating your own single predicate checkers</a><ul>
+<li><a class="reference internal" href="#creating-a-predicate-checker-more-sensitive-to-the-request">Creating a predicate checker more sensitive to the request</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Evaluating.html"
+                        title="previous chapter">Evaluating your predicates</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../ManagingSources.html"
+                        title="next chapter">How to manage groups and permission sources</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/Manual/Predicates/Writing.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../ManagingSources.html" title="How to manage groups and permission sources"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Evaluating.html" title="Evaluating your predicates"
+             >previous</a> |</li>
+        <li><a href="../../index.html">repoze.what v1.0.9 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >The <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> Manual</a> &raquo;</li>
+          <li><a href="index.html" >Controlling access with predicates</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The Repoze Project.
+      Last updated on Apr 11, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

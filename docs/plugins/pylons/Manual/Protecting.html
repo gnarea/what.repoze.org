@@ -1,0 +1,377 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Protecting controllers and controller actions &mdash; repoze.what utilities for Pylons applications v1.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="repoze.what utilities for Pylons applications v1.0.1 documentation" href="../index.html" />
+    <link rel="up" title="The repoze.what-pylons Users’ Manual" href="index.html" />
+    <link rel="next" title="Miscellaneous utilities" href="Misc.html" />
+    <link rel="prev" title="Getting started" href="GettingStarted.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Misc.html" title="Miscellaneous utilities"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="GettingStarted.html" title="Getting started"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">repoze.what utilities for Pylons applications v1.0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">The <strong>repoze.what-pylons</strong> Users&#8217; Manual</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="protecting-controllers-and-controller-actions">
+<h1>Protecting controllers and controller actions<a class="headerlink" href="#protecting-controllers-and-controller-actions" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Overview</p>
+<p>This plugin provides decorators to add access rules to controllers and
+controller actions, which have been created with extensibility in mind
+so that you can adapt them to suit your needs.</p>
+</div>
+<div class="section" id="protecting-a-controller-action">
+<h2>Protecting a controller action<a class="headerlink" href="#protecting-a-controller-action" title="Permalink to this headline">¶</a></h2>
+<p>To set controller-wide access rules, you can use the
+<a class="reference internal" href="../API.html#repoze.what.plugins.pylonshq.ActionProtector" title="repoze.what.plugins.pylonshq.ActionProtector"><tt class="xref py py-class docutils literal"><span class="pre">ActionProtector</span></tt></a>
+class decorator as in the example below:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">has_permission</span>
+<span class="kn">from</span> <span class="nn">repoze.what.plugins.pylonshq</span> <span class="kn">import</span> <span class="n">ActionProtector</span>
+
+<span class="k">class</span> <span class="nc">RootController</span><span class="p">(</span><span class="n">YourBaseController</span><span class="p">):</span>
+
+    <span class="c"># Place an expose() here if you use TG2</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nice_function_to_do_nothing</span><span class="p">()</span>
+
+    <span class="c"># Place an expose() here if you use TG2</span>
+    <span class="nd">@ActionProtector</span><span class="p">(</span><span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;edit-articles&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">edit_article</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">article_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">get_article_edition_form</span><span class="p">(</span><span class="n">article_id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With the controller and action controllers above, anyone who tries to access
+<tt class="docutils literal"><span class="pre">/edit_article</span></tt> will have to be granted the <tt class="docutils literal"><span class="pre">edit-articles</span></tt> permission.
+Otherwise, authorization will be denied.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">TurboGears 2 provides the <tt class="xref py py-class docutils literal"><span class="pre">tg.require</span></tt> decorator to set
+the access rules in controller actions, which is a subclass of
+<a class="reference internal" href="../API.html#repoze.what.plugins.pylonshq.ActionProtector" title="repoze.what.plugins.pylonshq.ActionProtector"><tt class="xref py py-class docutils literal"><span class="pre">ActionProtector</span></tt></a>
+with additional functionality specific to TG2 applications.</p>
+</div>
+</div>
+<div class="section" id="protecting-a-controller">
+<h2>Protecting a controller<a class="headerlink" href="#protecting-a-controller" title="Permalink to this headline">¶</a></h2>
+<p>To set controller-wide access rules, you can use the
+<a class="reference internal" href="../API.html#repoze.what.plugins.pylonshq.ControllerProtector" title="repoze.what.plugins.pylonshq.ControllerProtector"><tt class="xref py py-class docutils literal"><span class="pre">ControllerProtector</span></tt></a>
+class decorator as in the example below:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">has_permission</span>
+<span class="kn">from</span> <span class="nn">repoze.what.plugins.pylonshq</span> <span class="kn">import</span> <span class="n">ControllerProtector</span>
+
+<span class="nd">@ControllerProtector</span><span class="p">(</span><span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;manage&#39;</span><span class="p">))</span>
+<span class="k">class</span> <span class="nc">ControlPanel</span><span class="p">(</span><span class="n">YourBaseController</span><span class="p">):</span>
+    <span class="c"># Place an expose() here if you use TG2</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nice_function_to_do_nothing</span><span class="p">()</span>
+
+    <span class="c"># Place an expose() here if you use TG2</span>
+    <span class="k">def</span> <span class="nf">delete_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nice_function_to_delete_a_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">RootController</span><span class="p">(</span><span class="n">YourBaseController</span><span class="p">):</span>
+
+    <span class="n">panel</span> <span class="o">=</span> <span class="n">ControlPanel</span><span class="p">()</span>
+
+    <span class="c"># Place an expose() here if you use TG2</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nice_function_to_do_nothing</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>With the controllers and action controllers above, anyone who tries to access
+<tt class="docutils literal"><span class="pre">/panel/*</span></tt> will have to be granted the <tt class="docutils literal"><span class="pre">manage</span></tt> permission. Otherwise,
+authorization will be denied.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">As of version 2.0b6, TurboGears provides the <tt class="xref py py-class docutils literal"><span class="pre">tg.allow_only</span></tt>
+decorator for controller-wide authorization, which is a subclass of
+<a class="reference internal" href="../API.html#repoze.what.plugins.pylonshq.ControllerProtector" title="repoze.what.plugins.pylonshq.ControllerProtector"><tt class="xref py py-class docutils literal"><span class="pre">ControllerProtector</span></tt></a>
+with additional functionality specific to TG2 applications.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If you&#8217;re using Python v2.4 or v2.5, you will have to use the alternate
+syntax because class decorators are supported as of Python v2.6:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ControlPanel</span><span class="p">(</span><span class="n">YourBaseController</span><span class="p">):</span>
+    <span class="c"># ...</span>
+    <span class="k">pass</span>
+<span class="n">ControlPanel</span> <span class="o">=</span> <span class="n">ControllerProtector</span><span class="p">(</span><span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;manage&#39;</span><span class="p">))(</span><span class="n">ControlPanel</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="using-denial-handlers">
+<h2>Using denial handlers<a class="headerlink" href="#using-denial-handlers" title="Permalink to this headline">¶</a></h2>
+<p>By default, an authorization denial triggers one of the following actions:</p>
+<ul class="simple">
+<li>If the user is anonymous, <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authentication.html#module-repoze.who" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt></a> will perform a challenge (e.g.,
+a login form will be displayed).</li>
+<li>If the user is authenticated, a page whose HTTP status code is 403 will be
+served.</li>
+</ul>
+<p>If you want to override the default behavior when authorization is denied, you
+have define a so-called &#8220;denial handler&#8221;. A denial handler is a callable which
+receives one positional argument (which is the message that describes why
+authorization is denied; this is, the relevant <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> predicate
+message) and is called only when authorization is denied.</p>
+<p>The following is a denial handler:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># This is yourapplication.anotherpackage</span>
+
+<span class="kn">from</span> <span class="nn">pylons</span> <span class="kn">import</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span>
+<span class="kn">from</span> <span class="nn">pylons.controllers.util</span> <span class="kn">import</span> <span class="n">abort</span>
+<span class="c"># nice_flash is a function that inserts a user-visible message in the</span>
+<span class="c"># template</span>
+<span class="kn">from</span> <span class="nn">yourapplication.somepackage</span> <span class="kn">import</span> <span class="n">nice_flash</span>
+
+<span class="k">def</span> <span class="nf">cool_denial_handler</span><span class="p">(</span><span class="n">reason</span><span class="p">):</span>
+    <span class="c"># When this handler is called, response.status has two possible values:</span>
+    <span class="c"># 401 or 403.</span>
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_int</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s">&#39;Oops, you have to login: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">reason</span>
+        <span class="n">message_type</span> <span class="o">=</span> <span class="s">&#39;warning&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">identity</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;repoze.who.identity&#39;</span><span class="p">]</span>
+        <span class="n">userid</span> <span class="o">=</span> <span class="n">identity</span><span class="p">[</span><span class="s">&#39;repoze.who.userid&#39;</span><span class="p">]</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Come on, </span><span class="si">%s</span><span class="s">, you know you can&#39;t do that: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">userid</span><span class="p">,</span>
+                                                                   <span class="n">reason</span><span class="p">)</span>
+        <span class="n">message_type</span> <span class="o">=</span> <span class="s">&#39;error&#39;</span>
+    <span class="n">nice_flash</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">message_type</span><span class="p">)</span>
+    <span class="n">abort</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_int</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="n">reason</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">The denial handler above <strong>must</strong> call <tt class="docutils literal"><span class="pre">abort()</span></tt>, otherwise we&#8217;d be
+granting access to the request denied by <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authorization.html#module-repoze.what" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a>. Note that this
+is a feature, not a bug: In some situations you may not want to abort
+(e.g., you may want to redirect).</p>
+</div>
+<p>And you can use it as in:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">has_permission</span>
+<span class="kn">from</span> <span class="nn">repoze.what.plugins.pylonshq</span> <span class="kn">import</span> <span class="n">ActionProtector</span><span class="p">,</span> <span class="n">ControllerProtector</span>
+
+<span class="kn">from</span> <span class="nn">yourapplication.anotherpackage</span> <span class="kn">import</span> <span class="n">cool_denial_handler</span>
+
+<span class="nd">@ControllerProtector</span><span class="p">(</span><span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;manage&#39;</span><span class="p">),</span> <span class="n">cool_denial_handler</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ControlPanel</span><span class="p">(</span><span class="n">YourBaseController</span><span class="p">):</span>
+    <span class="c"># Place an expose() here if you use TG2</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nice_function_to_do_nothing</span><span class="p">()</span>
+
+    <span class="c"># Place an expose() here if you use TG2</span>
+    <span class="k">def</span> <span class="nf">delete_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nice_function_to_delete_a_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">RootController</span><span class="p">(</span><span class="n">YourBaseController</span><span class="p">):</span>
+
+    <span class="n">panel</span> <span class="o">=</span> <span class="n">ControlPanel</span><span class="p">()</span>
+
+    <span class="c"># Place an expose() here if you use TG2</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nice_function_to_do_nothing</span><span class="p">()</span>
+
+    <span class="c"># Place an expose() here if you use TG2</span>
+    <span class="nd">@ActionProtector</span><span class="p">(</span><span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;edit-articles&#39;</span><span class="p">),</span> <span class="n">cool_denial_handler</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">edit_article</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">article_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">get_article_edition_form</span><span class="p">(</span><span class="n">article_id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then, when authorization is denied:</p>
+<ul class="simple">
+<li>If the user is anonymous, she should be served a web page which contains a
+login form and a message that starts with &#8220;Oops, you have to login (...)&#8221;.
+The status code of such a response is up to the <a class="reference external" href="http://turbogears.org/2.0/docs/main/Auth/Authentication.html#module-repoze.who" title="(in TG2 v2.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt></a> challenger.</li>
+<li>If the user is authenticated, she should be served a web page that contains
+a message that starts with &#8220;Come on, <tt class="docutils literal"><span class="pre">{{username}}</span></tt>, you know (..)&#8221; and
+whose HTTP status code is 403.</li>
+</ul>
+</div>
+<div class="section" id="creating-application-specific-protectors">
+<h2>Creating application-specific protectors<a class="headerlink" href="#creating-application-specific-protectors" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes you may need to customize the controller and controller action
+protectors in many places within your application (or in the whole
+application). All you have to do is subclass the relevant protector.</p>
+<p>For example, if we use the <tt class="docutils literal"><span class="pre">cool_denial_handler</span></tt> function above very often,
+then we should create controller and controller action protectors which use
+that handler by default:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># This is yourapplication.yetanotherpackage</span>
+
+<span class="kn">from</span> <span class="nn">repoze.what.plugins.pylonshq</span> <span class="kn">import</span> <span class="n">ActionProtector</span><span class="p">,</span> <span class="n">ControllerProtector</span>
+<span class="kn">from</span> <span class="nn">yourapplication.anotherpackage</span> <span class="kn">import</span> <span class="n">cool_denial_handler</span>
+
+<span class="k">class</span> <span class="nc">CoolActionProtector</span><span class="p">(</span><span class="n">ActionProtector</span><span class="p">):</span>
+    <span class="n">default_denial_handler</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">cool_denial_handler</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">CoolControllerProtector</span><span class="p">(</span><span class="n">ControllerProtector</span><span class="p">):</span>
+    <span class="n">protector</span> <span class="o">=</span> <span class="n">CoolActionProtector</span>
+
+<span class="c"># The following is an alternate way to define CoolControllerProtector:</span>
+<span class="c"># class CoolControllerProtector(ControllerProtector):</span>
+<span class="c">#     default_denial_handler = staticmethod(cool_denial_handler)</span>
+</pre></div>
+</div>
+<p>Then our controllers would look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">has_permission</span>
+
+<span class="kn">from</span> <span class="nn">yourapplication.yetanotherpackage</span> <span class="kn">import</span> <span class="n">CoolActionProtector</span><span class="p">,</span> \
+                                              <span class="n">CoolControllerProtector</span>
+
+<span class="nd">@CoolControllerProtector</span><span class="p">(</span><span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;manage&#39;</span><span class="p">))</span>
+<span class="k">class</span> <span class="nc">ControlPanel</span><span class="p">(</span><span class="n">YourBaseController</span><span class="p">):</span>
+    <span class="c"># Place an expose() here if you use TG2</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nice_function_to_do_nothing</span><span class="p">()</span>
+
+    <span class="c"># Place an expose() here if you use TG2</span>
+    <span class="k">def</span> <span class="nf">delete_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nice_function_to_delete_a_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">RootController</span><span class="p">(</span><span class="n">YourBaseController</span><span class="p">):</span>
+
+    <span class="n">panel</span> <span class="o">=</span> <span class="n">ControlPanel</span><span class="p">()</span>
+
+    <span class="c"># Place an expose() here if you use TG2</span>
+    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nice_function_to_do_nothing</span><span class="p">()</span>
+
+    <span class="c"># Place an expose() here if you use TG2</span>
+    <span class="nd">@CoolActionProtector</span><span class="p">(</span><span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;edit-articles&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">edit_article</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">article_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">get_article_edition_form</span><span class="p">(</span><span class="n">article_id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And every time authorization is denied, the <tt class="docutils literal"><span class="pre">cool_denial_handler</span></tt> function
+will be called.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Protecting controllers and controller actions</a><ul>
+<li><a class="reference internal" href="#protecting-a-controller-action">Protecting a controller action</a></li>
+<li><a class="reference internal" href="#protecting-a-controller">Protecting a controller</a></li>
+<li><a class="reference internal" href="#using-denial-handlers">Using denial handlers</a></li>
+<li><a class="reference internal" href="#creating-application-specific-protectors">Creating application-specific protectors</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="GettingStarted.html"
+                        title="previous chapter">Getting started</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Misc.html"
+                        title="next chapter">Miscellaneous utilities</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/Manual/Protecting.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Misc.html" title="Miscellaneous utilities"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="GettingStarted.html" title="Getting started"
+             >previous</a> |</li>
+        <li><a href="../index.html">repoze.what utilities for Pylons applications v1.0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >The <strong>repoze.what-pylons</strong> Users&#8217; Manual</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, The Repoze Project.
+      Last updated on Apr 12, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

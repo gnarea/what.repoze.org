@@ -1,0 +1,20 @@
+# Sphinx inventory version 1
+# Project: repoze.what-django
+# Version: 1.0
+repoze.what.plugins.dj.denial_handlers mod API.html
+repoze.what.plugins.dj mod index.html
+repoze.what.plugins.dj.IS_SUPERUSER data API.html
+repoze.what.plugins.dj.RepozeWhatMiddleware.process_view method API.html
+repoze.what.plugins.dj.RepozeWhatMiddleware.process_exception method API.html
+repoze.what.plugins.dj.is_met function API.html
+repoze.what.plugins.dj.not_met function API.html
+repoze.what.plugins.dj.denial_handlers.default_denial_handler function API.html
+repoze.what.plugins.dj.IsActive class API.html
+repoze.what.plugins.dj.IS_STAFF data API.html
+repoze.what.plugins.dj.IsStaff class API.html
+repoze.what.plugins.dj.RepozeWhatMiddleware class API.html
+repoze.what.plugins.dj.enforce function API.html
+repoze.what.plugins.dj.require function API.html
+repoze.what.plugins.dj.IS_ACTIVE data API.html
+repoze.what.plugins.dj.IsSuperuser class API.html
+repoze.what.plugins.dj.can_access function API.html

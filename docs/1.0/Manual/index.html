@@ -1,0 +1,201 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The repoze.what Manual &mdash; repoze.what v1.0.9 documentation</title>
+    <link rel="stylesheet" href="../_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="repoze.what v1.0.9 documentation" href="../index.html" />
+    <link rel="next" title="Getting started with repoze.what" href="GettingStarted.html" />
+    <link rel="prev" title="repoze.what – Authorization for WSGI applications" href="../index.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="GettingStarted.html" title="Getting started with repoze.what"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="repoze.what – Authorization for WSGI applications"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">repoze.what v1.0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-repoze-what-manual">
+<h1>The <a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> Manual<a class="headerlink" href="#the-repoze-what-manual" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Gustavo Narea.</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">1.0</td>
+</tr>
+</tbody>
+</table>
+<p>Below are the contents for the <a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> manual:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="GettingStarted.html">Getting started with <tt class="docutils literal"><span class="pre">repoze.what</span></tt></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="GettingStarted.html#terminology">Terminology</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="GettingStarted.html#sample-sources">Sample sources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="GettingStarted.html#setting-up-authentication-and-authorization">Setting up authentication and authorization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="GettingStarted.html#using-authentication-and-authorization-without-the-quickstart">Using authentication and authorization without the quickstart</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="GettingStarted.html#what-s-next">What&#8217;s next?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Predicates/index.html">Controlling access with predicates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Predicates/index.html#more-on-predicates">More on predicates</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Predicates/Builtin.html">Built-in predicate checkers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Predicates/Evaluating.html">Evaluating your predicates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Predicates/Writing.html">Creating your own single predicate checkers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ManagingSources.html">How to manage groups and permission sources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ManagingSources.html#managing-your-sources">Managing your sources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ManagingSources.html#retrieving-all-the-available-sections-from-a-source">Retrieving all the available <tt class="docutils literal"><span class="pre">sections</span></tt> from a source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ManagingSources.html#retrieving-all-the-items-from-a-given-section">Retrieving all the <tt class="docutils literal"><span class="pre">items</span></tt> from a given <tt class="docutils literal"><span class="pre">section</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ManagingSources.html#setting-the-items-of-a-given-section">Setting the <tt class="docutils literal"><span class="pre">items</span></tt> of a given <tt class="docutils literal"><span class="pre">section</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ManagingSources.html#including-items-in-a-section">Including <tt class="docutils literal"><span class="pre">items</span></tt> in a <tt class="docutils literal"><span class="pre">section</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ManagingSources.html#excluding-items-from-a-section">Excluding <tt class="docutils literal"><span class="pre">items</span></tt> from a <tt class="docutils literal"><span class="pre">section</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ManagingSources.html#adding-a-section-to-a-source">Adding a <tt class="docutils literal"><span class="pre">section</span></tt> to a <tt class="docutils literal"><span class="pre">source</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ManagingSources.html#renaming-a-section">Renaming a <tt class="docutils literal"><span class="pre">section</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ManagingSources.html#removing-a-section-from-a-source">Removing a <tt class="docutils literal"><span class="pre">section</span></tt> from a <tt class="docutils literal"><span class="pre">source</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ManagingSources.html#checking-whether-the-source-is-writable">Checking whether the <tt class="docutils literal"><span class="pre">source</span></tt> is writable</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ManagingSources.html#possible-problems">Possible problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManagingSources.html#writing-your-own-source-adapters">Writing your own source adapters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ManagingSources.html#sample-source-adapters">Sample <tt class="docutils literal"><span class="pre">source</span> <span class="pre">adapters</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ManagingSources.html#module-repoze.what.adapters.testutil">Testing your source adapters with <tt class="docutils literal"><span class="pre">testutil</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Plugins/index.html"><tt class="docutils literal"><span class="pre">repoze.what.plugins</span></tt> &#8211; Available plugins for <tt class="docutils literal"><span class="pre">repoze.what</span></tt></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/index.html#available-adapters-plugins">Available <tt class="docutils literal"><span class="pre">adapters</span> <span class="pre">plugins</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/index.html#available-predicates-plugins">Available <tt class="docutils literal"><span class="pre">predicates</span> <span class="pre">plugins</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins/index.html#available-extras-plugins">Available <tt class="docutils literal"><span class="pre">extras</span> <span class="pre">plugins</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="InnerWorkings.html">The inner-workings of <tt class="docutils literal"><span class="pre">repoze.what</span></tt></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="InnerWorkings.html#wsgi-environment-variables">WSGI environment variables</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> &#8211; Authorization for WSGI applications</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="GettingStarted.html"
+                        title="next chapter">Getting started with <tt class="docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/Manual/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="GettingStarted.html" title="Getting started with repoze.what"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="repoze.what – Authorization for WSGI applications"
+             >previous</a> |</li>
+        <li><a href="../index.html">repoze.what v1.0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The Repoze Project.
+      Last updated on Apr 11, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

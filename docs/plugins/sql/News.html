@@ -1,0 +1,213 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>repoze.what.plugins.sql releases &mdash; repoze.what SQL plugin v1.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="repoze.what SQL plugin v1.0.1 documentation" href="index.html" />
+    <link rel="prev" title="repoze.what SQL source adapters" href="Adapters.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Adapters.html" title="repoze.what SQL source adapters"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">repoze.what SQL plugin v1.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="repoze-what-plugins-sql-releases">
+<h1><a class="reference internal" href="index.html#module-repoze.what.plugins.sql" title="repoze.what.plugins.sql: SQL support for repoze.what"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.sql</span></tt></a> releases<a class="headerlink" href="#repoze-what-plugins-sql-releases" title="Permalink to this headline">¶</a></h1>
+<p>This document describes the releases of <a class="reference internal" href="index.html#module-repoze.what.plugins.sql" title="repoze.what.plugins.sql: SQL support for repoze.what"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.sql</span></tt></a>.</p>
+<div class="section" id="version-1-0-1-2011-04-07">
+<h2>Version 1.0.1 (2011-04-07)<a class="headerlink" href="#version-1-0-1-2011-04-07" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Made compatible with SQLAlchemy 0.7b2, by replacing import from
+<tt class="xref py py-mod docutils literal"><span class="pre">sqlalchemy.exceptions</span></tt> with <tt class="xref py py-mod docutils literal"><span class="pre">sqlalchemy.exc</span></tt>.</li>
+<li>Made it possible to set dynamically the groups to which a user belongs and
+the permissions granted to a group, by allowing the user class to have
+&#8220;groups&#8221; as a property (rather than a SQLAlchemy relationship) and the group
+class to have &#8220;permissions&#8221; as a property (rather than a SQLAlchemy
+relationships). Thanks to Nicolas Laurance!</li>
+</ul>
+</div>
+<div class="section" id="version-1-0-final-2010-03-11">
+<h2>Version 1.0 Final (2010-03-11)<a class="headerlink" href="#version-1-0-final-2010-03-11" title="Permalink to this headline">¶</a></h2>
+<p>Removed the test suite and the documentation from the final distribution.</p>
+</div>
+<div class="section" id="version-1-0rc1-2009-01-30">
+<h2>Version 1.0rc1 (2009-01-30)<a class="headerlink" href="#version-1-0rc1-2009-01-30" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Moved <a class="reference external" href="http://what.repoze.org/docs/plugins/quickstart/index.html#module-repoze.what.plugins.quickstart" title="(in repoze.what Quickstart v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.quickstart</span></tt></a> into an independent project.</li>
+</ul>
+</div>
+<div class="section" id="version-1-0b1-2009-01-27">
+<h2>Version 1.0b1 (2009-01-27)<a class="headerlink" href="#version-1-0b1-2009-01-27" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Synchronized to <a class="reference external" href="http://what.repoze.org/docs/1.0/index.html#repoze.what" title="(in repoze.what v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> v1.0.1 and its <tt class="docutils literal"><span class="pre">credentials</span></tt> dict.</li>
+<li>Loaded the user object into the <tt class="docutils literal"><span class="pre">identity</span></tt> thanks to
+<a class="reference external" href="http://code.gustavonarea.net/repoze.who.plugins.sa/index.html#repoze.who.plugins.sa.SQLAlchemyUserMDPlugin" title="(in repoze.who SQLAlchemy plugin v1.0)"><tt class="xref py py-class docutils literal"><span class="pre">repoze.who.plugins.sa.SQLAlchemyUserMDPlugin</span></tt></a>.</li>
+<li>Many minor fixes.</li>
+</ul>
+</div>
+<div class="section" id="version-1-0a5-2009-01-08">
+<h2>Version 1.0a5 (2009-01-08)<a class="headerlink" href="#version-1-0a5-2009-01-08" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>I replaced <tt class="docutils literal"><span class="pre">/logout_handler</span></tt> with <tt class="docutils literal"><span class="pre">/logout</span></tt> by mistake while making that
+setting customizable in the previous release, which broke some applications.
+That&#8217;s now fixed (<tt class="docutils literal"><span class="pre">/logout_handler</span></tt> is back).</li>
+</ul>
+</div>
+<div class="section" id="version-1-0a4-2009-01-02">
+<h2>Version 1.0a4 (2009-01-02)<a class="headerlink" href="#version-1-0a4-2009-01-02" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Added the ability to customize the login/logout related URLs through
+<a class="reference external" href="http://what.repoze.org/docs/plugins/quickstart/index.html#repoze.what.plugins.quickstart.setup_sql_auth" title="(in repoze.what Quickstart v1.0)"><tt class="xref py py-func docutils literal"><span class="pre">repoze.what.plugins.quickstart.setup_sql_auth()</span></tt></a>
+(<a class="reference external" href="http://trac.turbogears.org/ticket/2114">TurboGears Ticket #2114</a>).</li>
+</ul>
+</div>
+<div class="section" id="version-1-0a3-2008-12-19">
+<h2>Version 1.0a3 (2008-12-19)<a class="headerlink" href="#version-1-0a3-2008-12-19" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Moved the <tt class="xref py py-class docutils literal"><span class="pre">repoze.what.plugins.quickstart.SQLAuthenticatorPlugin</span></tt>
+authenticator into a new, <a class="reference external" href="http://what.repoze.org/docs/1.0/index.html#repoze.what" title="(in repoze.what v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a>-independent project:
+<a class="reference external" href="http://code.gustavonarea.net/repoze.who.plugins.sa/index.html#module-repoze.who.plugins.sa" title="(in repoze.who SQLAlchemy plugin v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who.plugins.sa</span></tt></a>.</li>
+<li><a class="reference internal" href="Adapters.html#repoze.what.plugins.sql.adapters.SqlGroupsAdapter" title="repoze.what.plugins.sql.adapters.SqlGroupsAdapter"><tt class="xref py py-class docutils literal"><span class="pre">repoze.what.plugins.sql.adapters.SqlGroupsAdapter</span></tt></a> ignored
+translations while retrieving the groups to which the authenticated user
+belongs (<a class="reference external" href="http://trac.turbogears.org/ticket/2094">TurboGears Ticket #2094</a>).</li>
+<li>The documentation for this plugin has been updated and is now hosted at
+<a class="reference external" href="http://code.gustavonarea.net/repoze.what.plugins.sql/">http://code.gustavonarea.net/repoze.what.plugins.sql/</a></li>
+</ul>
+</div>
+<div class="section" id="version-1-0a2-2008-12-04">
+<h2>Version 1.0a2 (2008-12-04)<a class="headerlink" href="#version-1-0a2-2008-12-04" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Fixed the broken test suite for Elixir, thanks to Helio Pereira.</li>
+<li>Updated <a class="reference external" href="http://what.repoze.org/docs/plugins/quickstart/index.html#repoze.what.plugins.quickstart.setup_sql_auth" title="(in repoze.what Quickstart v1.0)"><tt class="xref py py-func docutils literal"><span class="pre">repoze.what.plugins.quickstart.setup_sql_auth()</span></tt></a> according
+to the backwards incompatible change on
+<tt class="xref py py-func docutils literal"><span class="pre">repoze.what.middleware.setup_auth()</span></tt> introduced in
+<a class="reference external" href="http://what.repoze.org/docs/1.0/index.html#repoze.what" title="(in repoze.what v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a>-1.0b2.</li>
+<li>Now it&#8217;s possible to customize the authentication/identification cookie
+through <a class="reference external" href="http://what.repoze.org/docs/plugins/quickstart/index.html#repoze.what.plugins.quickstart.setup_sql_auth" title="(in repoze.what Quickstart v1.0)"><tt class="xref py py-func docutils literal"><span class="pre">repoze.what.plugins.quickstart.setup_sql_auth()</span></tt></a>.</li>
+<li>Tons of minor bug fixes.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">repoze.what.plugins.sql</span></tt> releases</a><ul>
+<li><a class="reference internal" href="#version-1-0-1-2011-04-07">Version 1.0.1 (2011-04-07)</a></li>
+<li><a class="reference internal" href="#version-1-0-final-2010-03-11">Version 1.0 Final (2010-03-11)</a></li>
+<li><a class="reference internal" href="#version-1-0rc1-2009-01-30">Version 1.0rc1 (2009-01-30)</a></li>
+<li><a class="reference internal" href="#version-1-0b1-2009-01-27">Version 1.0b1 (2009-01-27)</a></li>
+<li><a class="reference internal" href="#version-1-0a5-2009-01-08">Version 1.0a5 (2009-01-08)</a></li>
+<li><a class="reference internal" href="#version-1-0a4-2009-01-02">Version 1.0a4 (2009-01-02)</a></li>
+<li><a class="reference internal" href="#version-1-0a3-2008-12-19">Version 1.0a3 (2008-12-19)</a></li>
+<li><a class="reference internal" href="#version-1-0a2-2008-12-04">Version 1.0a2 (2008-12-04)</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Adapters.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">repoze.what</span></tt> SQL source adapters</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/News.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Adapters.html" title="repoze.what SQL source adapters"
+             >previous</a> |</li>
+        <li><a href="index.html">repoze.what SQL plugin v1.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2011, The Repoze Project.
+      Last updated on Apr 12, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

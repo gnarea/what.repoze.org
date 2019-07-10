@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Evaluating your predicates &mdash; repoze.what v1.0.9 documentation</title>
+    <link rel="stylesheet" href="../../_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="repoze.what v1.0.9 documentation" href="../../index.html" />
+    <link rel="up" title="Controlling access with predicates" href="index.html" />
+    <link rel="next" title="Creating your own single predicate checkers" href="Writing.html" />
+    <link rel="prev" title="Built-in predicate checkers" href="Builtin.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Writing.html" title="Creating your own single predicate checkers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Builtin.html" title="Built-in predicate checkers"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">repoze.what v1.0.9 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >The <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> Manual</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Controlling access with predicates</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="evaluating-your-predicates">
+<h1>Evaluating your predicates<a class="headerlink" href="#evaluating-your-predicates" title="Permalink to this headline">¶</a></h1>
+<p>Evaluating a predicate is to check whether it is met or not. There are two
+ways of evaluating predicates, and which one should you use depends on the
+situation:</p>
+<div class="section" id="raising-an-exception-if-the-predicate-is-not-met">
+<h2>Raising an exception if the predicate is not met<a class="headerlink" href="#raising-an-exception-if-the-predicate-is-not-met" title="Permalink to this headline">¶</a></h2>
+<p>If you need to enforce that to access the requested resource the predicate
+must be met, you should use <tt class="xref py py-meth docutils literal"><span class="pre">Predicate.check_authorization</span></tt> because it
+will raise an exception if it&#8217;s not met.</p>
+<p>For example, if you have a sensitive function that should be run by certain
+users, you may use it at the start of the function as in the example below:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ...</span>
+<span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">has_permission</span>
+<span class="c"># ...</span>
+<span class="n">environ</span> <span class="o">=</span> <span class="n">give_me_the_wsgi_environ</span><span class="p">()</span>
+<span class="c"># ...</span>
+
+<span class="k">def</span> <span class="nf">add_comment</span><span class="p">(</span><span class="n">post_id</span><span class="p">,</span> <span class="n">comment</span><span class="p">):</span>
+    <span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;post-comment&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">check_authorization</span><span class="p">(</span><span class="n">environ</span><span class="p">)</span>
+    <span class="c"># If reached this point, then the user *can* leave a comment!</span>
+    <span class="n">new_comment</span> <span class="o">=</span> <span class="n">Comment</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">post_id</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">)</span>
+    <span class="n">save</span><span class="p">(</span><span class="n">new_comment</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The exception raised is <tt class="xref py py-class docutils literal"><span class="pre">repoze.what.predicates.NotAuthorizedError</span></tt>.</p>
+<p>Web frameworks may provide utilities to make it easier to check authorization
+this way. For example, the TurboGears framework provides the <tt class="docutils literal"><span class="pre">&#64;require</span></tt>
+decorator for actions, which can be used as in the example below:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ...</span>
+<span class="kn">from</span> <span class="nn">tg</span> <span class="kn">import</span> <span class="n">require</span>
+<span class="c"># ...</span>
+<span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">has_permission</span>
+<span class="c"># ...</span>
+
+<span class="k">class</span> <span class="nc">BlogController</span><span class="p">(</span><span class="n">BaseController</span><span class="p">):</span>
+    <span class="c"># ...</span>
+    <span class="nd">@expose</span><span class="p">(</span><span class="s">&#39;coolproject.templates.blog&#39;</span><span class="p">)</span>
+    <span class="nd">@require</span><span class="p">(</span><span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;post-comment&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">add_comment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post_id</span><span class="p">,</span> <span class="n">comment</span><span class="p">):</span>
+        <span class="n">new_comment</span> <span class="o">=</span> <span class="n">Comment</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">post_id</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">)</span>
+        <span class="n">save</span><span class="p">(</span><span class="n">new_comment</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As you may have noticed, it&#8217;s a more elegant solution because the predicate is
+defined outside of the method itself and the framework automatically passes
+the WSGI environment to <tt class="xref py py-meth docutils literal"><span class="pre">Predicate.check_authorization</span></tt>. The framework
+also catches the exception and replaces it with a 401 HTTP error and a error
+message visible to the user.</p>
+</div>
+<div class="section" id="finding-if-it-s-met-or-not">
+<h2>Finding if it&#8217;s met or not<a class="headerlink" href="#finding-if-it-s-met-or-not" title="Permalink to this headline">¶</a></h2>
+<p>If you want to control access on a portion of the resource, not in the whole
+resource, you may want to avoid the exception
+<tt class="xref py py-meth docutils literal"><span class="pre">Predicate.check_authorization</span></tt> would raise if the
+predicate that controls that portion is not met. For example, you may want to
+grant access to a given page if the user has the &#8220;post-comment&#8221; permission,
+but only display a polite message if she belongs to the &#8220;customer&#8221; group.</p>
+<p>This is where <tt class="xref py py-meth docutils literal"><span class="pre">Predicate.is_met</span></tt> would come into play. You can use
+it as in the code below:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ...</span>
+<span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">has_permission</span><span class="p">,</span> <span class="n">in_group</span>
+<span class="c"># ...</span>
+<span class="n">environ</span> <span class="o">=</span> <span class="n">give_me_the_wsgi_environ</span><span class="p">()</span>
+<span class="c"># ...</span>
+
+<span class="k">def</span> <span class="nf">add_comment</span><span class="p">(</span><span class="n">post_id</span><span class="p">,</span> <span class="n">comment</span><span class="p">):</span>
+    <span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;post-comment&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">check_authorization</span><span class="p">(</span><span class="n">environ</span><span class="p">)</span>
+    <span class="c"># If reached this point, then the user *can* leave a comment!</span>
+    <span class="n">new_comment</span> <span class="o">=</span> <span class="n">Comment</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">post_id</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">)</span>
+    <span class="n">save</span><span class="p">(</span><span class="n">new_comment</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">in_group</span><span class="p">(</span><span class="s">&#39;customer&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">is_met</span><span class="p">(</span><span class="n">environ</span><span class="p">):</span>
+        <span class="n">print_message</span><span class="p">(</span><span class="s">&#39;Dear customer, thanks for your comment!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="module-repoze.what.authorize">
+<span id="repoze-what-authorize"></span><h3><a class="reference internal" href="#module-repoze.what.authorize" title="repoze.what.authorize: repoze.what authorization utilities"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.authorize</span></tt></a><a class="headerlink" href="#module-repoze.what.authorize" title="Permalink to this headline">¶</a></h3>
+<p>Before <tt class="xref py py-meth docutils literal"><span class="pre">Predicate.check_authorization</span></tt>, predicates were
+evaluated with <tt class="xref py py-func docutils literal"><span class="pre">check_authorization()</span></tt> where you wanted to restrict access.
+That function was run before performing the protected procedure so that it can
+raise the <tt class="xref py py-class docutils literal"><span class="pre">NotAuthorizedError</span></tt> exception if the user was not
+authorized:</p>
+<p>For example, if you have a sensitive function that should be run by certain
+users, you may use it at the start of the function as in the example below:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ...</span>
+<span class="kn">from</span> <span class="nn">repoze.what.authorize</span> <span class="kn">import</span> <span class="n">check_authorization</span>
+<span class="kn">from</span> <span class="nn">repoze.what.predicates</span> <span class="kn">import</span> <span class="n">has_permission</span>
+<span class="c"># ...</span>
+<span class="n">environ</span> <span class="o">=</span> <span class="n">give_me_the_wsgi_environ</span><span class="p">()</span>
+<span class="c"># ...</span>
+
+<span class="k">def</span> <span class="nf">add_comment</span><span class="p">(</span><span class="n">post_id</span><span class="p">,</span> <span class="n">comment</span><span class="p">):</span>
+    <span class="n">check_authorization</span><span class="p">(</span><span class="n">has_permission</span><span class="p">(</span><span class="s">&#39;post-comment&#39;</span><span class="p">),</span> <span class="n">environ</span><span class="p">)</span>
+    <span class="c"># If reached this point, then the user *can* leave a comment!</span>
+    <span class="n">new_comment</span> <span class="o">=</span> <span class="n">Comment</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">post_id</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">)</span>
+    <span class="n">save</span><span class="p">(</span><span class="n">new_comment</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Evaluating your predicates</a><ul>
+<li><a class="reference internal" href="#raising-an-exception-if-the-predicate-is-not-met">Raising an exception if the predicate is not met</a></li>
+<li><a class="reference internal" href="#finding-if-it-s-met-or-not">Finding if it&#8217;s met or not</a><ul>
+<li><a class="reference internal" href="#module-repoze.what.authorize"><tt class="docutils literal"><span class="pre">repoze.what.authorize</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Builtin.html"
+                        title="previous chapter">Built-in predicate checkers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Writing.html"
+                        title="next chapter">Creating your own single predicate checkers</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/Manual/Predicates/Evaluating.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Writing.html" title="Creating your own single predicate checkers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Builtin.html" title="Built-in predicate checkers"
+             >previous</a> |</li>
+        <li><a href="../../index.html">repoze.what v1.0.9 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >The <tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> Manual</a> &raquo;</li>
+          <li><a href="index.html" >Controlling access with predicates</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The Repoze Project.
+      Last updated on Apr 11, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

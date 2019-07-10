@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>repoze.what.plugins.quickstart releases &mdash; repoze.what Quickstart 1.0.9 documentation</title>
+    
+    <link rel="stylesheet" href="_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="repoze.what Quickstart 1.0.9 documentation" href="index.html" />
+    <link rel="prev" title="repoze.what Quickstart via configuration files" href="Config.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Config.html" title="repoze.what Quickstart via configuration files"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">repoze.what Quickstart 1.0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="repoze-what-plugins-quickstart-releases">
+<h1><a class="reference internal" href="index.html#module-repoze.what.plugins.quickstart" title="repoze.what.plugins.quickstart: Ready-to-use authentication and authorization"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.quickstart</span></tt></a> releases<a class="headerlink" href="#repoze-what-plugins-quickstart-releases" title="Permalink to this headline">¶</a></h1>
+<p>This document describes the releases of <a class="reference internal" href="index.html#module-repoze.what.plugins.quickstart" title="repoze.what.plugins.quickstart: Ready-to-use authentication and authorization"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.quickstart</span></tt></a>.</p>
+<div class="section" id="version-1-0-9-2011-11-29">
+<h2>Version 1.0.9 (2011-11-29)<a class="headerlink" href="#version-1-0-9-2011-11-29" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Added support for the optional timing attack protection in
+<a class="reference external" href="http://code.gustavonarea.net/repoze.who.plugins.sa/index.html#repoze.who.plugins.sa" title="(in repoze.who SQLAlchemy plugin v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who.plugins.sa</span></tt></a> (<tt class="docutils literal"><span class="pre">dummy_validate_password</span></tt>), by <a class="reference external" href="https://github.com/repoze/repoze.what-quickstart/pull/1">Arturo Sevilla</a>.</li>
+</ul>
+</div>
+<div class="section" id="version-1-0-8-2010-05-20">
+<h2>Version 1.0.8 (2010-05-20)<a class="headerlink" href="#version-1-0-8-2010-05-20" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Made <a class="reference internal" href="index.html#repoze.what.plugins.quickstart.setup_sql_auth" title="repoze.what.plugins.quickstart.setup_sql_auth"><tt class="xref py py-func docutils literal"><span class="pre">setup_sql_auth()</span></tt></a> skip the default
+<a class="reference external" href="http://docs.repoze.org/who/1.0/index.html#module-repoze.who" title="(in repoze.who v1.0.18)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt></a> SQLAlchemy authenticator when requested so with the
+<tt class="docutils literal"><span class="pre">use_default_authenticator</span></tt> argument.</li>
+</ul>
+</div>
+<div class="section" id="version-1-0-7-2010-05-05">
+<h2>Version 1.0.7 (2010-05-05)<a class="headerlink" href="#version-1-0-7-2010-05-05" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Required <a class="reference external" href="http://docs.repoze.org/who/1.0/index.html#module-repoze.who" title="(in repoze.who v1.0.18)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt></a> &lt; 2.0, as v2 is not supported yet.</li>
+<li>Added support for <tt class="docutils literal"><span class="pre">skip_authentication</span></tt> in the configuration file, by
+Néstor Salceda. ¡Gracias, Néstor!</li>
+<li>Documentation moved to <a class="reference external" href="http://what.repoze.org/docs/plugins/quickstart/">http://what.repoze.org/docs/plugins/quickstart/</a>.</li>
+</ul>
+</div>
+<div class="section" id="version-1-0-6-2010-01-31">
+<h2>Version 1.0.6 (2010-01-31)<a class="headerlink" href="#version-1-0-6-2010-01-31" title="Permalink to this headline">¶</a></h2>
+<p>Added the ability to make <a class="reference external" href="http://code.gustavonarea.net/repoze.who-friendlyform/index.html#repoze.who.plugins.friendlyform.FriendlyFormPlugin" title="(in Collection of repoze.who friendly form plugins v1.0)"><tt class="xref py py-class docutils literal"><span class="pre">FriendlyFormPlugin</span></tt></a>
+use a character encoding other than the default one (ISO-8859-1/Latin-1).</p>
+</div>
+<div class="section" id="version-1-0-5-2010-01-27">
+<h2>Version 1.0.5 (2010-01-27)<a class="headerlink" href="#version-1-0-5-2010-01-27" title="Permalink to this headline">¶</a></h2>
+<p>Added support for custom <tt class="docutils literal"><span class="pre">Max-Age</span></tt> values as requested on <a class="reference external" href="http://groups.google.com/group/pylons-discuss/browse_thread/thread/3bf1a87670443b45">pylons-discuss</a>.
+To use it, you can pass the <tt class="docutils literal"><span class="pre">cookie_timeout</span></tt> and <tt class="docutils literal"><span class="pre">cookie_reissue_time</span></tt>
+to <a class="reference internal" href="index.html#repoze.what.plugins.quickstart.setup_sql_auth" title="repoze.what.plugins.quickstart.setup_sql_auth"><tt class="xref py py-func docutils literal"><span class="pre">setup_sql_auth()</span></tt></a>. This is also supported
+in the Ini configuration files.</p>
+</div>
+<div class="section" id="version-1-0-4-2009-12-07">
+<h2>Version 1.0.4 (2009-12-07)<a class="headerlink" href="#version-1-0-4-2009-12-07" title="Permalink to this headline">¶</a></h2>
+<p>Added the options <tt class="docutils literal"><span class="pre">log_file</span></tt> and <tt class="docutils literal"><span class="pre">log_level</span></tt> to the <tt class="docutils literal"><span class="pre">[authentication]</span></tt>
+section in the <a class="reference internal" href="Config.html"><em>configuration file</em></a>. Thanks to Darryl Cousins.</p>
+</div>
+<div class="section" id="version-1-0-2-and-1-0-3-2009-10-09">
+<h2>Version 1.0.2 and 1.0.3 (2009-10-09)<a class="headerlink" href="#version-1-0-2-and-1-0-3-2009-10-09" title="Permalink to this headline">¶</a></h2>
+<p>Synchronized with the latest version of <strong>repoze.what-pylons</strong>. Thanks to Chris
+Perkins.</p>
+</div>
+<div class="section" id="version-1-0-1-2009-08-14">
+<h2>Version 1.0.1 (2009-08-14)<a class="headerlink" href="#version-1-0-1-2009-08-14" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Added support for <a class="reference internal" href="Config.html"><em>configuration files</em></a>.</li>
+<li>Added a warning to encourage people to set a custom key to encrypt and decrypt
+the cookies.</li>
+</ul>
+</div>
+<div class="section" id="version-1-0-2009-03-02">
+<h2>Version 1.0 (2009-03-02)<a class="headerlink" href="#version-1-0-2009-03-02" title="Permalink to this headline">¶</a></h2>
+<p>The final version 1.0 of <a class="reference internal" href="index.html#module-repoze.what.plugins.quickstart" title="repoze.what.plugins.quickstart: Ready-to-use authentication and authorization"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.quickstart</span></tt></a> is the same as
+v1.0rc4, since no bug has been found.</p>
+</div>
+<div class="section" id="version-1-0rc4-2009-02-18">
+<h2>Version 1.0rc4 (2009-02-18)<a class="headerlink" href="#version-1-0rc4-2009-02-18" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Made the groups/permissions-based authorization pattern optional, as in
+<a class="reference external" href="http://what.repoze.org/docs/1.0/index.html#repoze.what" title="(in repoze.what v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> itself. If you don&#8217;t want to use it, set <tt class="docutils literal"><span class="pre">group_class</span></tt>
+and <tt class="docutils literal"><span class="pre">permission_class</span></tt> to <tt class="docutils literal"><span class="pre">None</span></tt> (when calling
+<a class="reference internal" href="index.html#repoze.what.plugins.quickstart.setup_sql_auth" title="repoze.what.plugins.quickstart.setup_sql_auth"><tt class="xref py py-func docutils literal"><span class="pre">repoze.what.plugins.quickstart.setup_sql_auth()</span></tt></a>).</li>
+</ul>
+</div>
+<div class="section" id="version-1-0rc3-2009-02-17">
+<h2>Version 1.0rc3 (2009-02-17)<a class="headerlink" href="#version-1-0rc3-2009-02-17" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Updated the sample SQLAlchemy and Elixir models in the documentation, making
+clear how the SQLAlchemy session object should be imported depending on the
+used framework (if any).</li>
+<li>Moved <tt class="xref py py-class docutils literal"><span class="pre">repoze.what.plugins.quickstart.FriendlyRedirectingFormPlugin</span></tt>
+to <a class="reference external" href="http://code.gustavonarea.net/repoze.who-friendlyform/index.html#repoze.who.plugins.friendlyform.FriendlyFormPlugin" title="(in Collection of repoze.who friendly form plugins v1.0)"><tt class="xref py py-class docutils literal"><span class="pre">repoze.who.plugins.friendlyform.FriendlyFormPlugin</span></tt></a>. <strong>This may
+seem like a backwards-incompatible change, but it is not</strong> because since this
+<a class="reference external" href="http://docs.repoze.org/who/1.0/index.html#module-repoze.who" title="(in repoze.who v1.0.18)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt></a> plugin was defined in this package as of version 1.0rc1,
+it was recommended not to use it directly because it was a temporary
+location. If you didn&#8217;t use it directly, you have nothing to worry about.</li>
+</ul>
+</div>
+<div class="section" id="version-1-0rc2-2009-02-11">
+<h2>Version 1.0rc2 (2009-02-11)<a class="headerlink" href="#version-1-0rc2-2009-02-11" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><tt class="xref py py-class docutils literal"><span class="pre">FriendlyRedirectingFormPlugin</span></tt> ignored
+<tt class="docutils literal"><span class="pre">environ['SCRIPT_NAME']</span></tt>.</li>
+<li>Small fixes in the documentation.</li>
+</ul>
+</div>
+<div class="section" id="version-1-0rc1-2009-01-30">
+<h2>Version 1.0rc1 (2009-01-30)<a class="headerlink" href="#version-1-0rc1-2009-01-30" title="Permalink to this headline">¶</a></h2>
+<p>This is the first release of <a class="reference internal" href="index.html#module-repoze.what.plugins.quickstart" title="repoze.what.plugins.quickstart: Ready-to-use authentication and authorization"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.quickstart</span></tt></a> as an
+independent project. This module used to be defined by old versions of
+<a class="reference external" href="http://what.repoze.org/docs/plugins/sql/index.html#repoze.what.plugins.sql" title="(in repoze.what SQL plugin v1.0)"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.plugins.sql</span></tt></a>. There are no backwards incompatible changes
+at all.</p>
+<ul class="simple">
+<li>Introduced the plugin <tt class="xref py py-class docutils literal"><span class="pre">FriendlyRedirectingFormPlugin</span></tt> and used by
+default in <a class="reference internal" href="index.html#repoze.what.plugins.quickstart.setup_sql_auth" title="repoze.what.plugins.quickstart.setup_sql_auth"><tt class="xref py py-func docutils literal"><span class="pre">repoze.what.plugins.quickstart.setup_sql_auth()</span></tt></a>.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">repoze.what.plugins.quickstart</span></tt> releases</a><ul>
+<li><a class="reference internal" href="#version-1-0-9-2011-11-29">Version 1.0.9 (2011-11-29)</a></li>
+<li><a class="reference internal" href="#version-1-0-8-2010-05-20">Version 1.0.8 (2010-05-20)</a></li>
+<li><a class="reference internal" href="#version-1-0-7-2010-05-05">Version 1.0.7 (2010-05-05)</a></li>
+<li><a class="reference internal" href="#version-1-0-6-2010-01-31">Version 1.0.6 (2010-01-31)</a></li>
+<li><a class="reference internal" href="#version-1-0-5-2010-01-27">Version 1.0.5 (2010-01-27)</a></li>
+<li><a class="reference internal" href="#version-1-0-4-2009-12-07">Version 1.0.4 (2009-12-07)</a></li>
+<li><a class="reference internal" href="#version-1-0-2-and-1-0-3-2009-10-09">Version 1.0.2 and 1.0.3 (2009-10-09)</a></li>
+<li><a class="reference internal" href="#version-1-0-1-2009-08-14">Version 1.0.1 (2009-08-14)</a></li>
+<li><a class="reference internal" href="#version-1-0-2009-03-02">Version 1.0 (2009-03-02)</a></li>
+<li><a class="reference internal" href="#version-1-0rc4-2009-02-18">Version 1.0rc4 (2009-02-18)</a></li>
+<li><a class="reference internal" href="#version-1-0rc3-2009-02-17">Version 1.0rc3 (2009-02-17)</a></li>
+<li><a class="reference internal" href="#version-1-0rc2-2009-02-11">Version 1.0rc2 (2009-02-11)</a></li>
+<li><a class="reference internal" href="#version-1-0rc1-2009-01-30">Version 1.0rc1 (2009-01-30)</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Config.html"
+                        title="previous chapter"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> Quickstart via configuration files</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/News.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Config.html" title="repoze.what Quickstart via configuration files"
+             >previous</a> |</li>
+        <li><a href="index.html">repoze.what Quickstart 1.0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Gustavo Narea.
+      Last updated on Nov 29, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

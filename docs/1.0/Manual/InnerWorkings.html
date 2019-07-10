@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The inner-workings of repoze.what &mdash; repoze.what v1.0.9 documentation</title>
+    <link rel="stylesheet" href="../_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="repoze.what v1.0.9 documentation" href="../index.html" />
+    <link rel="up" title="The repoze.what Manual" href="index.html" />
+    <link rel="next" title="repoze.what releases" href="../News.html" />
+    <link rel="prev" title="repoze.what.plugins – Available plugins for repoze.what" href="Plugins/index.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22669445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../News.html" title="repoze.what releases"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Plugins/index.html" title="repoze.what.plugins – Available plugins for repoze.what"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">repoze.what v1.0.9 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">The <tt class="docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> Manual</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-repoze.what.middleware">
+<span id="the-inner-workings-of-repoze-what"></span><h1>The inner-workings of <a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a><a class="headerlink" href="#module-repoze.what.middleware" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Overview</p>
+<p><a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> doesn&#8217;t provide WSGI middleware per se. Instead, it
+configures and re-uses <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt>&#8216;s.</p>
+</div>
+<p>Middleware-related components are defined in the <a class="reference internal" href="#module-repoze.what.middleware" title="repoze.what.middleware: repoze.what WSGI middleware"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what.middleware</span></tt></a>
+module. It contains one function to configure <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> with support
+for <a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> and the <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> metadata provider that loads
+authorization-related data in the <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> <tt class="docutils literal"><span class="pre">identity</span></tt> and the
+<a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> <tt class="docutils literal"><span class="pre">credentials</span></tt> dictionaries.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">In <a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> v2, the <tt class="docutils literal"><span class="pre">userid</span></tt>, groups and permissions will only
+be loaded in the <a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> <tt class="docutils literal"><span class="pre">credentials</span></tt> dictionary
+(<tt class="docutils literal"><span class="pre">environ['repoze.what.credentials']</span></tt>). So you are encouraged not to
+access this data from the <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> <tt class="docutils literal"><span class="pre">identity</span></tt> &#8211; if you do so,
+you will have to update your code when you want to upgrade to v2.</p>
+</div>
+<div class="section" id="wsgi-environment-variables">
+<h2>WSGI environment variables<a class="headerlink" href="#wsgi-environment-variables" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> defines and uses the following WSGI environment variables:</p>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">repoze.what.credentials</span></tt>: It contains authorization-related data about the
+current user (it&#8217;s similar to <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt>&#8216;s <tt class="docutils literal"><span class="pre">identity</span></tt>). It is
+a dictionary made up of the following items: <tt class="docutils literal"><span class="pre">userid</span></tt> (the user name of
+the current user, if not anonymous; copied from
+<tt class="docutils literal"><span class="pre">environ['repoze.who.identity']['repoze.who.userid']</span></tt> in <a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a>
+v1.X), <tt class="docutils literal"><span class="pre">groups</span></tt> (tuple of groups to which the currrent user belongs) and
+<tt class="docutils literal"><span class="pre">permissions</span></tt> (tuple of permissions granted to such groups).</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Do <strong>not</strong> access this dictionary directly, use a <a class="reference internal" href="Predicates/index.html#term-predicate-checker"><em class="xref std std-term">predicate
+checker</em></a> instead. <strong>This variable is internal</strong> and the disposal or
+availability of its items may change at any time.</p>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">repoze.what.adapters</span></tt>: It contains the available <a class="reference internal" href="GettingStarted.html#term-source-adapter"><em class="xref std std-term">source adapters</em></a>, if any. It&#8217;s a dictionary made up of the following items:
+<tt class="docutils literal"><span class="pre">groups</span></tt> (dictionary of <a class="reference internal" href="GettingStarted.html#term-group-adapter"><em class="xref std std-term">group adapters</em></a>) and
+<tt class="docutils literal"><span class="pre">permissions</span></tt> (dictionary of <a class="reference internal" href="GettingStarted.html#term-permission-adapter"><em class="xref std std-term">permission adapters</em></a>).</p>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Because <a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> 1.X works as a <tt class="xref py py-mod docutils literal"><span class="pre">repoze.who</span></tt> metadata
+provider, the variables above are defined if and only if the current user
+is not anonymous. This limitation will not exist in <a class="reference internal" href="../index.html#module-repoze.what" title="repoze.what: Authorization framework for WSGI applications"><tt class="xref py py-mod docutils literal"><span class="pre">repoze.what</span></tt></a> v2,
+since it will have its own middleware.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The inner-workings of <tt class="docutils literal"><span class="pre">repoze.what</span></tt></a><ul>
+<li><a class="reference internal" href="#wsgi-environment-variables">WSGI environment variables</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Plugins/index.html"
+                        title="previous chapter"><tt class="docutils literal"><span class="pre">repoze.what.plugins</span></tt> &#8211; Available plugins for <tt class="docutils literal"><span class="pre">repoze.what</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../News.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">repoze.what</span></tt> releases</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/Manual/InnerWorkings.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../News.html" title="repoze.what releases"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Plugins/index.html" title="repoze.what.plugins – Available plugins for repoze.what"
+             >previous</a> |</li>
+        <li><a href="../index.html">repoze.what v1.0.9 documentation</a> &raquo;</li>
+          <li><a href="index.html" >The <tt class="docutils literal docutils literal docutils literal"><span class="pre">repoze.what</span></tt> Manual</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The Repoze Project.
+      Last updated on Apr 11, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

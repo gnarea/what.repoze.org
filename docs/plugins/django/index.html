@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The repoze.what plugin for Django integration &mdash; repoze.what-django v1.0a1 documentation</title>
+    <link rel="stylesheet" href="_static/repoze.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0a1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="repoze.what-django v1.0a1 documentation" href="" />
+    <link rel="next" title="How to install repoze.what-django" href="install.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="How to install repoze.what-django"
+             accesskey="N">next</a> |</li>
+        <li><a href="">repoze.what-django v1.0a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-repoze.what.plugins.dj">
+<h1>The <a title="(in repoze.what v1.0)" class="reference external" href="http://what.repoze.org/docs/1.x/index.html#module-repoze.what"><tt class="xref docutils literal"><span class="pre">repoze.what</span></tt></a> plugin for Django integration<a class="headerlink" href="#module-repoze.what.plugins.dj" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Gustavo Narea (sponsored by <a class="reference external" href="http://www.2degreesnetwork.com/">2degrees, Ltd.</a>).</td>
+</tr>
+<tr class="field"><th class="field-name">Latest release:</th><td class="field-body">1.0a1</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Extensible authorization system for Django applications.</p>
+<div class="topic">
+<p class="topic-title first">Overview</p>
+<p><strong>repoze.what-django</strong> is a package that makes it possible to use the
+authorization framework <a title="(in repoze.what v1.0)" class="reference external" href="http://what.repoze.org/docs/1.x/index.html#module-repoze.what"><tt class="xref docutils literal"><span class="pre">repoze.what</span></tt></a> in <a class="reference external" href="http://www.djangoproject.com">Django</a> applications. It doesn&#8217;t only play nice
+with the built-in authorization functionality in Django &#8211; It adds many
+features Django authorization lacks.</p>
+<p>If you&#8217;re looking for a fully tested, fully documented, widely used, highly
+extensible and extremely reusable authorization system for your Django
+applications, this package is for you.</p>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="install.html">How to install <strong>repoze.what-django</strong></a><ul>
+<li class="toctree-l2"><a class="reference external" href="install.html#installing-django">Installing Django</a></li>
+<li class="toctree-l2"><a class="reference external" href="install.html#installing-the-plugin">Installing the plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="Manual/index.html"><strong>repoze.what-django</strong> User&#8217;s Manual</a><ul>
+<li class="toctree-l2"><a class="reference external" href="Manual/intro.html">How the plugin works</a></li>
+<li class="toctree-l2"><a class="reference external" href="Manual/protecting.html">Creating access rules</a><ul>
+<li class="toctree-l3"><a class="reference external" href="Manual/protecting.html#using-access-control-lists">Using Access Control Lists</a></li>
+<li class="toctree-l3"><a class="reference external" href="Manual/protecting.html#enforcing-conditions-inside-a-view">Enforcing conditions inside a view</a></li>
+<li class="toctree-l3"><a class="reference external" href="Manual/protecting.html#with-a-decorator-in-the-views">With a decorator in the views</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference external" href="Manual/checking-authz.html">Checking authorization to other resources</a></li>
+<li class="toctree-l2"><a class="reference external" href="Manual/denial-handlers.html">Authorization denial handlers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="API.html"><tt class="docutils literal"><span class="pre">repoze.what.plugins.dj</span></tt> API documentation</a><ul>
+<li class="toctree-l2"><a class="reference external" href="API.html#in-view-functions">In-view functions</a></li>
+<li class="toctree-l2"><a class="reference external" href="API.html#django-specific-predicate-checkers">Django-specific predicate checkers</a><ul>
+<li class="toctree-l3"><a class="reference external" href="API.html#ready-to-use-instances">Ready to use instances</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference external" href="API.html#django-middleware">Django middleware</a></li>
+<li class="toctree-l2"><a class="reference external" href="API.html#module-repoze.what.plugins.dj.denial_handlers">Denial handlers</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="support-and-development">
+<h2>Support and development<a class="headerlink" href="#support-and-development" title="Permalink to this headline">¶</a></h2>
+<p>The prefered place to ask questions is the <a class="reference external" href="http://lists.repoze.org/listinfo/repoze-dev">Repoze mailing list</a> or the <a class="reference external" href="irc://irc.freenode.net/#repoze">#repoze</a> IRC channel. Bugs reports and feature
+requests should be sent to <a class="reference external" href="http://bugs.repoze.org/">the issue tracker of the Repoze project</a>.</p>
+<p>The development mainline is available at the following Subversion repository:</p>
+<div class="highlight-python"><pre>http://svn.repoze.org/repoze.what/plugins/django/trunk/</pre>
+</div>
+<div class="section" id="releases">
+<h3>Releases<a class="headerlink" href="#releases" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="news.html"><strong>repoze.what-django</strong> releases</a><ul>
+<li class="toctree-l2"><a class="reference external" href="news.html#version-1-0-alpha-1-unreleased">Version 1.0 Alpha 1 (unreleased)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="">
+              <img class="logo" src="_static/logo_hi.gif" alt="Logo"/>
+            </a></p>
+            <h3><a href="">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">The <tt class="docutils literal"><span class="pre">repoze.what</span></tt> plugin for Django integration</a><ul>
+<li><a class="reference external" href="#documentation">Documentation</a><ul>
+</ul>
+</li>
+<li><a class="reference external" href="#support-and-development">Support and development</a><ul>
+<li><a class="reference external" href="#releases">Releases</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            <h4>Next topic</h4>
+            <p class="topless"><a href="install.html"
+                                  title="next chapter">How to install <strong>repoze.what-django</strong></a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/index.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="How to install repoze.what-django"
+             >next</a> |</li>
+        <li><a href="">repoze.what-django v1.0a1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009-2010, 2degrees Limited.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>
